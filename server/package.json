@@ -1,0 +1,17 @@
+{
+  "name": "mern_backend_coderhouse",
+  "version": "1.0.0",
+  "description": "-- First set up:\r // https://gist.github.com/jhoncar7/4ad7c132284012cebf9848d51d0c636a",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.3"
+  }
+}
