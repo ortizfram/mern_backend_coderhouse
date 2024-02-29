@@ -7,7 +7,7 @@
 - inicializar proyecto git
 - crear repo git
 - commandos git
-
+----
 - declaracion de variables
 - como hacer comentarios
 - tipos de datos: Primitivos / Object
