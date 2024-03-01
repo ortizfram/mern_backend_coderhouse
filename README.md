@@ -14,3 +14,10 @@
 - Funciones (hands on lab)
 - Templates String
 - Clases de JS
+
+### COrrer hands_on_lab ejercicio:
+
+ingresar comando en terminal
+```
+node hands_on_lab/useContador.cjs
+```
