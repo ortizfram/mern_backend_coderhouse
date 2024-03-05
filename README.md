@@ -2,6 +2,7 @@
 
 ## 2.nuevas_funcionalidades_ECMAScript
 
+
 🔗-> [Slides Link](https://docs.google.com/presentation/d/1DfKOUDC6SXkeIJp42ZvkOgHvsC4ZwsL88KpPZhKfdPk/edit?usp=sharing)
 
 - operador exponencial : `**` o `Math.pow(base,exp)`
