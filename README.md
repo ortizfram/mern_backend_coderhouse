@@ -16,5 +16,5 @@
 
 ---
 
-[x] hands on lab: Registradora de Tickets usando clase
-[x] Desafio entregable: ProductManager usando clase
+- [ ] hands on lab: Registradora de Tickets usando clase
+- [ ] Desafio entregable: ProductManager usando clase
