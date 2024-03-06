@@ -16,7 +16,7 @@
 
 ---
 
-- [ ] hands on lab: Registradora de Tickets usando clase
-- [ ] Desafio entregable: ProductManager usando clase
+- [x] hands on lab: Registradora de Tickets usando clase
+- [x] Desafio entregable: ProductManager usando clase
 
 -> 🔗 📹 [Help for Challenge](https://www.youtube.com/playlist?list=PLfwc_gZbuuDIK-H6fpGlxjlZxenYxqWTg)
