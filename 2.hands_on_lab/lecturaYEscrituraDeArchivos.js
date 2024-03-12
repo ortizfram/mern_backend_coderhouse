@@ -33,7 +33,7 @@ const LecturaYEscrituraDeArchivos = async () => {
     const resultJson = await fs.promises.readFile("./info.json", "utf8");
     console.log("\n",resultJson);
 
-    // await fs.promises.unlink("./info.json");
+    await fs.promises.unlink("./info.json");
 
     return resultJson;
   } catch (error) {
