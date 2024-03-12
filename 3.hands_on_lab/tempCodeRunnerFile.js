@@ -39,14 +39,17 @@ class ManagerDeUsuarios {
     if (!fs.existsSync("./Usuarios.json"))
       throw new Error("Usuarios.json not found");
 
-    try {
-      const data = await fs.promises.readFile("./Usuarios.json", "utf8");
-      const usuarios = JSON.parse(data);
-      await fs.promises.unlink("./Usuarios.json");
-      return usuarios;
-    } catch (error) {
-      throw new Error("Error reading file" + error.message);
-    }
+    await fs.promises.readFile("./Usuarios.json", "utf8", (err, result) => {
+      if (err) throw new Error("Error readind file!");
+
+      return JSON.parse(result);
+    });
+
+    fs.unlinkSync("./Usuarios.json", (err) => {
+      if (err) {
+        throw new Error("Error deleting file");
+      }
+    });
   };
 }
 
@@ -56,12 +59,5 @@ manager.crearUsuario("Franco", "Ortiz", 22, "Backend Node.js");
 manager.crearUsuario("Juan", "Perez", 30, "Frontend React");
 manager.crearUsuario("Maria", "Gonzalez", 25, "Fullstack Developer");
 
-// print async de promesa
-manager
-  .consultarUsuarios()
-  .then((usuarios) => {
-    console.log(usuarios);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+const usuarios = manager.consultarUsuarios();
+console.log(usuarios);
