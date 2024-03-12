@@ -7,6 +7,11 @@
 - fsSync
 - fsCallbacks
 ---
-- hands_on_lab: Almacenar fecha y hora
+- [] hands_on_lab: Almacenar fecha y hora
 ---
 - fs promises
+---
+- [] hands_on_lab: Lectura y escritura de archivos
+- [] hands_on_lab: Manager de usuarios
+---
+- [] **DESAFIO** : Manager de usuarios. `fs`
