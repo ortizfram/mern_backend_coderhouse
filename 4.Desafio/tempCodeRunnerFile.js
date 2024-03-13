@@ -1,4 +1,4 @@
-import ProductManager from "./ProductManager.js";
+const ProductManager = require("./ProductManager.js");
 
 const manager = new ProductManager();
 
@@ -73,4 +73,4 @@ manager
     console.error(err);
   });
 
-  
+

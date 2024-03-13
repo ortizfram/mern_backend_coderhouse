@@ -1,105 +1,142 @@
-import fs from "fs";
-import crypto from "crypto";
+const fs = require("fs");
+const crypto = require("crypto");
+
 
 class ProductManager {
   constructor() {
-    this.products = [];
+    this.products = []; // Initialize products array
     this.path = "./Products.json";
   }
 
-  getData = async () => {
-    //   retorna readFile data
-    const data = await fs.promises.readFile(this.path);
-    return data;
-  };
-
-  pathValidation = async () => {
-    if (!fs.existsSync(this.path)) {
-      throw new Error("File not found!");
-    }
-  };
-
-  addProduct(title, description, price, thumbnail, stock) {
-    const id = this.products.length + 1;
-    const code = crypto.randomBytes(4).toString("hex");
-    const product = {
-      id,
-      code,
-      title,
-      description,
-      price,
-      thumbnail,
-      stock,
-    };
-    this.products.push(product);
-
-    fs.promises.writeFile(this.path, JSON.stringify(this.products), (err) => {
-      if (err) throw new Error("Error writing json");
-    });
-  }
-  getProducts = async () => {
-    await this.pathValidation();
-
+  async getData() {
     try {
+      const data = await fs.promises.readFile(this.path);
+      return data;
+    } catch (error) {
+      throw new Error("Error reading file: " + error.message);
+    }
+  }
+
+  async pathValidation() {
+    try {
+      if (!fs.existsSync(this.path)) {
+        throw new Error("File not found!");
+      }
+    } catch (error) {
+      throw new Error("Error validating path: " + error.message);
+    }
+  }
+
+  addProduct = async (title, description, price, thumbnail, stock) => {
+    try {
+      const id = this.products.length > 0 ? this.products[this.products.length - 1].id + 1 : 1;
+      const code = crypto.randomBytes(4).toString("hex");
+
+      const product = {
+        id,
+        code,
+        title,
+        description,
+        price,
+        thumbnail,
+        stock,
+      };
+      this.products.push(product);
+
+      fs.promises.writeFile(
+        this.path,
+        JSON.stringify(this.products, null, 2),
+        "utf8",
+        (err) => {
+          if (err) throw new Error("Error writing json: " + err.message);
+        }
+      );
+    } catch (error) {
+      throw new Error("Error adding product: " + error.message);
+    }
+  }
+
+  async getProducts() {
+    try {
+      await this.pathValidation();
       const data = await this.getData();
       const products = JSON.parse(data);
       return products;
     } catch (error) {
-      console.error("Error reading file" + error.message);
+      throw new Error("Error getting products: " + error.message);
     }
-  };
-  getProductById = async (id) => {
-    await this.pathValidation();
+  }
 
-    const data = await this.getData();
-    const products = JSON.parse(data);
-    const pFound = products.find((product) => product.id === id);
-    if (pFound === -1) {
-      throw new Error("Product not found");
+  async getProductById(id) {
+    try {
+      await this.pathValidation();
+      const data = await this.getData();
+      const products = JSON.parse(data);
+      const pFound = products.find((product) => product.id === id);
+      if (!pFound) throw new Error("Product not found");
+      return `\n\npFoundById: ${JSON.stringify(pFound)}`;
+    } catch (error) {
+      throw new Error("Error getting product by ID: " + error.message);
     }
-  };
-  updateProduct = async (id, title, description, price, thumbnail, stock) => {
-    await this.pathValidation();
-    const data = await this.getData();
-    const products = JSON.parse(data);
-    const productIndex = products.findIndex((product) => product.id === id);
+  }
 
-    if (productIndex === -1) {
-      throw new Error("Product not found");
-    }
+  async updateProduct(id, title, description, price, thumbnail, stock) {
+    try {
+      await this.pathValidation();
+      const data = await this.getData();
+      const products = JSON.parse(data);
+      const productIndex = products.findIndex((product) => product.id === id);
 
-    products[productIndex] = {
-      id,
-      title,
-      description,
-      price,
-      thumbnail,
-      stock,
-    };
-
-    fs.writeFileSync(this.path, JSON.stringify(products, null, 2), "utf-8");
-
-    return products[productIndex];
-  };
-  deleteProduct = async (id) => {
-    await this.pathValidation();
-
-    const data = await this.getData();
-    const products = JSON.parse(data);
-    const pFound = products.find(
-      (product) => product.id === id,
-      (err) => {
-        if (err) throw new Error("Product not found");
+      if (productIndex === -1) {
+        throw new Error("Product not found");
       }
-    );
-    // filter out id from array
-    const filteredP = products.filter((product) => product.id !== id);
 
-    // save
-    fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
+      products[productIndex] = {
+        id,
+        title,
+        description,
+        price,
+        thumbnail,
+        stock,
+      };
 
-    return "Product deleted successfully";
-  };
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(products, null, 2),
+        "utf-8"
+      );
+
+      return `\n\nupdated product: ${JSON.stringify(products[productIndex])}`;
+    } catch (error) {
+      throw new Error("Error updating product: " + error.message);
+    }
+  }
+
+  async deleteProduct(id) {
+    try {
+      await this.pathValidation();
+      const data = await this.getData();
+      let products = JSON.parse(data);
+
+      const productIndex = products.findIndex((product) => product.id === id);
+
+      if (productIndex === -1) {
+        throw new Error("Product not found");
+      }
+
+      products.splice(productIndex, 1);
+
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(products, null, 2),
+        "utf-8"
+      );
+
+      return `\n\nProduct deleted successfully with id:${id}`;
+    } catch (error) {
+      throw new Error("Error deleting product: " + error.message);
+    }
+  }
 }
 
-export default ProductManager;
+module.exports = ProductManager;

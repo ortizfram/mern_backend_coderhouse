@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "code": "15df512b",
+    "title": "teclado Gamer",
+    "description": "con luces led",
+    "price": 3000,
+    "thumbnail": "https://i5.walmartimages.com/seo/SteelSeries-Apex-9-Mini-60-Wired-OptiPoint-Adjustable-Actuation-Switch-Gaming-Keyboard-with-RGB-Lighting-Black_ffc8afc1-75c2-4729-a6df-a85317c48086.6af3be98478f401d40cd0119c2de69b3.jpeg",
+    "stock": 1
+  },
+  {
+    "id": 2,
+    "code": "db07c4b4",
+    "title": "Teclado Gamer",
+    "description": "Teclado mecánico con luces LED",
+    "price": 3000,
+    "thumbnail": "https://megalamparas.com.gt/wp-content/uploads/2021/01/que-son-las-luces-led.jpg",
+    "stock": 10
+  },
+  {
+    "id": 3,
+    "title": "camara",
+    "description": "4k",
+    "price": 4000,
+    "thumbnail": "https://www.blogdelfotografo.com/wp-content/uploads/2021/03/mega-guia-reflex-3.jpg",
+    "stock": 1
+  },
+  {
+    "id": 4,
+    "code": "742ef086",
+    "title": "Silla Gamer",
+    "description": "Silla ergonómica para largas sesiones de juego",
+    "price": 5000,
+    "thumbnail": "https://d28hi93gr697ol.cloudfront.net/81bb5613-3d6b-d229-1ab9-afdadcbb8462/img/Producto/f177144d-fcd2-0573-1186-2ee1f2e12d92/SILLA-GAMER-AZUL-62f4404deaef7.jpeg",
+    "stock": 5
+  }
+]
