@@ -1,7 +1,6 @@
 const fs = require("fs");
 const crypto = require("crypto");
 
-
 class ProductManager {
   constructor() {
     this.products = []; // Initialize products array
@@ -29,7 +28,10 @@ class ProductManager {
 
   addProduct = async (title, description, price, thumbnail, stock) => {
     try {
-      const id = this.products.length > 0 ? this.products[this.products.length - 1].id + 1 : 1;
+      const id =
+        this.products.length > 0
+          ? this.products[this.products.length - 1].id + 1
+          : 1;
       const code = crypto.randomBytes(4).toString("hex");
 
       const product = {
@@ -54,7 +56,7 @@ class ProductManager {
     } catch (error) {
       throw new Error("Error adding product: " + error.message);
     }
-  }
+  };
 
   async getProducts() {
     try {
@@ -83,14 +85,14 @@ class ProductManager {
   async updateProduct(id, title, description, price, thumbnail, stock) {
     try {
       await this.pathValidation();
-      const data = await this.getData();
+      const data = await this.getData(); // Fetch the latest data
       const products = JSON.parse(data);
       const productIndex = products.findIndex((product) => product.id === id);
-
+  
       if (productIndex === -1) {
         throw new Error("Product not found");
       }
-
+  
       products[productIndex] = {
         id,
         title,
@@ -99,18 +101,19 @@ class ProductManager {
         thumbnail,
         stock,
       };
-
+  
       await fs.promises.writeFile(
         this.path,
         JSON.stringify(products, null, 2),
         "utf-8"
       );
-
+  
       return `\n\nupdated product: ${JSON.stringify(products[productIndex])}`;
     } catch (error) {
       throw new Error("Error updating product: " + error.message);
     }
   }
+  
 
   async deleteProduct(id) {
     try {
@@ -124,7 +127,7 @@ class ProductManager {
         throw new Error("Product not found");
       }
 
-      products.splice(productIndex, 1);
+      const deletedProduct = products.splice(productIndex, 1)[0]; // Remove and capture the deleted product
 
       await fs.promises.writeFile(
         this.path,
@@ -132,7 +135,7 @@ class ProductManager {
         "utf-8"
       );
 
-      return `\n\nProduct deleted successfully with id:${id}`;
+      return `\n\ndeleted product: ${JSON.stringify(deletedProduct)}`; // Return the deleted product
     } catch (error) {
       throw new Error("Error deleting product: " + error.message);
     }

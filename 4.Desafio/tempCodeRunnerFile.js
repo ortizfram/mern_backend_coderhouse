@@ -7,10 +7,10 @@ const imgs = [
   "https://megalamparas.com.gt/wp-content/uploads/2021/01/que-son-las-luces-led.jpg",
   "https://logitechar.vtexassets.com/arquivos/ids/158874/pro-wireless.png?v=637922945335770000",
   "https://d28hi93gr697ol.cloudfront.net/81bb5613-3d6b-d229-1ab9-afdadcbb8462/img/Producto/f177144d-fcd2-0573-1186-2ee1f2e12d92/SILLA-GAMER-AZUL-62f4404deaef7.jpeg",
-  "https://www.blogdelfotografo.com/wp-content/uploads/2021/03/mega-guia-reflex-3.jpg"
+  "https://www.blogdelfotografo.com/wp-content/uploads/2021/03/mega-guia-reflex-3.jpg",
 ];
 
-manager.addProduct("teclado Gamer", "con luces led", 3000, imgs[0], 1);
+manager.addProduct("PAD", "cuero", 3000, imgs[0], 1);
 manager.addProduct(
   "Teclado Gamer",
   "Teclado mecánico con luces LED",
@@ -55,7 +55,7 @@ manager
 
 // update(id)
 manager
-  .updateProduct(3, "camara","4k", 4000,imgs[4],1)
+  .updateProduct(1, "camara", "4k", 4000, imgs[4], 1)
   .then((result) => {
     console.log(result);
   })
@@ -65,12 +65,10 @@ manager
 
 // delete(id)
 manager
-  .deleteProduct(1)
+  .deleteProduct(3)
   .then((result) => {
     console.log(result);
   })
   .catch((err) => {
     console.error(err);
   });
-
-
