@@ -85,14 +85,15 @@ class ProductManager {
   async updateProduct(id, title, description, price, thumbnail, stock) {
     try {
       await this.pathValidation();
-      const data = await this.getData(); // Fetch the latest data
-      const products = JSON.parse(data);
+      let products = await this.getProducts(); // Fetch the latest data
+      
       const productIndex = products.findIndex((product) => product.id === id);
   
       if (productIndex === -1) {
         throw new Error("Product not found");
       }
   
+      // Update the product in the products array
       products[productIndex] = {
         id,
         title,
@@ -102,6 +103,7 @@ class ProductManager {
         stock,
       };
   
+      // Write the updated products array back to the file
       await fs.promises.writeFile(
         this.path,
         JSON.stringify(products, null, 2),
@@ -114,32 +116,35 @@ class ProductManager {
     }
   }
   
+  
 
   async deleteProduct(id) {
     try {
       await this.pathValidation();
-      const data = await this.getData();
-      let products = JSON.parse(data);
-
+      let products = await this.getProducts(); // Fetch the latest data
+  
       const productIndex = products.findIndex((product) => product.id === id);
-
+  
       if (productIndex === -1) {
         throw new Error("Product not found");
       }
-
-      const deletedProduct = products.splice(productIndex, 1)[0]; // Remove and capture the deleted product
-
+  
+      // Remove and capture the deleted product
+      const deletedProduct = products.splice(productIndex, 1)[0];
+  
+      // Write the updated products array back to the file
       await fs.promises.writeFile(
         this.path,
         JSON.stringify(products, null, 2),
         "utf-8"
       );
-
+  
       return `\n\ndeleted product: ${JSON.stringify(deletedProduct)}`; // Return the deleted product
     } catch (error) {
       throw new Error("Error deleting product: " + error.message);
     }
   }
+  
 }
 
 module.exports = ProductManager;
