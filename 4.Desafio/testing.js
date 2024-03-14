@@ -10,7 +10,7 @@ const imgs = [
   "https://www.blogdelfotografo.com/wp-content/uploads/2021/03/mega-guia-reflex-3.jpg",
 ];
 
-manager.addProduct("PAD", "cuero", 3000, imgs[0], 1);
+manager.addProduct("teclado Gamer", "con luces led", 3000, imgs[0], 1);
 manager.addProduct(
   "Teclado Gamer",
   "Teclado mecánico con luces LED",
@@ -33,6 +33,8 @@ manager.addProduct(
   5
 );
 
+// --------------------------------------------------------------------------
+
 // // get()-----
 // manager
 //   .getProducts()
@@ -53,22 +55,22 @@ manager.addProduct(
 //     console.error(err);
 //   });
 
-// update(id)
-manager
-  .updateProduct(1, "camara", "4k", 4000, imgs[4], 1)
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+// //  update(id)-----
+// manager
+//   .updateProduct(3, "camara", "4k", 4000, imgs[4], 1)
+//   .then((result) => {
+//     console.log("updated product ", result);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
 
-// delete(id)
-manager
-  .deleteProduct(3)
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+// //  delete(id)-----
+// manager
+//   .deleteProduct(2)
+//   .then((result) => {
+//     console.log("deleted product ", result);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
