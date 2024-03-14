@@ -33,25 +33,25 @@ manager.addProduct(
   5
 );
 
-// get
-manager
-  .getProducts()
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+// // get()-----
+// manager
+//   .getProducts()
+//   .then((result) => {
+//     console.log("all products ", result);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
 
-// get(id)
-manager
-  .getProductById(3)
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+// //  get(id)-----
+// manager
+//   .getProductById(3)
+//   .then((result) => {
+//     console.log("productById", result);
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
 
 // update(id)
 manager
