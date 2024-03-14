@@ -10,67 +10,31 @@ const imgs = [
   "https://www.blogdelfotografo.com/wp-content/uploads/2021/03/mega-guia-reflex-3.jpg",
 ];
 
-manager.addProduct("teclado Gamer", "con luces led", 3000, imgs[0], 1);
-manager.addProduct(
-  "Teclado Gamer",
-  "Teclado mecánico con luces LED",
-  3000,
-  imgs[1],
-  10
-);
-manager.addProduct(
-  "Mouse Gamer",
-  "Mouse óptico con 6 botones programables",
-  1500,
-  imgs[2],
-  20
-);
-manager.addProduct(
-  "Silla Gamer",
-  "Silla ergonómica para largas sesiones de juego",
-  5000,
-  imgs[3],
-  5
-);
+(async () => {
+  try {
+    // Agregar productos
+    await manager.addProduct("teclado Gamer", "con luces led", 3000, imgs[0], 1);
+    await manager.addProduct("Teclado Gamer", "Teclado mecánico con luces LED", 3000, imgs[1], 10);
+    await manager.addProduct("Mouse Gamer", "Mouse óptico con 6 botones programables", 1500, imgs[2], 20);
+    await manager.addProduct("Silla Gamer", "Silla ergonómica para largas sesiones de juego", 5000, imgs[3], 5);
 
-// --------------------------------------------------------------------------
+    // Obtener todos los productos
+    const allProducts = await manager.getProducts();
+    console.log("All products: ", allProducts);
 
-// // get()-----
-// manager
-//   .getProducts()
-//   .then((result) => {
-//     console.log("all products ", result);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
+    // Obtener un producto por su ID
+    const productId = 3;
+    const productById = await manager.getProductById(productId);
+    console.log(`Product with ID ${productId}: `, productById);
 
-// //  get(id)-----
-// manager
-//   .getProductById(3)
-//   .then((result) => {
-//     console.log("productById", result);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
+    // Actualizar un producto
+    const updatedProduct = await manager.updateProduct(3, "Cámara", "4K", 4000, imgs[4], 1);
+    console.log("Updated product: ", updatedProduct);
 
-// //  update(id)-----
-// manager
-//   .updateProduct(3, "camara", "4k", 4000, imgs[4], 1)
-//   .then((result) => {
-//     console.log("updated product ", result);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
-
-// //  delete(id)-----
-// manager
-//   .deleteProduct(2)
-//   .then((result) => {
-//     console.log("deleted product ", result);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
+    // Eliminar un producto
+    const deletedProduct = await manager.deleteProduct(2);
+    console.log("Deleted product: ", deletedProduct);
+  } catch (error) {
+    console.error(error);
+  }
+})();
