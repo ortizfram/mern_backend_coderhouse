@@ -14,4 +14,4 @@
 - [x] hands_on_lab: Lectura y escritura de archivos `fs`
 - [x] hands_on_lab: Manager de usuarios
 ---
-- [] **DESAFIO** : Manager de usuarios. `fs`
+- [x] ⚔️ **DESAFIO** : Manager de usuarios. `fs`
