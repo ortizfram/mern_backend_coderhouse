@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "code": "7fb07f82",
+    "title": "teclado Gamer",
+    "description": "con luces led",
+    "price": 3000,
+    "thumbnail": "https://i5.walmartimages.com/seo/SteelSeries-Apex-9-Mini-60-Wired-OptiPoint-Adjustable-Actuation-Switch-Gaming-Keyboard-with-RGB-Lighting-Black_ffc8afc1-75c2-4729-a6df-a85317c48086.6af3be98478f401d40cd0119c2de69b3.jpeg",
+    "stock": 1
+  },
+  {
+    "id": 3,
+    "title": "Cámara",
+    "description": "4K",
+    "price": 4000,
+    "thumbnail": "https://www.blogdelfotografo.com/wp-content/uploads/2021/03/mega-guia-reflex-3.jpg",
+    "stock": 1
+  },
+  {
+    "id": 4,
+    "code": "1bb04898",
+    "title": "Silla Gamer",
+    "description": "Silla ergonómica para largas sesiones de juego",
+    "price": 5000,
+    "thumbnail": "https://d28hi93gr697ol.cloudfront.net/81bb5613-3d6b-d229-1ab9-afdadcbb8462/img/Producto/f177144d-fcd2-0573-1186-2ee1f2e12d92/SILLA-GAMER-AZUL-62f4404deaef7.jpeg",
+    "stock": 5
+  },
+  {
+    "id": 5,
+    "code": "9d73d5b7",
+    "title": "Auriculares Bluetooth",
+    "description": "Con cancelación de ruido",
+    "price": 2000,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0047/5707/7032/products/Producto_3_1200x1200.png",
+    "stock": 10
+  },
+  {
+    "id": 6,
+    "code": "2e8734bc",
+    "title": "Monitor Gaming",
+    "description": "144Hz, 1ms",
+    "price": 6000,
+    "thumbnail": "https://static.bhphoto.com/images/images1000x1000/asus_xg43uq_43_4k_120hz_ultra_hd_1628085424_1653037.jpg",
+    "stock": 3
+  },
+  {
+    "id": 7,
+    "code": "8f23e6c1",
+    "title": "Mouse Inalámbrico",
+    "description": "Diseño ergonómico",
+    "price": 1500,
+    "thumbnail": "https://www.tiendascoc.com/13573-large_default/mouse-inalambrico-logitech-m220-silent-red.jpg",
+    "stock": 7
+  },
+  {
+    "id": 8,
+    "code": "3a9fc25e",
+    "title": "Micrófono USB",
+    "description": "Ideal para streaming",
+    "price": 1000,
+    "thumbnail": "https://www.banggood.com/es/custlink/3GvhPVqyUi",
+    "stock": 8
+  },
+  {
+    "id": 9,
+    "code": "5e6a4bd8",
+    "title": "Altavoces Bluetooth",
+    "description": "Sonido de alta fidelidad",
+    "price": 2500,
+    "thumbnail": "https://images-na.ssl-images-amazon.com/images/I/71oUeE4q%2BIL._AC_SL1500_.jpg",
+    "stock": 6
+  },
+  {
+    "id": 10,
+    "code": "6b4e7fd1",
+    "title": "Silla de Oficina",
+    "description": "Ergonómica y cómoda",
+    "price": 3500,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0024/0907/9954/products/SGS-BIFMA-Armrests-Mesh-Swivel-Computer-Chair_1200x1200.jpg",
+    "stock": 4
+  }
+]

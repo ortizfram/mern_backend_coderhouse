@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>req.query</h3>
+    <ul>
+      <li>
+        <button><a href="/products">products</a></button>
+      </li>
+      <li>
+        <button><a href="/products?limit=2">products limitado a 2</a></button>
+      </li>
+      <li>
+        <button><a href="/products?limit=1">products limitado a 1</a></button>
+      </li>
+    </ul>
+    <h3>req.params</h3>
+    <ul>
+      <li>
+        <button><a href="/products/3">products :pid</a></button>
+      </li>
+    </ul>
+  </body>
+</html>

@@ -1,5 +1,18 @@
 {
   "dependencies": {
+    "ejs": "^3.1.9",
     "express": "^4.18.3"
-  }
+  },
+  "name": "mern_backend_coderhouse",
+  "description": "- protocolo HTTP\r - crea servidor nativo http\r - crea servidor de express\r - peticiones GET express server\r -------------------\r - Actividad en Clase:\r - [x] ✏️A.C.1 : GET basico con css y GET {}\r - [] ⚔️ D.E: CRUD ProductManager con express y obj.reqs",
+  "version": "1.0.0",
+  "main": ".src/app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"nodemon ./src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

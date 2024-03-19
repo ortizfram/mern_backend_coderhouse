@@ -4,7 +4,7 @@ const crypto = require("crypto");
 class ProductManager {
   constructor() {
     this.products = [];
-    this.path = "Products.json";
+    this.path = "./Products.json";
   }
 
   getData = async () => {
@@ -54,7 +54,8 @@ class ProductManager {
   getProductById = async (id) => {
     try {
       const products = await this.getData();
-      const product = products.find((product) => product.id === id);
+      const productId = parseInt(id)
+      const product = products.find((product) => product.id === productId);
       if (!product) {
         throw new Error("Product not found");
       }
