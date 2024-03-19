@@ -7,4 +7,4 @@
 -------------------
 - Actividad en Clase:
 - [x] ✏️A.C.1 : GET basico con css y GET {}
-- [] 🥼 H.O.L: 
+- [] ⚔️ D.E: CRUD ProductManager con express y obj.reqs
