@@ -6,4 +6,5 @@
 - peticiones GET express server
 -------------------
 - Actividad en Clase:
-- - A.C.1 : GET basico con css
+- [x] ✏️A.C.1 : GET basico con css y GET {}
+- [] 🥼 H.O.L: 
