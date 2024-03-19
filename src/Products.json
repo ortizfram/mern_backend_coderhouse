@@ -9,6 +9,14 @@
     "stock": 1
   },
   {
+    "id": 2,
+    "title": "Cámara",
+    "description": "4K",
+    "price": 4000,
+    "thumbnail": "https://www.blogdelfotografo.com/wp-content/uploads/2021/03/mega-guia-reflex-3.jpg",
+    "stock": 1
+  },
+  {
     "id": 3,
     "title": "Cámara",
     "description": "4K",
