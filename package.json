@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "express": "^4.19.1"
+  },
+  "name": "mern_backend_coderhouse",
+  "description": "- `status` del protocolo `http`\r - concepto `API rest`\r - metodos `post,put,delete + POSTMAN`",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon A.C.1/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

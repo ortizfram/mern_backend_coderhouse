@@ -1,2 +1,5 @@
 # mern_backend_coderhouse
-cada rama es una clase
+## 7.express_avanzado
+- `status` del protocolo `http`
+- concepto `API rest`
+- metodos `post,put,delete + POSTMAN`
