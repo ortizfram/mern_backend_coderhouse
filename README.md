@@ -12,3 +12,6 @@
 - [x] 🥼 H.O.L: express router `users y pets`
 - [x] ✏️1 A.E.C: Carpeta public `index.html para poder visualizarse en la ruta raíz + rutas`
 - [x] ✏️2 A.E.C: Express + multer `ingresar mascota con foto`
+--- 
+
+- [] 🥇1ra E.P.F: `primera entrega proyecto final`
