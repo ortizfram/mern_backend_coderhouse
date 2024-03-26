@@ -48,7 +48,7 @@ class ProductManager {
       throw new Error("Error adding product: " + error.message);
     }
   }
-  getProducts = async () => {
+  async getProducts () {
 
     try {
       const products = await this.getData();

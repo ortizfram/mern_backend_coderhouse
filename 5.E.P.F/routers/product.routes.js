@@ -1,13 +1,14 @@
 const { Router } = require("express");
-const { uploader } = require("../utils/multer");
-const ProductManager = require("../ProductManager");
+const { uploader } = require("../utils/multer.js");
+const ProductManager = require("../ProductManager.js");
 
 const router = Router();
+const productManager = new ProductManager();
 
 // getProducts
 router.get("/products", async (req, res) => {
   try {
-    const products = await ProductManager.getProducts();
+    const products = await productManager.getProducts();
     return res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -18,8 +19,8 @@ router.get("/products", async (req, res) => {
 router.get("/product/:pid", async (req, res) => {
   let pid = parseInt(req.params.pid);
   try {
-    const product = await ProductManager.getProductById(pid);
-    res.json({success:"found",product});
+    const product = await productManager.getProductById(pid);
+    res.json({ success: "found", product });
   } catch (error) {
     res.status(404).json({ error: error.message });
   }
@@ -41,20 +42,22 @@ router.post("/product", uploader.single("file"), async (req, res) => {
     category,
     thumbnail,
   };
-  const product = await ProductManager.addProduct(reqProduct);
+  const product = await productManager.addProduct(reqProduct);
   console.log(product);
-  res.status(201).json({success:"added",product});
+  res.status(201).json({ success: "added", product });
 });
 
 // updateProduct
-router.put("/product/:pid", async (req, res) => {
+router.put("/product/:pid", uploader.single("file"), async (req, res) => {
   // fetch product
   let pid = parseInt(req.params.pid);
   try {
-    const product = await ProductManager.getProductById(pid);
-    res.status(200).json({message:"found",product:product.id});
+    const product = await productManager.getProductById(pid);
+    // res.status(200).json({ message: "found", product: product.id });
   } catch (error) {
-    res.status(404).json({ message:"Product not Found",error: error.message });
+    res
+      .status(404)
+      .json({ message: "Product not Found", error: error.message });
   }
 
   // req new fields
@@ -72,19 +75,21 @@ router.put("/product/:pid", async (req, res) => {
     category,
     thumbnail,
   };
-  const product = await ProductManager.updateProduct(pid,updatedP);
-  return res.status(200).json({success:"updated",product:product})
-})
+  const product = await ProductManager.updateProduct(pid, updatedP);
+  return res.status(200).json({ success: "updated", product: product });
+});
 
 // deleteProduct
 router.delete("/product/:pid", async (req, res) => {
   // fetch product
   let pid = parseInt(req.params.pid);
   try {
-    const product = await ProductManager.deleteProduct(pid);
-    res.status(200).json({success:"deleted",product:pid});
+    const product = await productManager.deleteProduct(pid);
+    res.status(200).json({ success: "deleted", product: pid });
   } catch (error) {
-    res.status(404).json({ message:"Product not Found",error: error.message });
+    res
+      .status(404)
+      .json({ message: "Product not Found", error: error.message });
   }
 
   // req new fields
@@ -102,8 +107,8 @@ router.delete("/product/:pid", async (req, res) => {
     category,
     thumbnail,
   };
-  const product = await ProductManager.updateProduct(pid,updatedP);
-  return res.status(200).json({message:"updated",product:product})
-})
+  const product = await ProductManager.updateProduct(pid, updatedP);
+  return res.status(200).json({ message: "updated", product: product });
+});
 
 module.exports = router;
