@@ -6,3 +6,4 @@
 -  multer
 ----
 - [x] 🥼 H.O.L: express router `users y pets`
+- [x]  ✏️ A.E.C: Carpeta public `index.html para poder visualizarse en la ruta raíz + rutas`
