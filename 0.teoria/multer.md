@@ -16,13 +16,15 @@ const storage = multer.diskStorage({
   },
 });
 
-export const uploader = multer({ storage });
+const uploader = multer({ storage });
+
+module.exports = uploader;
 ```
 
 ## ✋ Utilizar uploader
 
 ```js
-router.post('/', uploader.single('file), (req,res)={})
+router.post('/', uploader.single('file'), (req,res)={})
 ```
 
 ## 💯 Ejemplo implementación MULTER a partir de su uploader
