@@ -4,6 +4,7 @@ import petsRouter from"./routers/pets.routes.js"
 
 const app = express()
 app.use(express.json())
+app.use(express.static("public"))
 
 app.use("/api", userRouter)
 app.use("/api", petsRouter)
