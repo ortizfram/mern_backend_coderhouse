@@ -28,23 +28,34 @@ router.get("/product/:pid", async (req, res) => {
 
 // addProduct
 router.post("/product", uploader.single("file"), async (req, res) => {
-  if (!req.file) {
-    return res.status(404).json("No se pudo guardar la imagen");
+  try {
+    if (!req.file) {
+      return res.status(404).json("No se pudo guardar la imagen");
+    }
+  
+    const { title, description, price, status, stock, category } = req.body;
+    const thumbnail = req.file.path;
+  
+    // Create an object with the product data
+    const reqProduct = {
+      title,
+      description,
+      price,
+      status,
+      stock,
+      category,
+      thumbnail,
+    };
+  
+    // Call the addProduct method on the productManager instance
+    await productManager.addProduct(reqProduct);
+  
+    // Respond with a success message
+    res.status(201).json({ success: "Product added successfully" });
+  } catch (error) {
+    // Handle any errors that occur during the process
+    res.status(500).json({ error: error.message });
   }
-  const { title, description, price, status, stock, category } = req.body;
-  const thumbnail = req.file.path;
-  const reqProduct = {
-    title,
-    description,
-    price,
-    status,
-    stock,
-    category,
-    thumbnail,
-  };
-  console.log("reqProd :",reqProduct)
-  const product = await productManager.addProduct(reqProduct);
-  res.status(201).json({ success: "added"});
 });
 
 // updateProduct

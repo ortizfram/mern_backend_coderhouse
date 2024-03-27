@@ -1,28 +1,140 @@
 [
-  {
-    "id": 1,
-    "code": "d26182f5",
-    "title": "teclado Gamer",
-    "description": "con luces led",
-    "price": 3000,
-    "status": "https://i5.walmartimages.com/seo/SteelSeries-Apex-9-Mini-60-Wired-OptiPoint-Adjustable-Actuation-Switch-Gaming-Keyboard-with-RGB-Lighting-Black_ffc8afc1-75c2-4729-a6df-a85317c48086.6af3be98478f401d40cd0119c2de69b3.jpeg",
-    "stock": 1
-  },
-  {
-    "id": 3,
-    "title": "Cámara",
-    "description": "4K",
-    "price": 4000,
-    "status": "https://www.blogdelfotografo.com/wp-content/uploads/2021/03/mega-guia-reflex-3.jpg",
-    "stock": 1
-  },
-  {
-    "id": 4,
-    "code": "55bccb96",
-    "title": "Silla Gamer",
-    "description": "Silla ergonómica para largas sesiones de juego",
-    "price": 5000,
-    "status": "https://d28hi93gr697ol.cloudfront.net/81bb5613-3d6b-d229-1ab9-afdadcbb8462/img/Producto/f177144d-fcd2-0573-1186-2ee1f2e12d92/SILLA-GAMER-AZUL-62f4404deaef7.jpeg",
-    "stock": 5
-  }
-]
+    {
+      "id": 1,
+      "code": "e1b46652",
+      "title": {
+        "title": "aaa",
+        "description": "with LED lights",
+        "price": "2222",
+        "status": "true",
+        "stock": "1",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711545731750-Capture.PNG"
+      },
+      "status": true
+    },
+    {
+      "id": 2,
+      "code": "ab2c74d3",
+      "title": {
+        "title": "Product 2",
+        "description": "Description for Product 2",
+        "price": "300",
+        "status": "true",
+        "stock": "3",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\thumbnail2.png"
+      },
+      "status": true
+    },
+    {
+      "id": 3,
+      "code": "5e7f81a9",
+      "title": {
+        "title": "Product 3",
+        "description": "Description for Product 3",
+        "price": "500",
+        "status": "true",
+        "stock": "7",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\thumbnail3.png"
+      },
+      "status": true
+    },
+    {
+      "id": 4,
+      "code": "c9b34f8a",
+      "title": {
+        "title": "Product 4",
+        "description": "Description for Product 4",
+        "price": "250",
+        "status": "true",
+        "stock": "5",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\thumbnail4.png"
+      },
+      "status": true
+    },
+    {
+      "id": 5,
+      "code": "3a8e9b7d",
+      "title": {
+        "title": "Product 5",
+        "description": "Description for Product 5",
+        "price": "700",
+        "status": "true",
+        "stock": "2",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\thumbnail5.png"
+      },
+      "status": true
+    },
+    {
+      "id": 6,
+      "code": "fbd6e1c5",
+      "title": {
+        "title": "Product 6",
+        "description": "Description for Product 6",
+        "price": "800",
+        "status": "true",
+        "stock": "4",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\thumbnail6.png"
+      },
+      "status": true
+    },
+    {
+      "id": 7,
+      "code": "879c2d3f",
+      "title": {
+        "title": "Product 7",
+        "description": "Description for Product 7",
+        "price": "450",
+        "status": "true",
+        "stock": "6",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\thumbnail7.png"
+      },
+      "status": true
+    },
+    {
+      "id": 8,
+      "code": "2ef1a4b8",
+      "title": {
+        "title": "Product 8",
+        "description": "Description for Product 8",
+        "price": "350",
+        "status": "true",
+        "stock": "9",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\thumbnail8.png"
+      },
+      "status": true
+    },
+    {
+      "id": 9,
+      "code": "6d8b9e2a",
+      "title": {
+        "title": "Product 9",
+        "description": "Description for Product 9",
+        "price": "600",
+        "status": "true",
+        "stock": "8",
+        "category": "Keyboards",
+        "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\thumbnail9.png"
+      },
+      "status": true
+    },
+    {
+      "id": 10,
+      "code": "78aa719e",
+      "title": "PAD",
+      "description": "with LED lights",
+      "price": "2222",
+      "status": "true",
+      "stock": "1",
+      "category": "Keyboards",
+      "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711548370632-Capture.PNG"
+    }
+  ]
+  

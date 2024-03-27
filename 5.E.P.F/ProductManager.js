@@ -4,7 +4,7 @@ const crypto = require("crypto");
 class ProductManager {
   constructor() {
     this.products = [];
-    this.path = "Products.json";
+    this.path = "./Products.json";
   }
 
   getData = async () => {
@@ -13,15 +13,22 @@ class ProductManager {
     return JSON.parse(data);
   };
 
-
-  async addProduct(title, description, price, status=true,stock,category,thumbnail=null ) {
+  async addProduct({
+    title,
+    description,
+    price,
+    status = true,
+    stock,
+    category,
+    thumbnail = null
+  }) {
     try {
-      let products = this.products;
-
-      // Generar el nuevo producto
-      // const id = products.length + 1;
+      // Read existing products from the file
+      let products = await this.getData();
+  
+      // Generate the new product ID
       const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
-
+  
       const code = crypto.randomBytes(4).toString("hex");
       const product = {
         id,
@@ -31,34 +38,36 @@ class ProductManager {
         price,
         status,
         stock,
-        category
+        category,
+        thumbnail,
       };
-
-        // Add the optional thumbnail if provided
-    if (thumbnail !== null) {
+  
+      // Add the optional thumbnail if provided
+      if (thumbnail !== null) {
         product.thumbnail = thumbnail;
       }
-
-      // Agregar el nuevo producto a la lista
+  
+      // Concatenate the new product with the existing products array
       products.push(product);
-
-      // Escribir los datos actualizados en el archivo
+  
+      // Write the updated products array back to the file
       await fs.promises.writeFile(this.path, JSON.stringify(products));
-
-      console.log("New products added!"); // Devolver el nuevo producto añadido
+  
+      console.log("New product added!"); // Log a message indicating success
     } catch (error) {
       throw new Error("Error adding product: " + error.message);
     }
   }
-  async getProducts () {
+  
 
+  async getProducts() {
     try {
       const products = await this.getData();
       return products;
     } catch (error) {
       console.error("Error reading file" + error.message);
     }
-  };
+  }
   getProductById = async (id) => {
     try {
       const products = await this.getData();
@@ -71,7 +80,16 @@ class ProductManager {
       throw new Error("Error fetching product: " + error.message);
     }
   };
-  updateProduct = async (id, title, description, price,status,stock,category, thumbnail) => {
+  updateProduct = async (
+    id,
+    title,
+    description,
+    price,
+    status,
+    stock,
+    category,
+    thumbnail
+  ) => {
     const products = await this.getData();
     const productIndex = products.findIndex((product) => product.id === id);
 
@@ -87,7 +105,7 @@ class ProductManager {
       status,
       stock,
       category,
-      thumbnail
+      thumbnail,
     };
 
     fs.writeFileSync(this.path, JSON.stringify(products, null, 2), "utf-8");
@@ -95,7 +113,6 @@ class ProductManager {
     return products[productIndex];
   };
   deleteProduct = async (id) => {
-
     const products = await this.getData();
     const product = products.find(
       (product) => product.id === id,
