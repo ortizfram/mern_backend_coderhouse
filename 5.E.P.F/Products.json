@@ -1,14 +1,15 @@
 [
   {
     "id": 1,
-    "code": "e1b46652",
-    "title": "aaa",
-    "description": "with LED lights",
-    "price": "2222",
-    "status": "true",
-    "stock": "1",
-    "category": "Keyboards",
-    "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711545731750-Capture.PNG"
+    "title": {
+      "title": "Gulag Keyboard",
+      "description": "with LED lights",
+      "price": "2222",
+      "status": "true",
+      "stock": "1",
+      "category": "Keyboards",
+      "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711550396920-Capture.PNG"
+    }
   },
   {
     "id": 2,
@@ -68,7 +69,6 @@
   {
     "id": 7,
     "code": "879c2d3f",
-
     "title": "Product 7",
     "description": "Description for Product 7",
     "price": "450",

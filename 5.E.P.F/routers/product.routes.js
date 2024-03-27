@@ -86,7 +86,7 @@ router.put("/product/:pid", uploader.single("file"), async (req, res) => {
     category,
     thumbnail,
   };
-  const product = await ProductManager.updateProduct(pid, updatedP);
+  const product = await productManager.updateProduct(pid, updatedP);
   return res.status(200).json({ success: "updated", product: product });
 });
 
