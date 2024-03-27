@@ -112,13 +112,14 @@
   },
   {
     "id": 11,
-    "code": "0a60a1ba",
-    "title": "PAD",
-    "description": "with LED lights",
-    "price": "2222",
-    "status": "true",
-    "stock": "1",
-    "category": "Keyboards",
-    "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711549733124-Capture.PNG"
+    "title": {
+      "title": "changed",
+      "description": "with LED lights",
+      "price": "2222",
+      "status": "true",
+      "stock": "1",
+      "category": "Keyboards",
+      "thumbnail": "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711550475192-Capture.PNG"
+    }
   }
 ]
