@@ -20,7 +20,7 @@ class ProductManager {
     status = true,
     stock,
     category,
-    thumbnail = null
+    thumbnails = []
   }) {
     try {
       // Read existing products from the file
@@ -39,13 +39,9 @@ class ProductManager {
         status,
         stock,
         category,
-        thumbnail,
+        thumbnails,
       };
   
-      // Add the optional thumbnail if provided
-      if (thumbnail !== null) {
-        product.thumbnail = thumbnail;
-      }
   
       // Concatenate the new product with the existing products array
       products.push(product);
@@ -88,7 +84,7 @@ class ProductManager {
     status,
     stock,
     category,
-    thumbnail
+    thumbnails = []
   ) => {
     const products = await this.getData();
     const productIndex = products.findIndex((product) => product.id === id);
@@ -105,7 +101,7 @@ class ProductManager {
       status,
       stock,
       category,
-      thumbnail,
+      thumbnails,
     };
 
     fs.writeFileSync(this.path, JSON.stringify(products, null, 2), "utf-8");

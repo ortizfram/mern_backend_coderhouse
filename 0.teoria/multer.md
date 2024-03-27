@@ -21,10 +21,20 @@ const uploader = multer({ storage });
 module.exports = uploader;
 ```
 
-## ✋ Utilizar uploader
+## ✋ Utilizar uploader en ruta
 
 ```js
 router.post('/', uploader.single('file'), (req,res)={})
+router.post('/', uploader.array('files'), (req,res)={})
+
+// validation array files
+if (!req.files || req.files.length === 0) {
+    return res.status(404).json("No se pudieron guardar las imágenes");
+}
+// validation single file
+if(!req.file) {
+  return res.status(404).json("No se pudo guardar la imagen")
+}
 ```
 
 ## 💯 Ejemplo implementación MULTER a partir de su uploader
@@ -44,4 +54,5 @@ return res.json("user created")
 
 export default router
 ```
+
 <!-- Cuando subimos un archivo (imagen, vídeo, etc), estamos hablando de un flujo de datos. lo cual no puede plasmarse en un JSON. Cuando enviamos información a un endpoint donde sabemos que utilizamos MULTER, debemos enviarlo como FormData, no como JSON. -->

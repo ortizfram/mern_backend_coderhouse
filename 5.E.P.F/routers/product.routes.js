@@ -27,15 +27,15 @@ router.get("/product/:pid", async (req, res) => {
 });
 
 // addProduct
-router.post("/product", uploader.single("file"), async (req, res) => {
+router.post("/product", uploader.array("files"), async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(404).json("No se pudo guardar la imagen");
+    if (!req.files || req.files.length === 0) {
+      return res.status(404).json("No se pudieron guardar las imágenes");
     }
-  
+
     const { title, description, price, status, stock, category } = req.body;
-    const thumbnail = req.file.path;
-  
+    const thumbnails = req.files.map(file=> file.path);
+
     // Create an object with the product data
     const reqProduct = {
       title,
@@ -44,12 +44,12 @@ router.post("/product", uploader.single("file"), async (req, res) => {
       status,
       stock,
       category,
-      thumbnail,
+      thumbnails,
     };
-  
+
     // Call the addProduct method on the productManager instance
     await productManager.addProduct(reqProduct);
-  
+
     // Respond with a success message
     res.status(201).json({ success: "Product added successfully" });
   } catch (error) {
@@ -59,7 +59,7 @@ router.post("/product", uploader.single("file"), async (req, res) => {
 });
 
 // updateProduct
-router.put("/product/:pid", uploader.single("file"), async (req, res) => {
+router.put("/product/:pid", uploader.array("files"), async (req, res) => {
   // fetch product
   let pid = parseInt(req.params.pid);
   try {
@@ -72,11 +72,11 @@ router.put("/product/:pid", uploader.single("file"), async (req, res) => {
   }
 
   // req new fields
-  if (!req.file) {
-    return res.status(404).json("No se pudo guardar la imagen");
+  if (!req.files || req.files.length === 0) {
+    return res.status(404).json("No se pudieron guardar las imágenes");
   }
   const { title, description, price, status, stock, category } = req.body;
-  const thumbnail = req.file.path;
+  const thumbnails = req.files.map(file=>file.path);
   const updatedP = {
     title,
     description,
@@ -84,7 +84,7 @@ router.put("/product/:pid", uploader.single("file"), async (req, res) => {
     status,
     stock,
     category,
-    thumbnail,
+    thumbnails,
   };
   const product = await productManager.updateProduct(pid, updatedP);
   return res.status(200).json({ success: "updated", product: product });
@@ -108,7 +108,7 @@ router.delete("/product/:pid", async (req, res) => {
     return res.status(404).json("No se pudo guardar la imagen");
   }
   const { title, description, price, status, stock, category } = req.body;
-  const thumbnail = req.file.path;
+  const thumbnails = req.files.path;
   const updatedP = {
     title,
     description,
@@ -116,7 +116,7 @@ router.delete("/product/:pid", async (req, res) => {
     status,
     stock,
     category,
-    thumbnail,
+    thumbnails,
   };
   const product = await ProductManager.updateProduct(pid, updatedP);
   return res.status(200).json({ message: "updated", product: product });
