@@ -19,7 +19,9 @@ class ProductManager {
       let products = this.products;
 
       // Generar el nuevo producto
-      const id = products.length + 1;
+      // const id = products.length + 1;
+      const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
+
       const code = crypto.randomBytes(4).toString("hex");
       const product = {
         id,

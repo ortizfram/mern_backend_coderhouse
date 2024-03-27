@@ -1,4 +1,4 @@
-// 4.A.E.C/utils
+// 5.A.E.C/utils
 const multer = require("multer");
 const path = require("path");
 
@@ -14,6 +14,5 @@ const storage = multer.diskStorage({
   },
 });
 
-const uploader = multer({ storage });
 
-module.exports = {uploader};
+module.exports = multer({storage});

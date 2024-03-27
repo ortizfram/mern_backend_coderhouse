@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { uploader } = require("../utils/multer.js");
+const uploader = require("../utils/multer.js");
 const ProductManager = require("../ProductManager.js");
 
 const router = Router();
@@ -42,9 +42,9 @@ router.post("/product", uploader.single("file"), async (req, res) => {
     category,
     thumbnail,
   };
+  console.log("reqProd :",reqProduct)
   const product = await productManager.addProduct(reqProduct);
-  console.log(product);
-  res.status(201).json({ success: "added", product });
+  res.status(201).json({ success: "added"});
 });
 
 // updateProduct
