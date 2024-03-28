@@ -34,7 +34,7 @@ router.post("/", uploader.array("files"), async (req, res) => {
     }
 
     const { title, description, price, status, stock, category } = req.body;
-    const thumbnails = req.files.map(file=> file.path);
+    const thumbnails = req.files.map((file) => file.path);
 
     // Create an object with the product data
     const reqProduct = {
@@ -60,34 +60,39 @@ router.post("/", uploader.array("files"), async (req, res) => {
 
 // updateProduct
 router.put("/:pid", uploader.array("files"), async (req, res) => {
-  // fetch product
-  let pid = parseInt(req.params.pid);
+  // Fetch product
+  const pid = parseInt(req.params.pid);
   try {
-    const product = await productManager.getProductById(pid);
-    // res.status(200).json({ message: "found", product: product.id });
-  } catch (error) {
-    res
-      .status(404)
-      .json({ message: "Product not Found", error: error.message });
-  }
+    let product = await productManager.getProductById(pid);
 
-  // req new fields
-  if (!req.files || req.files.length === 0) {
-    return res.status(404).json("No se pudieron guardar las imágenes");
+    // Handle if product not found
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Extract updated fields from request body
+    const { description, price, status, stock, category } = req.body;
+    const thumbnails = req.files.map((file) => file.path);
+
+    // Update product fields
+    product.description = description;
+    product.price = price;
+    product.status = status;
+    product.stock = stock;
+    product.category = category;
+    product.thumbnails = thumbnails;
+
+    // Save updated product
+    product = await productManager.updateProduct(pid, product);
+
+    // Return success response
+    return res.status(200).json({ success: "updated", product });
+  } catch (error) {
+    // Handle errors
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
-  const { title, description, price, status, stock, category } = req.body;
-  const thumbnails = req.files.map(file=>file.path);
-  const updatedP = {
-    title,
-    description,
-    price,
-    status,
-    stock,
-    category,
-    thumbnails,
-  };
-  const product = await productManager.updateProduct(pid, updatedP);
-  return res.status(200).json({ success: "updated", product: product });
 });
 
 // deleteProduct

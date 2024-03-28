@@ -1,16 +1,17 @@
 [
   {
     "id": 1,
-      "title": "changed2 product",
-      "description": "with LED lights",
-      "price": "2222",
-      "status": "true",
-      "stock": "1",
-      "category": "Keyboards",
-      "thumbnails": [
-        "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711632317253-saba.jfif",
-        "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711632317255-Capture.PNG"
-      ]
+    "code": "0990af3c",
+    "title": "changed",
+    "description": "with LED lights",
+    "price": "2222",
+    "status": "true",
+    "stock": "1",
+    "category": "Keyboards",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711635908318-Capture.PNG",
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711635908326-saba.jfif"
+    ]
   },
   {
     "id": 2,

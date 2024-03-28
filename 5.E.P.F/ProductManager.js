@@ -5,6 +5,7 @@ class ProductManager {
   constructor() {
     this.products = [];
     this.path = "./productos.json";
+    this.getData()
   }
 
   getData = async () => {
@@ -77,37 +78,41 @@ class ProductManager {
     }
   };
   updateProduct = async (
+  id,
+  code,
+  description,
+  price,
+  status,
+  stock,
+  category,
+  thumbnails = []
+) => {
+  const products = await this.getData();
+  const productIndex = products.findIndex((product) => product.id === id);
+
+  if (productIndex === -1) {
+    throw new Error("Product not found");
+  }
+
+  const updatedProduct = {
     id,
-    title,
+    code,
     description,
     price,
     status,
     stock,
     category,
-    thumbnails = []
-  ) => {
-    const products = await this.getData();
-    const productIndex = products.findIndex((product) => product.id === id);
-
-    if (productIndex === -1) {
-      throw new Error("Product not found");
-    }
-
-    products[productIndex] = {
-      id,
-      title,
-      description,
-      price,
-      status,
-      stock,
-      category,
-      thumbnails,
-    };
-
-    fs.writeFileSync(this.path, JSON.stringify(products, null, 2), "utf-8");
-
-    return products[productIndex];
+    thumbnails,
   };
+
+  products[productIndex] = updatedProduct;
+
+  fs.writeFileSync(this.path, JSON.stringify(products, null, 2), "utf-8");
+
+  return updatedProduct;
+};
+
+  
   deleteProduct = async (id) => {
     const products = await this.getData();
     const product = products.find(

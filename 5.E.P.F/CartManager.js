@@ -6,6 +6,7 @@ class CartManager {
     this.carritos = [];
     this.path = "./carrito.json";
     this.productManager = new ProductManager();
+    this.getData();
   }
 
   getData() {
@@ -24,7 +25,7 @@ class CartManager {
   }
 
   newId() {
-    return Date.now().toString();
+    return parseInt(Date.now());
   }
 
   async newCart() {
@@ -39,17 +40,17 @@ class CartManager {
 
   async listProdsInCart(cid) {
     const carrito = this.carritos.find((c) => c.id === cid);
-    return carrito ? carrito.products : [];
+    return carrito ?  { id: carrito.id, products: carrito.products } : null;
   }
 
   async addProdToCart(cid, pid) {
     const product = await this.productManager.getProductById(pid);
     const carrito = this.carritos.find((c) => c.id === cid);
     if (!carrito) {
-      return res.status(404).json("carrito no encontrado");
+      throw new Error("Carrito no encontrado");
     }
     if (!product) {
-      return res.status(404).json("producto no encontrado");
+      throw new Error("Producto no encontrado");
     }
 
     const existingProduct = carrito.products.find((p) => p.product === pid);

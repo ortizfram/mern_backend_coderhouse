@@ -21,15 +21,20 @@ router.post("/", async (req, res) => {
 
 // listar productos del carrito
 router.get("/:cid", async (req, res) => {
+  const cid = parseInt(req.params.cid);
   try {
-    const carrito = await cartManager.listProdsInCart(req.params.cid);
-    return res
-      .status(200)
-      .json({ success: true, message: "listCart", carrito });
+    const carrito = await cartManager.listProdsInCart(cid);
+    if (carrito) {
+      return res
+        .status(200)
+        .json({ success: "listCart", carrito });
+    } else {
+      return res.status(404).json({ message: "Cart not found", carrito: [] });
+    }
   } catch (error) {
     return res
       .status(500)
-      .json({ message: "cart not Found", error: error.message });
+      .json({ message: "Internal Server Error", error: error.message });
   }
 });
 
@@ -37,10 +42,12 @@ router.get("/:cid", async (req, res) => {
 router.post("/:cid/product/:pid", async (req, res) => {
   try {
     const agregado = await cartManager.addProdToCart(
-      req.params.cid,
-      req.params.pid
+      parseInt(req.params.cid),
+      parseInt(req.params.pid)
     );
-    return res.status(201).json({success:true,message:"addedToCart",agregado});
+    return res
+      .status(201)
+      .json({ success: true, message: "addedToCart", agregado });
   } catch (error) {
     return res.status(500).json({
       message: "Error agregando Prod a Carrito",
