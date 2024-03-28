@@ -14,4 +14,4 @@
 - [x] ✏️2 A.E.C: Express + multer `ingresar mascota con foto`
 --- 
 
-- [] 🥇1ra E.P.F: `primera entrega proyecto final`
+- [x] 🥇1ra E.P.F: `primera entrega proyecto final` `5.E.P.F`

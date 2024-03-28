@@ -49,7 +49,7 @@ Todos los campos son obligatorios, a excepción de thumbnails
 
 > La persistencia de la información se implementará utilizando el file system, donde los archivos “productos,json” y “carrito.json”, respaldan la información.
 > No es necesario realizar ninguna implementación visual, todo el flujo se puede realizar por Postman o por el cliente de tu preferencia.
-
+ 
 # Formato
 
 Link al repositorio de Github con el proyecto completo, sin la carpeta de Node_modules.
