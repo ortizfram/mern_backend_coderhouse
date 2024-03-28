@@ -6,7 +6,7 @@ const router = Router();
 const productManager = new ProductManager();
 
 // getProducts
-router.get("/products", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const products = await productManager.getProducts();
     return res.json(products);
@@ -16,7 +16,7 @@ router.get("/products", async (req, res) => {
 });
 
 // getProductById
-router.get("/product/:pid", async (req, res) => {
+router.get("/:pid", async (req, res) => {
   let pid = parseInt(req.params.pid);
   try {
     const product = await productManager.getProductById(pid);
@@ -27,7 +27,7 @@ router.get("/product/:pid", async (req, res) => {
 });
 
 // addProduct
-router.post("/product", uploader.array("files"), async (req, res) => {
+router.post("/", uploader.array("files"), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(404).json("No se pudieron guardar las imágenes");
@@ -59,7 +59,7 @@ router.post("/product", uploader.array("files"), async (req, res) => {
 });
 
 // updateProduct
-router.put("/product/:pid", uploader.array("files"), async (req, res) => {
+router.put("/:pid", uploader.array("files"), async (req, res) => {
   // fetch product
   let pid = parseInt(req.params.pid);
   try {
@@ -91,7 +91,7 @@ router.put("/product/:pid", uploader.array("files"), async (req, res) => {
 });
 
 // deleteProduct
-router.delete("/product/:pid", async (req, res) => {
+router.delete("/:pid", async (req, res) => {
   // fetch product
   let pid = parseInt(req.params.pid);
   try {

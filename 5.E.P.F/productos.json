@@ -1,19 +1,16 @@
 [
   {
     "id": 1,
-    "title": {
-      "title": "changed product",
+      "title": "changed2 product",
       "description": "with LED lights",
       "price": "2222",
       "status": "true",
       "stock": "1",
       "category": "Keyboards",
       "thumbnails": [
-        "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711555120605-saba.jfif",
-        "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711555120607-Capture.PNG"
+        "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711632317253-saba.jfif",
+        "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711632317255-Capture.PNG"
       ]
-    },
-    "thumbnails": []
   },
   {
     "id": 2,
@@ -139,6 +136,20 @@
     "thumbnails": [
       "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711554739656-5de399ac21ccc7c5c97bd776a158c8b4.jpg",
       "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711554739661-Capture.PNG"
+    ]
+  },
+  {
+    "id": 11,
+    "code": "9e52e1e7",
+    "title": "PAD",
+    "description": "with LED lights",
+    "price": "2222",
+    "status": "true",
+    "stock": "1",
+    "category": "Keyboards",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711630655760-5de399ac21ccc7c5c97bd776a158c8b4.jpg",
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\5.E.P.F\\public\\img\\1711630655764-Capture.PNG"
     ]
   }
 ]

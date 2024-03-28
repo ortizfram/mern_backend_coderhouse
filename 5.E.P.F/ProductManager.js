@@ -4,7 +4,7 @@ const crypto = require("crypto");
 class ProductManager {
   constructor() {
     this.products = [];
-    this.path = "./Products.json";
+    this.path = "./productos.json";
   }
 
   getData = async () => {

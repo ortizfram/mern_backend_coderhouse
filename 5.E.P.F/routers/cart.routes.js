@@ -1,26 +1,52 @@
 const { Router } = require("express");
 const { uploader } = require("../utils/multer");
+const CartManager = require("../CartManager.js");
 
+const cartManager = new CartManager();
 const router = Router();
 
-let carts = [];
-
-router.get("/pets", (req, res) => {
-  return res.json({ pets });
+// crear carrito
+router.post("/", async (req, res) => {
+  try {
+    const nuevoCarrito = await cartManager.newCart();
+    return res
+      .status(201)
+      .json({ success: true, message: "newCart", nuevoCarrito });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error creado carrito", error: error.message });
+  }
 });
 
-router.post("/pet", uploader.single("file"), (req, res) => {
-  if (!req.file) {
-    return res.status(404).json("No se pudo guardar la imagen");
+// listar productos del carrito
+router.get("/:cid", async (req, res) => {
+  try {
+    const carrito = await cartManager.listProdsInCart(req.params.cid);
+    return res
+      .status(200)
+      .json({ success: true, message: "listCart", carrito });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "cart not Found", error: error.message });
   }
-  console.log(req.file);
-  const { name } = req.body;
-  console.log(name)
-  const thumbnail  = req.file.path;
-  const newPet = { name, thumbnail };
-  pets.push(newPet);
-  console.log(newPet);
-  res.status(201).json(newPet);
+});
+
+// Agregar Prod. a carrito
+router.post("/:cid/product/:pid", async (req, res) => {
+  try {
+    const agregado = await cartManager.addProdToCart(
+      req.params.cid,
+      req.params.pid
+    );
+    return res.status(201).json({success:true,message:"addedToCart",agregado});
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error agregando Prod a Carrito",
+      error: error.message,
+    });
+  }
 });
 
 module.exports = router;
