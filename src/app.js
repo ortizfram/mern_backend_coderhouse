@@ -1,5 +1,7 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
+// import routes
+const indexRoutes = require("./routes/index.router.js");
 
 const app = express();
 
@@ -11,9 +13,8 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 // app.use(express.static(__dirname + "/public"));
 
-app.get("/", (req,res)=>{
-    res.render("index")
-})
+// use Routes
+app.use("/", indexRoutes);
 
 app.listen(8080, () => {
   console.log("listening to 8080");
