@@ -1,17 +1,15 @@
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
-const indexRoutes = require("./routes/index.router.js");
 const handlebars = require("express-handlebars");
 const ProductRoute = require("./routes/product.routes.js");
-const CartRoute = require("./routes/cart.routes.js");
 const HomeRoute = require("./routes/home.routes.js");
-const cors = require("cors")
-// -----------------------------------
+const cors = require("cors");
+// --------------------------------
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors())
+app.use(cors());
 
 const httpServer = http.createServer(app);
 const io = socketIo(httpServer);
@@ -21,39 +19,28 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 
-// Middleware para pasar el objeto io a los routers
+// Middleware to pass the io object to routers
 app.use((req, res, next) => {
   req.app.io = io;
   next();
 });
 
-// routes
+// Routes
 app.use("/", HomeRoute);
 app.use("/api/product", ProductRoute);
-app.use("/api/cart", CartRoute);
-
 
 let products = [];
 
-// socket handshake
+// Socket handshake
 io.on("connection", (socket) => {
-  console.log("Nuevo cliente conectado");
+  console.log("New client connected");
 
-  // Enviamos los mensajes almacenados al cliente recién conectado
+  // Send stored messages to the newly connected client
   socket.emit("initialProducts", products);
-
-  // socket.on("message", (data) => {
-  //   console.log(data);
-  //   const newMessage = {
-  //     socketid: socket.id,
-  //     message: data
-  //   };
-  //   messages.push(newMessage);
-  //   // Emitimos el nuevo mensaje a todos los clientes
-  //   io.emit("message", newMessage);
-  // });
 });
 
 httpServer.listen(8080, () => {
-  console.log("Servidor escuchando en el puerto 8080");
+  console.log("Server listening on port 8080");
 });
+
+module.exports.io = io;
