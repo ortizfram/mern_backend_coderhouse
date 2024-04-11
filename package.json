@@ -2,7 +2,8 @@
   "dependencies": {
     "express": "^4.19.2",
     "express-handlebars": "^7.1.2",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.5",
+    "sweetalert2": "^11.10.7"
   },
   "name": "mern_backend_coderhouse",
   "description": "- express `handlebars` / ejs / pugjs",
@@ -14,6 +15,5 @@
   "type": "commonjs",
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {}
+  "license": "ISC"
 }
