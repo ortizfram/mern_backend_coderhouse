@@ -8,6 +8,17 @@ const httpServer = app.listen(8080, ()=>console.log("Listening port 8080"))
 
 const io = new Server(httpServer) //pass server to socket
 
+// listen app events
+let messages=[]
+io.on("connection", socket=>{
+    console.log("nuevo cliente conectado")
+
+    socket.on("message", data=>{
+        messages.push(data)
+        io.emit('messageLogs', messages)
+    })
+})
+
 app.engine('handlebars', handlebars.engine())
 app.set("views", __dirname+"/views")
 app.set("view engine", 'handlebars')
