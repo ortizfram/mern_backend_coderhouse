@@ -1,8 +1,8 @@
 # mern_backend_coderhouse
-## 10.websockets
-- http vs websockets// axios
-- configurar servers web sockets dentro de server express
-- ingresar web sockets en plantillas
+## 11.aplicacion_chat_con_websockets
+- desarrollar app de chat con websockets
+- uso de sweetalert como sistema de autentificacion intermedio
+- hacer deploy en en Glitch.com
 
 ---
 
