@@ -16,7 +16,7 @@
   {
     "id": 2,
     "code": "0990af3c",
-    "title": "PAD",
+    "title": "Servilleta",
     "description": "with LED lights",
     "price": "2222",
     "status": "true",
@@ -30,7 +30,7 @@
   {
     "id": 3,
     "code": "69ffa84b",
-    "title": "PAD",
+    "title": "Silla gamer ",
     "description": "with LED lights",
     "price": "2222",
     "status": "true",
@@ -44,7 +44,7 @@
   {
     "id": 4,
     "code": "9454d923",
-    "title": "PAD",
+    "title": "Kimono Azul",
     "description": "with LED lights",
     "price": "2222",
     "status": "true",
@@ -58,9 +58,9 @@
   {
     "id": 5,
     "code": "e4758052",
-    "title": "PAD",
+    "title": "notebook ASUS",
     "description": "with LED lights",
-    "price": "2222",
+    "price": "444",
     "status": "true",
     "stock": "1",
     "category": "Keyboards",
@@ -72,7 +72,7 @@
   {
     "id": 6,
     "code": "2ae5a8b0",
-    "title": "PAD",
+    "title": "Pelota",
     "description": "with LED lights",
     "price": "2222",
     "status": "true",
@@ -100,9 +100,9 @@
   {
     "id": 8,
     "code": "06f5d75d",
-    "title": "PAD",
+    "title": "Mesa regulable",
     "description": "with LED lights",
-    "price": "2222",
+    "price": "567",
     "status": "true",
     "stock": "1",
     "category": "Keyboards",
@@ -114,9 +114,9 @@
   {
     "id": 9,
     "code": "4fb60e33",
-    "title": "PAD",
+    "title": "Iphone",
     "description": "with LED lights",
-    "price": "2222",
+    "price": "333",
     "status": "true",
     "stock": "1",
     "category": "Keyboards",
@@ -128,9 +128,9 @@
   {
     "id": 10,
     "code": "fbe7af3d",
-    "title": "PAD",
+    "title": "MOUSE Gamer",
     "description": "with LED lights",
-    "price": "2222",
+    "price": "1233",
     "status": "true",
     "stock": "1",
     "category": "Keyboards",

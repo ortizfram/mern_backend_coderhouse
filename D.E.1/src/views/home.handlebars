@@ -21,7 +21,7 @@ async function getAndShowProducts() {
 
     // Iterar sobre los productos y agregarlos al div
     products.forEach(product => {
-      productosDiv.innerHTML += `<p>${product.name} - $${product.price}</p>`;
+      productosDiv.innerHTML += `<p>(${product.code}) - ${product.title} - $${product.price} </p>`;
     });
   } catch (error) {
     console.error('Error al obtener productos:', error);

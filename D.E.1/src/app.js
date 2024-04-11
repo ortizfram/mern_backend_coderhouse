@@ -19,7 +19,6 @@ const io = socketIo(httpServer);
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
-
 app.use(express.static(__dirname + "/public"));
 
 // Middleware para pasar el objeto io a los routers
