@@ -8,7 +8,7 @@ const httpServer = app.listen(8080, () => console.log("Listening port 8080"));
 
 const io = new Server(httpServer);
 
-// Store connected users
+// Store connected users & messages
 let connectedUsers = [];
 let messages = [];
 

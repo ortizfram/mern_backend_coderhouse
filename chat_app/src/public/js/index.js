@@ -2,6 +2,7 @@ const socket = io();
 
 let user = null;
 
+// block screen till authenticated and save user
 Swal.fire({
   title: "Identifícate",
   input: "text",
@@ -16,13 +17,13 @@ Swal.fire({
   socket.emit("authenticate", { id: socket.id, name: user });
 });
 
+// Display messages
 const chatBox = document.getElementById("chatBox");
-
 chatBox.addEventListener("keyup", (evt) => {
-  if (evt.key === "Enter") {
-    if (chatBox.value.trim().length > 0) {
-      socket.emit("message", { user: user, message: chatBox.value });
-      chatBox.value = "";
+  if (evt.key === "Enter") {// si ENTER
+    if (chatBox.value.trim().length > 0) {//si not empty
+      socket.emit("message", { user: user, message: chatBox.value }); //send message
+      chatBox.value = "";//clear
     }
   }
 });
@@ -37,6 +38,7 @@ socket.on("messageLogs", (data) => {
   log.innerHTML = messages;
 });
 
+// toast new user connected
 socket.on("newUserConnected", (user) => {
   Swal.fire({
     text: `${user.name} se ha unido al chat`,
