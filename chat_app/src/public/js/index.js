@@ -1,33 +1,46 @@
-// levanta socket del lado cliente
 const socket = io();
 
+let user = null;
+
 Swal.fire({
-  title: "Identificate",
+  title: "Identifícate",
   input: "text",
   text: "Ingresa usuario para identificarte en el chat",
   inputValidator: (value) => {
     return !value && "!Necesitas escribir un nombre de usuario para continuar!";
   },
-  allowOutsideClick: false, //impide salida
+  allowOutsideClick: false,
 }).then((result) => {
   user = result.value;
+  // Authenticate user
+  socket.emit("authenticate", { id: socket.id, name: user });
 });
 
-chatBox.addEventListener('keyup',evt=>{
-    if(evt.key==="Enter"){//on Enter send
-        if(chatBox.value.trim().length>0){//not empty validation
-            socket.emit("message", {user:user,message:chatBox.value})//emit first event
-            chatBox.value=""
-        }
+const chatBox = document.getElementById("chatBox");
+
+chatBox.addEventListener("keyup", (evt) => {
+  if (evt.key === "Enter") {
+    if (chatBox.value.trim().length > 0) {
+      socket.emit("message", { user: user, message: chatBox.value });
+      chatBox.value = "";
     }
-})
+  }
+});
 
 // Socket listeners
-socket.on('messageLogs', data =>{
-    let log= document.getElementById("messageLogs")
-    let messages=""
-    data.forEach(message=>{
-        messages = messages+`${message.user} dice:${message.message}</br>`
-    })
-    log.innerHTML = messages
-})
+socket.on("messageLogs", (data) => {
+  const log = document.getElementById("messageLogs");
+  let messages = "";
+  data.forEach((message) => {
+    messages = messages + `${message.user} dice: ${message.message}<br>`;
+  });
+  log.innerHTML = messages;
+});
+
+socket.on("newUserConnected", (user) => {
+  Swal.fire({
+    text: `${user.name} se ha unido al chat`,
+    toast: true,
+    position: "top-right",
+  });
+});
