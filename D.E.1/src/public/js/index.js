@@ -6,7 +6,6 @@ const socket = io();
 function renderProducts(products) {
   const productosDiv = document.getElementById('productos');
   productosDiv.innerHTML = '';
-
   products.forEach(product => {
     productosDiv.innerHTML += `<p>(${product.code}) - ${product.title} - $${product.price}</p>`;
   });
@@ -18,13 +17,14 @@ socket.on('initialProducts', (products) => {
 });
 
 // Listen for the newProduct event
-socket.on('newProduct', (product) => {
-  // Add the new product to the UI
-  const productosDiv = document.getElementById('productos');
-  productosDiv.innerHTML += `<p>(${product.code}) - ${product.title} - $${product.price}</p>`;
+socket.on('newProduct', (data) => {
+  const { product, products } = data;
+  // Render all products including the new one
+  renderProducts(products);
 });
 
-// Fetch and display products initially
+
+// Fetch and display products initially in Home
 async function fetchAndShowProducts() {
   try {
     const response = await fetch('/api/product');

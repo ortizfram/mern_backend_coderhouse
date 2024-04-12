@@ -4,7 +4,8 @@ const uploader = require("../utils/multer.js");
 const ProductManager = require("../ProductManager.js");
 
 const router = Router();
-const productManager = new ProductManager();
+const { io } = require("../app.js");
+const productManager = new ProductManager(io);
 
 // addProduct
 router.post("/", uploader.array("files"), async (req, res) => {
@@ -33,18 +34,20 @@ router.post("/", uploader.array("files"), async (req, res) => {
     // Call the addProduct method on the productManager instance
     await productManager.addProduct(reqProduct);
 
+    // Get all products including the newly added one
+    const updatedProducts = await productManager.getProducts();
+
     // Emit a socket event using io object
     io.emit("productAdded", reqProduct);
 
-
-    // Respond with a success message
-    // res.status(201).json({ success: "Product added successfully" });
-    console.log( "Product added successfully" );
+    // Respond with the updated list of products
+    res.status(201).json({ success: "Product added successfully", products: updatedProducts });
   } catch (error) {
     // Handle any errors that occur during the process
     res.status(500).json({ error: error.message });
   }
 });
+
 // getProducts
 router.get("/", async (req, res) => {
   try {

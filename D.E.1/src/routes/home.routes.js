@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 const ProductManager = require("../ProductManager.js");
 const { io } = require("../app.js");
-const uploader = require("../utils/multer.js");
 
 // Crear una instancia de ProductManager
 const productManager = new ProductManager(io);
