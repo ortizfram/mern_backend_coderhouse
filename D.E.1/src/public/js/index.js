@@ -17,20 +17,11 @@ socket.on('initialProducts', (products) => {
   renderProducts(products);
 });
 
-// Socket listener for new product
+// Listen for the newProduct event
 socket.on('newProduct', (product) => {
-  // Append the new product to the existing list
+  // Add the new product to the UI
   const productosDiv = document.getElementById('productos');
   productosDiv.innerHTML += `<p>(${product.code}) - ${product.title} - $${product.price}</p>`;
-});
-
-// Socket listener for deleted product
-socket.on('deletedProduct', (productId) => {
-  // Remove the deleted product from the list
-  const productElement = document.getElementById(`product_${productId}`);
-  if (productElement) {
-    productElement.remove();
-  }
 });
 
 // Fetch and display products initially

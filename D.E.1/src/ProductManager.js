@@ -1,4 +1,4 @@
-// src/ProductManager.js 
+// src/ProductManager.js
 
 const fs = require("fs");
 const crypto = require("crypto");
@@ -16,16 +16,6 @@ class ProductManager {
     const data = await fs.promises.readFile(this.path);
     return JSON.parse(data);
   };
-
-  async getProducts() {
-    try {
-      const products = await this.getData();
-      return products;
-    } catch (error) {
-      console.error("Error reading file" + error.message);
-    }
-  }
-
   async addProduct({
     title,
     description,
@@ -64,9 +54,19 @@ class ProductManager {
       console.log("New product added!"); // Log a message indicating success
 
       // Emit event to notify clients about the new product
-      this.io.emit("newProduct", product);
+      if (this.io) {
+        this.io.emit("newProduct", product);
+      }
     } catch (error) {
       throw new Error("Error adding product: " + error.message);
+    }
+  }
+  async getProducts() {
+    try {
+      const products = await this.getData();
+      return products;
+    } catch (error) {
+      console.error("Error reading file" + error.message);
     }
   }
 
@@ -84,13 +84,11 @@ class ProductManager {
     // save
     fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
 
-     // Emit event to notify clients about the deleted product
-     this.io.emit('deletedProduct', id);
+    // Emit event to notify clients about the deleted product
+    this.io.emit("deletedProduct", id);
 
     return product;
   };
-
-
   getProductById = async (id) => {
     try {
       const products = await this.getData();
@@ -136,26 +134,6 @@ class ProductManager {
     fs.writeFileSync(this.path, JSON.stringify(products, null, 2), "utf-8");
 
     return updatedProduct;
-  };
-
-  deleteProduct = async (id) => {
-    const products = await this.getData();
-    const product = products.find(
-      (product) => product.id === id,
-      (err) => {
-        if (err) throw new Error("Product not found");
-      }
-    );
-    // filter out id from array
-    const filteredP = products.filter((product) => product.id !== id);
-
-    // save
-    fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
-
-     // Emit event to notify clients about the deleted product
-     this.io.emit('deletedProduct', id);
-
-    return product;
   };
 }
 

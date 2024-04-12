@@ -32,4 +32,7 @@ router.get("/realtimeproducts", async (req, res) => {
   }
 });
 
+// addProduct
+
+
 module.exports = router;

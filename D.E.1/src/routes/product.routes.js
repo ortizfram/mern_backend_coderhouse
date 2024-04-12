@@ -1,3 +1,4 @@
+// src/routes/product.routes.js
 const { Router } = require("express");
 const uploader = require("../utils/multer.js");
 const ProductManager = require("../ProductManager.js");
@@ -5,30 +6,12 @@ const ProductManager = require("../ProductManager.js");
 const router = Router();
 const productManager = new ProductManager();
 
-// getProducts
-router.get("/", async (req, res) => {
-  try {
-    const products = await productManager.getProducts();
-    return res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// getProductById
-router.get("/:pid", async (req, res) => {
-  let pid = parseInt(req.params.pid);
-  try {
-    const product = await productManager.getProductById(pid);
-    res.json({ success: "found", product });
-  } catch (error) {
-    res.status(404).json({ error: error.message });
-  }
-});
-
 // addProduct
 router.post("/", uploader.array("files"), async (req, res) => {
   try {
+    // Access io object from the request
+    const io = req.io;
+
     if (!req.files || req.files.length === 0) {
       return res.status(404).json("No se pudieron guardar las imágenes");
     }
@@ -50,11 +33,35 @@ router.post("/", uploader.array("files"), async (req, res) => {
     // Call the addProduct method on the productManager instance
     await productManager.addProduct(reqProduct);
 
+    // Emit a socket event using io object
+    io.emit("productAdded", reqProduct);
+
+
     // Respond with a success message
     res.status(201).json({ success: "Product added successfully" });
   } catch (error) {
     // Handle any errors that occur during the process
     res.status(500).json({ error: error.message });
+  }
+});
+// getProducts
+router.get("/", async (req, res) => {
+  try {
+    const products = await productManager.getProducts();
+    return res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// getProductById
+router.get("/:pid", async (req, res) => {
+  let pid = parseInt(req.params.pid);
+  try {
+    const product = await productManager.getProductById(pid);
+    res.json({ success: "found", product });
+  } catch (error) {
+    res.status(404).json({ error: error.message });
   }
 });
 

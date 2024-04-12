@@ -5,7 +5,7 @@ const handlebars = require("express-handlebars");
 const ProductRoute = require("./routes/product.routes.js");
 const HomeRoute = require("./routes/home.routes.js");
 const cors = require("cors");
-// --------------------------------
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,8 +15,8 @@ const httpServer = http.createServer(app);
 const io = socketIo(httpServer);
 
 app.engine("handlebars", handlebars.engine());
-app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
+app.set("views", __dirname + "/views");
 app.use(express.static(__dirname + "/public"));
 
 // Middleware to pass the io object to routers
@@ -27,7 +27,16 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/", HomeRoute);
-app.use("/api/product", ProductRoute);
+
+// Pass io object to ProductRoute
+app.use(
+  "/api/product",
+  (req, res, next) => {
+    req.io = io;
+    next();
+  },
+  ProductRoute
+);
 
 let products = [];
 
@@ -42,5 +51,3 @@ io.on("connection", (socket) => {
 httpServer.listen(8080, () => {
   console.log("Server listening on port 8080");
 });
-
-module.exports.io = io;
