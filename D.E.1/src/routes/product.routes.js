@@ -38,7 +38,8 @@ router.post("/", uploader.array("files"), async (req, res) => {
 
 
     // Respond with a success message
-    res.status(201).json({ success: "Product added successfully" });
+    // res.status(201).json({ success: "Product added successfully" });
+    console.log( "Product added successfully" );
   } catch (error) {
     // Handle any errors that occur during the process
     res.status(500).json({ error: error.message });
