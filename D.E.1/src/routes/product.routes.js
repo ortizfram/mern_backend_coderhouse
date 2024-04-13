@@ -37,11 +37,11 @@ router.post("/", uploader.array("files"), async (req, res) => {
     // Get all products including the newly added one
     const updatedProducts = await productManager.getProducts();
 
-    // Emit a socket event using io object
-    io.emit("productAdded", reqProduct);
+    // Emit a socket event with the updated products data
+    io.emit("updateProducts", updatedProducts);
 
     // Respond with the updated list of products
-    res.status(201).json({ success: "Product added successfully", products: updatedProducts });
+    // res.status(201).json({ success: "Product added successfully", products: updatedProducts });  
   } catch (error) {
     // Handle any errors that occur during the process
     res.status(500).json({ error: error.message });

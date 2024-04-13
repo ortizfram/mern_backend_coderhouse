@@ -16,10 +16,8 @@ socket.on('initialProducts', (products) => {
   renderProducts(products);
 });
 
-// Listen for the newProduct event
-socket.on('newProduct', (data) => {
-  const { product, products } = data;
-  // Render all products including the new one
+// Listen for the updateProducts event
+socket.on('updateProducts', (products) => {
   renderProducts(products);
 });
 
