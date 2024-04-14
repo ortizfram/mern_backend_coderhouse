@@ -7,10 +7,28 @@
 {{> addProductForm}}
 <hr>
 <ul id="productos">
-    {{#each products}}
-    <li>{{this.title}} - ${{this.price}}</li>
+  {{#each products}}
+    <li>{{this.title}} - ${{this.price}} - <button onclick="deleteProduct('{{this.code}}')">Delete</button></li>
   {{/each}}
 </ul>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>
+<script>
+  // Function to delete a product
+  function deleteProduct(code) {
+    fetch(`/api/product/${this.code}`, {
+      method: 'DELETE',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to delete product');
+      }
+      // Refresh the product list after deletion
+      socket.emit('productUpdate');
+    })
+    .catch(error => {
+      console.error('Error deleting product:', error);
+    });
+  }
+</script>

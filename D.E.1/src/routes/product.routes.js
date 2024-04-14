@@ -6,13 +6,44 @@ const ProductManager = require("../ProductManager.js");
 const router = Router();
 const { io } = require("../app.js");
 const pm = new ProductManager(io);
+// deleteProduct
+router.delete("/:code", async (req, res) => {
+  // fetch product
+  let code = parseInt(req.params.code);
+  try {
+    const product = await pm.deleteProduct(code);
+    // Emit a socket event to notify clients about the product deletion
+    req.io.emit("productDeleted", { code });
+    res
+      .status(200)
+      .json({ success: true, message: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to delete product", error: error.message });
+
+  }
+
+  // req new fields
+  if (!req.file) {
+    return res.status(404).json("No se pudo guardar la imagen");
+  }
+  const { title, description, price, status, stock, category } = req.body;
+  const thumbnails = req.files.path;
+  const updatedP = {
+    title,
+    description,
+    price,
+    status,
+    stock,
+    category,
+    thumbnails,
+  };
+  const product = await pm.updateProduct(pid, updatedP);
+  return res.status(200).json({ message: "updated", product: product });
+});
 
 // addProduct
 router.post("/", uploader.array("files"), async (req, res) => {
   try {
-    // Access io object from the request
-    const io = req.io;
-
     if (!req.files || req.files.length === 0) {
       return res.status(404).json("No se pudieron guardar las imágenes");
     }
@@ -38,10 +69,10 @@ router.post("/", uploader.array("files"), async (req, res) => {
     const updatedProducts = await pm.getProducts();
 
     // Emit a socket event with the updated products data
-    io.emit("updateProducts", updatedProducts);
+    req.io.emit("productUpdate", updatedProducts);
 
-    // Respond with the updated list of products
-    // res.status(201).json({ success: "Product added successfully", products: updatedProducts });  
+    // Render the realTimeProducts view with the updated products
+    res.status(200).render("realTimeProducts", { products: updatedProducts });
   } catch (error) {
     // Handle any errors that occur during the process
     res.status(500).json({ error: error.message });
@@ -49,14 +80,14 @@ router.post("/", uploader.array("files"), async (req, res) => {
 });
 
 // getProducts
-router.get("/", async (req, res) => {
-  try {
-    const products = await pm.getProducts();
-    return res.json(products);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// router.get("/", async (req, res) => {
+//   try {
+//     const products = await pm.getProducts();
+//     return res.json(products);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 // getProductById
 router.get("/:pid", async (req, res) => {
@@ -104,38 +135,6 @@ router.put("/:pid", uploader.array("files"), async (req, res) => {
       .status(500)
       .json({ message: "Internal server error", error: error.message });
   }
-});
-
-// deleteProduct
-router.delete("/:pid", async (req, res) => {
-  // fetch product
-  let pid = parseInt(req.params.pid);
-  try {
-    const product = await pm.deleteProduct(pid);
-    res.status(200).json({ success: "deleted", product: pid });
-  } catch (error) {
-    res
-      .status(404)
-      .json({ message: "Product not Found", error: error.message });
-  }
-
-  // req new fields
-  if (!req.file) {
-    return res.status(404).json("No se pudo guardar la imagen");
-  }
-  const { title, description, price, status, stock, category } = req.body;
-  const thumbnails = req.files.path;
-  const updatedP = {
-    title,
-    description,
-    price,
-    status,
-    stock,
-    category,
-    thumbnails,
-  };
-  const product = await pm.updateProduct(pid, updatedP);
-  return res.status(200).json({ message: "updated", product: product });
 });
 
 module.exports = router;

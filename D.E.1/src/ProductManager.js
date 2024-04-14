@@ -16,6 +16,23 @@ class ProductManager {
     return JSON.parse(data);
   };
 
+  deleteProduct = async (code) => {
+    const products = await this.getData();
+    const product = products.find(
+      (product) => product.code === code,
+      (err) => {
+        if (err) throw new Error("Product not found");
+      }
+    );
+    // filter out id from array
+    const filteredP = products.filter((product) => product.code !== code);
+
+    // save
+    fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
+
+    console.log("PRODUCT DELETED successfully")
+  };
+
   async getProducts() {
     try {
       const products = await this.getData();
@@ -67,22 +84,7 @@ class ProductManager {
     }
   }
 
-  deleteProduct = async (id) => {
-    const products = await this.getData();
-    const product = products.find(
-      (product) => product.id === id,
-      (err) => {
-        if (err) throw new Error("Product not found");
-      }
-    );
-    // filter out id from array
-    const filteredP = products.filter((product) => product.id !== id);
 
-    // save
-    fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
-
-    return product;
-  };
   getProductById = async (id) => {
     try {
       const products = await this.getData();
