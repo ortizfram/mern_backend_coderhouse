@@ -4,10 +4,9 @@ const fs = require("fs");
 const crypto = require("crypto");
 
 class ProductManager {
-  constructor(io) {
+  constructor() {
     this.products = [];
     this.path = __dirname + "/productos.json";
-    this.io = io;
     this.getData();
   }
 
@@ -16,6 +15,16 @@ class ProductManager {
     const data = await fs.promises.readFile(this.path);
     return JSON.parse(data);
   };
+
+  async getProducts() {
+    try {
+      const products = await this.getData();
+      return products;
+    } catch (error) {
+      console.error("Error reading file" + error.message);
+    }
+  }
+
   async addProduct({
     title,
     description,
@@ -53,20 +62,8 @@ class ProductManager {
 
       console.log("New product added!"); // Log a message indicating success
 
-      // Emit event to notify clients about the new product
-      if (this.io) {
-        this.io.emit("newProduct", product);
-      }
     } catch (error) {
       throw new Error("Error adding product: " + error.message);
-    }
-  }
-  async getProducts() {
-    try {
-      const products = await this.getData();
-      return products;
-    } catch (error) {
-      console.error("Error reading file" + error.message);
     }
   }
 
@@ -83,9 +80,6 @@ class ProductManager {
 
     // save
     fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
-
-    // Emit event to notify clients about the deleted product
-    this.io.emit("deletedProduct", id);
 
     return product;
   };

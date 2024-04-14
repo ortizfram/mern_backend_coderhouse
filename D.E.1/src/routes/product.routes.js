@@ -5,7 +5,7 @@ const ProductManager = require("../ProductManager.js");
 
 const router = Router();
 const { io } = require("../app.js");
-const productManager = new ProductManager(io);
+const pm = new ProductManager(io);
 
 // addProduct
 router.post("/", uploader.array("files"), async (req, res) => {
@@ -32,10 +32,10 @@ router.post("/", uploader.array("files"), async (req, res) => {
     };
 
     // Call the addProduct method on the productManager instance
-    await productManager.addProduct(reqProduct);
+    await pm.addProduct(reqProduct);
 
     // Get all products including the newly added one
-    const updatedProducts = await productManager.getProducts();
+    const updatedProducts = await pm.getProducts();
 
     // Emit a socket event with the updated products data
     io.emit("updateProducts", updatedProducts);
@@ -51,7 +51,7 @@ router.post("/", uploader.array("files"), async (req, res) => {
 // getProducts
 router.get("/", async (req, res) => {
   try {
-    const products = await productManager.getProducts();
+    const products = await pm.getProducts();
     return res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -62,7 +62,7 @@ router.get("/", async (req, res) => {
 router.get("/:pid", async (req, res) => {
   let pid = parseInt(req.params.pid);
   try {
-    const product = await productManager.getProductById(pid);
+    const product = await pm.getProductById(pid);
     res.json({ success: "found", product });
   } catch (error) {
     res.status(404).json({ error: error.message });
@@ -74,7 +74,7 @@ router.put("/:pid", uploader.array("files"), async (req, res) => {
   // Fetch product
   const pid = parseInt(req.params.pid);
   try {
-    let product = await productManager.getProductById(pid);
+    let product = await pm.getProductById(pid);
 
     // Handle if product not found
     if (!product) {
@@ -94,7 +94,7 @@ router.put("/:pid", uploader.array("files"), async (req, res) => {
     product.thumbnails = thumbnails;
 
     // Save updated product
-    product = await productManager.updateProduct(pid, product);
+    product = await pm.updateProduct(pid, product);
 
     // Return success response
     return res.status(200).json({ success: "updated", product });
@@ -111,7 +111,7 @@ router.delete("/:pid", async (req, res) => {
   // fetch product
   let pid = parseInt(req.params.pid);
   try {
-    const product = await productManager.deleteProduct(pid);
+    const product = await pm.deleteProduct(pid);
     res.status(200).json({ success: "deleted", product: pid });
   } catch (error) {
     res
@@ -134,7 +134,7 @@ router.delete("/:pid", async (req, res) => {
     category,
     thumbnails,
   };
-  const product = await ProductManager.updateProduct(pid, updatedP);
+  const product = await pm.updateProduct(pid, updatedP);
   return res.status(200).json({ message: "updated", product: product });
 });
 

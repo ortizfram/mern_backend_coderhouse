@@ -1,37 +1,16 @@
-// src/public/js/index.js
-
+//  src/public/index.js
 const socket = io();
 
-// Function to render products
-function renderProducts(products) {
-  const productosDiv = document.getElementById('productos');
-  productosDiv.innerHTML = '';
-  products.forEach(product => {
-    productosDiv.innerHTML += `<p>(${product.code}) - ${product.title} - $${product.price}</p>`;
-  });
-}
+socket.on("productUpdate", ({ products }) => {
+  const productList = document.getElementById("productos");
 
-// Socket listener for initial products
-socket.on('initialProducts', (products) => {
-  renderProducts(products);
+ // Clear previous products if any
+ productList.innerHTML = "";
+
+ // Add new products
+ products.forEach(product => {
+   const productItem = document.createElement("ul");
+   productItem.textContent = product.title; 
+   productList.appendChild(productItem);
+ });
 });
-
-// Listen for the updateProducts event
-socket.on('updateProducts', (products) => {
-  renderProducts(products);
-});
-
-
-// Fetch and display products initially in Home
-async function fetchAndShowProducts() {
-  try {
-    const response = await fetch('/api/product');
-    const products = await response.json();
-    renderProducts(products);
-  } catch (error) {
-    console.error('Error fetching products:', error);
-  }
-}
-
-// Call the function when the page loads
-document.addEventListener('DOMContentLoaded', fetchAndShowProducts);

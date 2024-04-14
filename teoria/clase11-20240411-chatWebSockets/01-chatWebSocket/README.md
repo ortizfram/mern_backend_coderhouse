@@ -1,0 +1,1 @@
+> integrate socket.io into your Express application and emit events from the server side whenever there's a change in the products data. Clients listening to these events will update their UI accordingly. H

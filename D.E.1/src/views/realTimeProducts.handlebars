@@ -1,4 +1,4 @@
-<!-- views/realTimeProducts.handlebars -->
+<!-- src/views/realTimeProducts.handlebars -->
 
 <h3>Lista de productos en tiempo real</h3>
 <button> <a href="/">Inicio</a></button>
@@ -6,7 +6,11 @@
 <!-- Add Product Form - partial-->
 {{> addProductForm}}
 <hr>
-<div id="productos"></div>
+<ul id="productos">
+    {{#each products}}
+    <li>{{this.title}} - ${{this.price}}</li>
+  {{/each}}
+</ul>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>
