@@ -4,8 +4,7 @@ const uploader = require("../utils/multer.js");
 const ProductManager = require("../ProductManager.js");
 
 const router = Router();
-const { io } = require("../app.js");
-const pm = new ProductManager(io);
+const pm = new ProductManager();
 // deleteProduct
 router.delete("/:code", async (req, res) => {
   // fetch product
@@ -13,7 +12,7 @@ router.delete("/:code", async (req, res) => {
   try {
     const product = await pm.deleteProduct(code);
     // Emit a socket event to notify clients about the product deletion
-    req.io.emit("productDeleted", { code });
+    req.socketServer.emit("productDeleted", { code });
     res
       .status(200)
       .json({ success: true, message: "Product deleted successfully" });
@@ -69,7 +68,7 @@ router.post("/", uploader.array("files"), async (req, res) => {
     const updatedProducts = await pm.getProducts();
 
     // Emit a socket event with the updated products data
-    req.io.emit("productUpdate", updatedProducts);
+    req.socketServer.emit("productUpdate", updatedProducts);
 
     // Render the realTimeProducts view with the updated products
     res.status(200).render("realTimeProducts", { products: updatedProducts });

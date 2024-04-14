@@ -11,7 +11,7 @@ router.get("/realtimeproducts", async (req, res) => {
   try {
     // Get products from the ProductManager
     const products = await pm.getProducts();
-    req.app.io.emit("productUpdate", { products });
+    req.socketServer.emit("productUpdate", { products });
     res.status(200).render("realTimeProducts", { products }); 
   } catch (error) {
     console.error("Error fetching products:", error);
