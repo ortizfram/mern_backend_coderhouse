@@ -61,6 +61,36 @@
           
         /><br /><br />
 
-        <button class="btn btn-dark rounded-0">send</button>
+        <button type="submit" class="btn btn-dark rounded-0">send</button>
       </form>
     </div>
+
+    <script>
+  // JavaScript code to handle form submission
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("prodForm");
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault(); // Prevent default form submission behavior
+
+      try {
+        const formData = new FormData(form); // Get form data
+        const response = await fetch("http://localhost:8080/api/product", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to add product.");
+        }
+
+        // Handle successful response, e.g., show success message, update UI, etc.
+        console.log("Product added successfully!");
+        form.reset(); // Optionally reset the form
+      } catch (error) {
+        // Handle errors
+        console.error("Error adding product:", error.message);
+      }
+    });
+  });
+</script>

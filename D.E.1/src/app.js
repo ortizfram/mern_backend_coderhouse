@@ -1,7 +1,7 @@
 // src/app.js
 const express = require("express");
 const http = require("http");
-const { Server:WebSocketServer } = require("socket.io");
+const { Server: WebSocketServer } = require("socket.io");
 const handlebars = require("express-handlebars");
 const ProductRoute = require("./routes/product.routes.js");
 const IndexRoute = require("./routes/index.routes.js");
@@ -22,25 +22,15 @@ app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 app.use(express.static(__dirname + "/public"));
 
-
 // Middleware to pass the io object to routers
-// app.use((req, res, next) => {
-  //   req.socketServer = socketServer;
-  //   next();
-  // });
-  
-  // Routes
-  app.use("/", IndexRoute);
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
 
-// Pass io object to ProductRoute
-app.use(
-  "/api/product",
-  (req, res, next) => {
-    req.socketServer = socketServer;
-    next();
-  },
-  ProductRoute
-);
+// Routes
+app.use("/", IndexRoute);
+app.use("/api/product", ProductRoute);
 
 // socket handshake
 
@@ -52,11 +42,8 @@ io.on("connection", (socket) => {
 
   // test
   socket.emit("server:ping", "ping");
-  socket.on("client:pong", data => console.log(data));
-
-  // client:newprod
-  socket.on("client:newprod", data=> console.log(data))
-})
+  socket.on("client:pong", (data) => console.log(data));
+});
 
 // LISTEN
 server.listen(8080, () => console.log("listening 8080"));

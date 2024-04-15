@@ -5,61 +5,59 @@ const ProductManager = require("../ProductManager.js");
 
 const router = Router();
 const pm = new ProductManager();
+
+// addProduct
+router.post("/", uploader.array("files"), async(req,res)=> {
+   try {
+      const { title, description, price, status, stock, category } = req.body;
+      const thumbnails = req.files.map((file) => file.path);
+  
+      const reqProduct = {
+        title,
+        description,
+        price: parseFloat(price), // Parse price as a float
+        status: status === "on", // Convert checkbox value to boolean
+        stock: parseInt(stock), // Parse stock as an integer
+        category,
+        thumbnails,
+      };
+  
+      // Call the addProduct method on the productManager instance
+      await pm.addProduct(reqProduct);
+  
+      // Emit a socket event with the updated products data
+      req.io.emit("server:newprod", reqProduct);
+  
+      res.status(200).render("realTimeProducts", {});
+    } catch (error) {
+      // Handle any errors that occur during the process
+      res.status(500).json({ error: error.message });
+    }
+});
+
 // deleteProduct
 router.delete("/:code", async (req, res) => {
   try {
     // Parse the product code from the request parameters
     const code = parseInt(req.params.code);
-    
+
     // Delete the product
     await pm.deleteProduct(code);
 
     // Emit an event to notify connected clients about the product deletion
-    req.socketServer.emit("productDelete", { code });
+    req.io.emit("productDelete", { code });
 
     // Send a success response
-    res.status(200).json({ success: true, message: "Product deleted successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "Product deleted successfully" });
   } catch (error) {
     // Send an error response
-    res.status(500).json({ success: false, message: "Failed to delete product", error: error.message });
-  }
-});
-
-// addProduct
-router.post("/", uploader.array("files"), async (req, res) => {
-  try {
-    if (!req.files || req.files.length === 0) {
-      return res.status(404).json("No se pudieron guardar las imágenes");
-    }
-
-    const { title, description, price, status, stock, category } = req.body;
-    const thumbnails = req.files.map((file) => file.path);
-
-    // Create an object with the product data
-    const reqProduct = {
-      title,
-      description,
-      price,
-      status,
-      stock,
-      category,
-      thumbnails,
-    };
-
-    // Call the addProduct method on the productManager instance
-    await pm.addProduct(reqProduct);
-
-    // Get all products including the newly added one
-    const updatedProducts = await pm.getProducts();
-
-    // Emit a socket event with the updated products data
-    req.socketServer.emit("productCreate", updatedProducts);
-
-    // Render the realTimeProducts view with the updated products
-    res.status(200).render("realTimeProducts", { products: updatedProducts });
-  } catch (error) {
-    // Handle any errors that occur during the process
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete product",
+      error: error.message,
+    });
   }
 });
 
