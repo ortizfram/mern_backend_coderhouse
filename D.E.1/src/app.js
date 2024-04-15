@@ -6,11 +6,13 @@ const handlebars = require("express-handlebars");
 const ProductRoute = require("./routes/product.routes.js");
 const IndexRoute = require("./routes/index.routes.js");
 const cors = require("cors");
+const ProductManager = require("./ProductManager.js")
 
 // server
 const app = express();
 const server = http.createServer(app);
 const io = new WebSocketServer(server); // server para trabajar con sockets
+const pm = new ProductManager()
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,11 +36,11 @@ app.use("/api/product", ProductRoute);
 
 // socket handshake
 
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   //socket: traer info de cliente
   console.log("cliente conectado", socket.id);
 
-  // socket.emit("server:loadnotes", notes);
+  socket.emit("server:loadprods", await pm.getProducts());
 
   // test
   socket.emit("server:ping", "ping");
