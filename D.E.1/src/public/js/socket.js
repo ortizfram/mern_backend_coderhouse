@@ -12,3 +12,6 @@ const saveProd = (title, description, price, status, stock, category,files) => {
     files
   });
 };
+
+socket.on("ping", data=> console.log(data))
+socket.emit("pong","pong")
