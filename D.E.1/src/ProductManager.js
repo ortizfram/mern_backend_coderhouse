@@ -73,7 +73,7 @@ class ProductManager {
 
       // Concatenate the new product with the existing products array
       products.push(product);
-
+        
       // Write the updated products array back to the file
       await fs.promises.writeFile(this.path, JSON.stringify(products));
 

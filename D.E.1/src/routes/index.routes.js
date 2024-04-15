@@ -8,15 +8,7 @@ const pm = new ProductManager();
 
 // getRealtimeproducts
 router.get("/realtimeproducts", async (req, res) => {
-  try {
-    // Get products from the ProductManager
-    const products = await pm.getProducts();
-    req.socketServer.emit("productUpdate", { products });
-    res.status(200).render("realTimeProducts", { products }); 
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(500).send("Error fetching products");
-  }
+    res.render("realTimeProducts", {}); 
 });
 
 // home static prods

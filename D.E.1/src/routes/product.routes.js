@@ -7,37 +7,22 @@ const router = Router();
 const pm = new ProductManager();
 // deleteProduct
 router.delete("/:code", async (req, res) => {
-  // fetch product
-  let code = parseInt(req.params.code);
   try {
-    const product = await pm.deleteProduct(code);
-    // Emit a socket event to notify clients about the product deletion
-    req.socketServer.emit("productDeleted", { code });
-    res
-      .status(200)
-      .json({ success: true, message: "Product deleted successfully" });
+    // Parse the product code from the request parameters
+    const code = parseInt(req.params.code);
+    
+    // Delete the product
+    await pm.deleteProduct(code);
+
+    // Emit an event to notify connected clients about the product deletion
+    req.socketServer.emit("productDelete", { code });
+
+    // Send a success response
+    res.status(200).json({ success: true, message: "Product deleted successfully" });
   } catch (error) {
+    // Send an error response
     res.status(500).json({ success: false, message: "Failed to delete product", error: error.message });
-
   }
-
-  // req new fields
-  if (!req.file) {
-    return res.status(404).json("No se pudo guardar la imagen");
-  }
-  const { title, description, price, status, stock, category } = req.body;
-  const thumbnails = req.files.path;
-  const updatedP = {
-    title,
-    description,
-    price,
-    status,
-    stock,
-    category,
-    thumbnails,
-  };
-  const product = await pm.updateProduct(pid, updatedP);
-  return res.status(200).json({ message: "updated", product: product });
 });
 
 // addProduct
@@ -68,7 +53,7 @@ router.post("/", uploader.array("files"), async (req, res) => {
     const updatedProducts = await pm.getProducts();
 
     // Emit a socket event with the updated products data
-    req.socketServer.emit("productUpdate", updatedProducts);
+    req.socketServer.emit("productCreate", updatedProducts);
 
     // Render the realTimeProducts view with the updated products
     res.status(200).render("realTimeProducts", { products: updatedProducts });
@@ -79,14 +64,14 @@ router.post("/", uploader.array("files"), async (req, res) => {
 });
 
 // getProducts
-// router.get("/", async (req, res) => {
-//   try {
-//     const products = await pm.getProducts();
-//     return res.json(products);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
+router.get("/", async (req, res) => {
+  try {
+    const products = await pm.getProducts();
+    return res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // getProductById
 router.get("/:pid", async (req, res) => {

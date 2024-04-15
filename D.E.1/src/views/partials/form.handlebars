@@ -1,0 +1,65 @@
+{{!-- creationForm.handlebars --}}
+<div class="col-md-4 my-auto">
+      <form
+        class="card card-body rounded-0"
+        id="prodForm"
+        enctype="multipart/form-data"
+      >
+        <h1 class="h3 mb-4">Add Prod</h1>
+        <input
+          type="text"
+          name="title"
+          id="title"
+          placeholder="write a title"
+          class="form-control rounded-0 mb-3"
+          autofocus
+        />
+        <textarea
+          name="description"
+          id="description"
+          rows="2"
+          class="form-control rouded-0 mb-3"
+          placeholder="write a description"
+        ></textarea>
+        <input
+          type="number"
+          id="price"
+          name="price"
+          placeholder="price"
+          step="0.01"
+          required
+          class="form-control rouded-0"
+        />
+        <label for="status">Status:</label>
+
+        <input type="checkbox" id="status" name="status" checked /><br /><br />
+        <input
+          type="number"
+          id="stock"
+          name="stock"
+          required
+          placeholder="stock"
+          class="form-control rounded-0"
+        />
+        <input
+          type="text"
+          id="category"
+          name="category"
+          placeholder="category"
+          class="form-control rounded-0"
+          required
+        />
+        <label for="files">imagenes de producto:</label>
+
+        <input
+          type="file"
+          id="thumbnails"
+          name="files"
+          placeholder="imagenes de producto"
+          multiple
+          required
+        /><br /><br />
+
+        <button class="btn btn-dark rounded-0">send</button>
+      </form>
+    </div>

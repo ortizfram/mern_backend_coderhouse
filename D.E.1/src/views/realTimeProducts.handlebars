@@ -1,34 +1,11 @@
 <!-- src/views/realTimeProducts.handlebars -->
 
 <h3>Lista de productos en tiempo real</h3>
-<button> <a href="/">Inicio</a></button>
-<hr>
-<!-- Add Product Form - partial-->
+<button><a href="/">Inicio</a></button>
+<!-- Add Product Form - partial -->
 {{> addProductForm}}
-<hr>
-<ul id="productos">
-  {{#each products}}
-    <li>{{this.title}} - ${{this.price}} - <button onclick="deleteProduct('{{this.code}}')">Delete</button></li>
-  {{/each}}
-</ul>
 
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/index.js"></script>
-<script>
-  // Function to delete a product
-  function deleteProduct(code) {
-    fetch(`/api/product/${this.code}`, {
-      method: 'DELETE',
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to delete product');
-      }
-      // Refresh the product list after deletion
-      socket.emit('productUpdate');
-    })
-    .catch(error => {
-      console.error('Error deleting product:', error);
-    });
-  }
-</script>
+<script src="/socket.io/socket.io.min.js"></script>
+<script src="/js/ui.js"></script>
+<script src="/js/socket.js"></script>
+<script src="/js/main.js"></script>
