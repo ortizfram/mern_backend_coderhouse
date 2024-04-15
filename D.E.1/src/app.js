@@ -53,6 +53,9 @@ io.on("connection", (socket) => {
   // test
   socket.emit("server:ping", "ping");
   socket.on("client:pong", data => console.log(data));
+
+  // client:newprod
+  socket.on("client:newprod", data=> console.log(data))
 })
 
 // LISTEN
