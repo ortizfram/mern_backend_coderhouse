@@ -1,17 +1,22 @@
 // main.js
 
-  // Call the saveProd function with the input values
+if (savedId) {
+  // actualizando
+  // updateNote(savedId, title.value, description.value);
+  console.log("id", savedId);
+} else {
+  // creando
   saveProd(title, description, price, status, stock, category, files);
+}
 
-//   if (savedId) {
-//     // actualizando
-//     updateNote(savedId, title.value, description.value);
-//   } else {
-    // creando
-//   }
-//   title.value = ""
-//   description.value = ""
+title.value = "";
+description.value = "";
+price.value = "";
+status = "";
+stock = "";
+category = "";
+files = "";
 
-//   title.focus()
+title.focus();
 
-module.exports = addProduct
+module.exports = addProduct;

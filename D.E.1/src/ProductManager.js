@@ -87,10 +87,10 @@ class ProductManager {
   }
 
 
-  getProductById = async (id) => {
+  getProductById = async (code) => {
     try {
       const products = await this.getData();
-      const product = products.find((product) => product.id === id);
+      const product = products.find((product) => product.code === code);
       if (!product) {
         throw new Error("Product not found");
       }

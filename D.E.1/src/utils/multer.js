@@ -1,4 +1,4 @@
-// 5.A.E.C/utils
+// /utils
 const multer = require("multer");
 const path = require("path");
 

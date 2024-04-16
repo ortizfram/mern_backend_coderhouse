@@ -47,10 +47,28 @@ io.on("connection", async (socket) => {
   // server:loadprods
   socket.emit("server:loadprods", await pm.getProducts());
 
+  // client:newprod
+  socket.on("client:newprod", async(newProd) => {
+    const prod = {
+      ...newProd,
+    };
+    console.log(prod);
+    // notes.push(note);
+    await pm.addProduct(prod)
+    io.emit("server:newprod", prod);
+  });
+
   // client:deleteprod
   socket.on("client:deleteprod", async (code) => {
     const products = await pm.deleteProduct(code); //returns the new array
     io.emit("server:loadprods", products);
+  });
+
+  // client:getprod
+  socket.on("client:getprod", async (code) => {
+    const prod = await pm.getProductById(code);
+    // console.log("slected ", prod);
+    socket.emit("server:selectedprod", prod);
   });
 });
 

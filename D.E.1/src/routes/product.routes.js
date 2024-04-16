@@ -7,32 +7,37 @@ const router = Router();
 const pm = new ProductManager();
 
 // addProduct
-router.post("/", uploader.array("files"), async(req,res)=> {
-   try {
-      const { title, description, price, status, stock, category } = req.body;
-      const thumbnails = req.files.map((file) => file.path);
-  
-      const reqProduct = {
-        title,
-        description,
-        price: parseFloat(price), // Parse price as a float
-        status: status === "on", // Convert checkbox value to boolean
-        stock: parseInt(stock), // Parse stock as an integer
-        category,
-        thumbnails,
-      };
-  
-      // Call the addProduct method on the productManager instance
-      await pm.addProduct(reqProduct);
-  
-      // Emit a socket event with the updated products data
-      req.io.emit("server:newprod", reqProduct);
-  
-      res.status(200).render("realTimeProducts", {});
-    } catch (error) {
-      // Handle any errors that occur during the process
-      res.status(500).json({ error: error.message });
-    }
+router.post("/", uploader.array("files"), async (req, res) => {
+  try {
+    const { title, description, price, status, stock, category } = req.body;
+    const thumbnails = req.files.map((file) => {
+      // Extract filename from the full path
+      const filename = file.path.split("\\").pop(); // Assuming Windows environment
+      // const filename = file.path.split("/").pop(); // Use this for Unix-like environments
+      return filename;
+    });
+
+    const reqProduct = {
+      title,
+      description,
+      price: parseFloat(price), // Parse price as a float
+      status: status === "on", // Convert checkbox value to boolean
+      stock: parseInt(stock), // Parse stock as an integer
+      category,
+      thumbnails,
+    };
+
+    // Call the addProduct method on the productManager instance
+    await pm.addProduct(reqProduct);
+
+    // Emit a socket event with the updated products data
+    req.io.emit("server:newprod", reqProduct);
+
+    res.status(200).render("realTimeProducts", {});
+  } catch (error) {
+    // Handle any errors that occur during the process
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // deleteProduct
