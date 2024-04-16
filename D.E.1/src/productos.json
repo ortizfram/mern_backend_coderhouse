@@ -1,1 +1,610 @@
-[{"id":9,"code":"4fb60e33","title":"Iphone","description":"with LED lights","price":"333","status":"true","stock":"1","category":"Keyboards","thumbnails":["\\img\\1711554739049-5de399ac21ccc7c5c97bd776a158c8b4.jpg","\\img\\1711554739053-Capture.PNG"]},{"id":11,"code":"a4fb71e1","title":"test","description":"test","price":"11","status":"on","stock":"3","category":"test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712925357844-Capture.PNG"]},{"id":12,"code":"dd78f6c9","title":"test","description":"test","price":"11","status":"on","stock":"3","category":"test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712925380310-Capture.PNG"]},{"id":13,"code":"e1f9b8cd","title":"test","description":"test","price":"11","status":"on","stock":"3","category":"test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712925982230-Capture.PNG"]},{"id":14,"code":"a49132bf","title":"test","description":"test","price":"123","status":"on","stock":"12","category":"test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712926008800-Capture.PNG"]},{"id":15,"code":"19b9a073","title":"test","description":"test","price":"123","status":"on","stock":"12","category":"test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712926040367-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":16,"code":"0a138fff","title":"asd","description":"asd","price":"123","status":"on","stock":"12","category":"asd","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712926808572-Capture.PNG"]},{"id":17,"code":"629e4426","title":"A","description":"ASD","price":"123","status":"on","stock":"123","category":"WE","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712927299012-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":18,"code":"c5bf504f","title":"test","description":"test","price":"123","status":"on","stock":"10","category":"test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712930435709-Capture.PNG"]},{"id":19,"code":"b1ec58b2","title":"test","description":"test","price":"123","status":"on","stock":"10","category":"test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931452954-saba.jfif"]},{"id":20,"code":"8b0898b6","title":"2test","description":"2test","price":"23","status":"on","stock":"1","category":"2test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931684277-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":21,"code":"261f66bf","title":"2test","description":"2test","price":"23","status":"on","stock":"1","category":"2test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931684691-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":22,"code":"a6c06ef7","title":"3test","description":"3test","price":"2","status":"on","stock":"2","category":"3test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931782237-Capture.PNG"]},{"id":23,"code":"afb7ed0c","title":"3test","description":"3test","price":"2","status":"on","stock":"2","category":"3test","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931782630-Capture.PNG"]},{"id":24,"code":"2684d223","title":"asd","description":"asd","price":"123","status":"on","stock":"1","category":"2","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931927055-Capture.PNG"]},{"id":25,"code":"f5c7affa","title":"asd","description":"asd","price":"123","status":"on","stock":"1","category":"2","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931927463-Capture.PNG"]},{"id":26,"code":"08fed6cd","title":"asdasd","description":"asd","price":"123","status":"on","stock":"1","category":"2","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712932920175-Capture.PNG"]},{"id":27,"code":"9a9c18e1","title":"new","description":"new","price":"123","status":"on","stock":"1","category":"new","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712933386123-Capture.PNG"]},{"id":28,"code":"f7f3ec80","title":"oda","description":"oda","price":"123","status":"on","stock":"1","category":"oda","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712933449503-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":29,"code":"7f84be92","title":"oda","description":"oda","price":"123","status":"on","stock":"1","category":"oda","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712933449867-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":30,"code":"a2dcdc5b","title":"cat","description":"cat","price":"123","status":"on","stock":"1","category":"cat","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712933754846-Sonder-Merch-11.jpg"]},{"id":31,"code":"be00562c","title":"tete","description":"tete","price":"123","status":"on","stock":"12","category":"tete","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713017603961-Capture.PNG"]},{"id":32,"code":"44fff427","title":"gaga","description":"gaga","price":"123","status":"on","stock":"1","category":"gaga","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713017991004-saba.jfif"]},{"id":33,"code":"aec123f8","title":"gaga","description":"gaga","price":"123","status":"on","stock":"1","category":"gaga","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713017991461-saba.jfif"]},{"id":34,"code":"cc17072f","title":"zaza","description":"zaza","price":"123","status":"on","stock":"1","category":"zaza","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713102344943-saba.jfif"]},{"id":35,"code":"7f0c76b1","title":"bazi","description":"bazi","price":"123","status":"on","stock":"1","category":"bazi","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713103101096-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":36,"code":"e2137937","title":"bazii","description":"bazi","price":"123","status":"on","stock":"1","category":"bazi","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713103137550-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":37,"code":"69906fd5","title":"real","description":"real","price":"443","status":"on","stock":"1","category":"real","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713137947043-saba.jfif"]},{"id":38,"code":"1f1eb524","title":"rfrf","description":"rfrf","price":"34","status":"on","stock":"1","category":"rfrf","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713139391791-Capture.PNG"]},{"id":39,"code":"9adf3df2","title":"rfrf","description":"rfrf","price":"34","status":"on","stock":"1","category":"rfrf","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713139432278-Capture.PNG"]},{"id":40,"code":"2b381c3a","title":"rfrf","description":"rfrf","price":"34","status":"on","stock":"1","category":"rfrf","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713139728733-Capture.PNG"]},{"id":41,"code":"ec83cf3b","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713221582929-Capture.PNG"]},{"id":55,"code":"4bf93d07","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713273077500-Capture.PNG"]},{"id":58,"code":"d1108a5d","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713273617318-Capture.PNG"]},{"id":59,"code":"616d6e1d","title":"title","description":"desc","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713274080321-Capture.PNG"]},{"id":60,"code":"34753356","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713274162389-Capture.PNG"]},{"id":61,"code":"60f07cbe","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713274252656-Capture.PNG"]},{"id":62,"code":"f3f760a0","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713274864114-Capture.PNG"]},{"id":63,"code":"17dc5573","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713275155876-Capture.PNG"]},{"id":64,"code":"23304db7","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713275170371-Capture.PNG"]},{"id":65,"code":"4f1e1a93","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["1713275315592-Capture.PNG"]},{"id":66,"code":"fc910fad","title":"imgae","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["1713275325557-5de399ac21ccc7c5c97bd776a158c8b4.jpg"]},{"id":67,"code":"f961f798","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["1713275328199-Capture.PNG"]},{"id":68,"code":"c112212e","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["1713275341031-Capture.PNG"]},{"id":69,"code":"7117db75","title":"asdasd","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":["1713275352086-Capture.PNG"]},{"id":70,"code":"8f7a07e1","title":"image","description":"desc","price":null,"status":true,"stock":null,"category":"","thumbnails":["1713275922459-Capture.PNG"]},{"id":71,"code":"94157e84","title":"imagessssss","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":[]},{"id":72,"code":"a288faf0","title":"realtime test","description":"","price":null,"status":true,"stock":null,"category":"","thumbnails":[]}]
+[
+  {
+    "id": 9,
+    "code": "4fb60e33",
+    "title": "Iphone",
+    "description": "with LED lights",
+    "price": "333",
+    "status": "true",
+    "stock": "1",
+    "category": "Keyboards",
+    "thumbnails": [
+      "\\img\\1711554739049-5de399ac21ccc7c5c97bd776a158c8b4.jpg",
+      "\\img\\1711554739053-Capture.PNG"
+    ]
+  },
+  {
+    "id": 11,
+    "code": "a4fb71e1",
+    "title": "test",
+    "description": "test",
+    "price": "11",
+    "status": "on",
+    "stock": "3",
+    "category": "test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712925357844-Capture.PNG"
+    ]
+  },
+  {
+    "id": 12,
+    "code": "dd78f6c9",
+    "title": "test",
+    "description": "test",
+    "price": "11",
+    "status": "on",
+    "stock": "3",
+    "category": "test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712925380310-Capture.PNG"
+    ]
+  },
+  {
+    "id": 13,
+    "code": "e1f9b8cd",
+    "title": "test",
+    "description": "test",
+    "price": "11",
+    "status": "on",
+    "stock": "3",
+    "category": "test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712925982230-Capture.PNG"
+    ]
+  },
+  {
+    "id": 14,
+    "code": "a49132bf",
+    "title": "test",
+    "description": "test",
+    "price": "123",
+    "status": "on",
+    "stock": "12",
+    "category": "test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712926008800-Capture.PNG"
+    ]
+  },
+  {
+    "id": 15,
+    "code": "19b9a073",
+    "title": "test",
+    "description": "test",
+    "price": "123",
+    "status": "on",
+    "stock": "12",
+    "category": "test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712926040367-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 16,
+    "code": "0a138fff",
+    "title": "asd",
+    "description": "asd",
+    "price": "123",
+    "status": "on",
+    "stock": "12",
+    "category": "asd",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712926808572-Capture.PNG"
+    ]
+  },
+  {
+    "id": 17,
+    "code": "629e4426",
+    "title": "A",
+    "description": "ASD",
+    "price": "123",
+    "status": "on",
+    "stock": "123",
+    "category": "WE",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712927299012-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 18,
+    "code": "c5bf504f",
+    "title": "test",
+    "description": "test",
+    "price": "123",
+    "status": "on",
+    "stock": "10",
+    "category": "test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712930435709-Capture.PNG"
+    ]
+  },
+  {
+    "id": 19,
+    "code": "b1ec58b2",
+    "title": "test",
+    "description": "test",
+    "price": "123",
+    "status": "on",
+    "stock": "10",
+    "category": "test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931452954-saba.jfif"
+    ]
+  },
+  {
+    "id": 20,
+    "code": "8b0898b6",
+    "title": "2test",
+    "description": "2test",
+    "price": "23",
+    "status": "on",
+    "stock": "1",
+    "category": "2test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931684277-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 21,
+    "code": "261f66bf",
+    "title": "2test",
+    "description": "2test",
+    "price": "23",
+    "status": "on",
+    "stock": "1",
+    "category": "2test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931684691-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 22,
+    "code": "a6c06ef7",
+    "title": "3test",
+    "description": "3test",
+    "price": "2",
+    "status": "on",
+    "stock": "2",
+    "category": "3test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931782237-Capture.PNG"
+    ]
+  },
+  {
+    "id": 23,
+    "code": "afb7ed0c",
+    "title": "3test",
+    "description": "3test",
+    "price": "2",
+    "status": "on",
+    "stock": "2",
+    "category": "3test",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931782630-Capture.PNG"
+    ]
+  },
+  {
+    "id": 24,
+    "code": "2684d223",
+    "title": "asd",
+    "description": "asd",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "2",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931927055-Capture.PNG"
+    ]
+  },
+  {
+    "id": 25,
+    "code": "f5c7affa",
+    "title": "asd",
+    "description": "asd",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "2",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712931927463-Capture.PNG"
+    ]
+  },
+  {
+    "id": 26,
+    "code": "08fed6cd",
+    "title": "asdasd",
+    "description": "asd",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "2",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712932920175-Capture.PNG"
+    ]
+  },
+  {
+    "id": 27,
+    "code": "9a9c18e1",
+    "title": "new",
+    "description": "new",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "new",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712933386123-Capture.PNG"
+    ]
+  },
+  {
+    "id": 28,
+    "code": "f7f3ec80",
+    "title": "oda",
+    "description": "oda",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "oda",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712933449503-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 29,
+    "code": "7f84be92",
+    "title": "oda",
+    "description": "oda",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "oda",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712933449867-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 30,
+    "code": "a2dcdc5b",
+    "title": "cat",
+    "description": "cat",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "cat",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1712933754846-Sonder-Merch-11.jpg"
+    ]
+  },
+  {
+    "id": 31,
+    "code": "be00562c",
+    "title": "tete",
+    "description": "tete",
+    "price": "123",
+    "status": "on",
+    "stock": "12",
+    "category": "tete",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713017603961-Capture.PNG"
+    ]
+  },
+  {
+    "id": 32,
+    "code": "44fff427",
+    "title": "gaga",
+    "description": "gaga",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "gaga",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713017991004-saba.jfif"
+    ]
+  },
+  {
+    "id": 33,
+    "code": "aec123f8",
+    "title": "gaga",
+    "description": "gaga",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "gaga",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713017991461-saba.jfif"
+    ]
+  },
+  {
+    "id": 34,
+    "code": "cc17072f",
+    "title": "zaza",
+    "description": "zaza",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "zaza",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713102344943-saba.jfif"
+    ]
+  },
+  {
+    "id": 35,
+    "code": "7f0c76b1",
+    "title": "bazi",
+    "description": "bazi",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "bazi",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713103101096-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 36,
+    "code": "e2137937",
+    "title": "bazii",
+    "description": "bazi",
+    "price": "123",
+    "status": "on",
+    "stock": "1",
+    "category": "bazi",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713103137550-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 37,
+    "code": "69906fd5",
+    "title": "real",
+    "description": "real",
+    "price": "443",
+    "status": "on",
+    "stock": "1",
+    "category": "real",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713137947043-saba.jfif"
+    ]
+  },
+  {
+    "id": 38,
+    "code": "1f1eb524",
+    "title": "rfrf",
+    "description": "rfrf",
+    "price": "34",
+    "status": "on",
+    "stock": "1",
+    "category": "rfrf",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713139391791-Capture.PNG"
+    ]
+  },
+  {
+    "id": 39,
+    "code": "9adf3df2",
+    "title": "rfrf",
+    "description": "rfrf",
+    "price": "34",
+    "status": "on",
+    "stock": "1",
+    "category": "rfrf",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713139432278-Capture.PNG"
+    ]
+  },
+  {
+    "id": 40,
+    "code": "2b381c3a",
+    "title": "rfrf",
+    "description": "rfrf",
+    "price": "34",
+    "status": "on",
+    "stock": "1",
+    "category": "rfrf",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713139728733-Capture.PNG"
+    ]
+  },
+  {
+    "id": 41,
+    "code": "ec83cf3b",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713221582929-Capture.PNG"
+    ]
+  },
+  {
+    "id": 55,
+    "code": "4bf93d07",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713273077500-Capture.PNG"
+    ]
+  },
+  {
+    "id": 58,
+    "code": "d1108a5d",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713273617318-Capture.PNG"
+    ]
+  },
+  {
+    "id": 59,
+    "code": "616d6e1d",
+    "title": "title",
+    "description": "desc",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713274080321-Capture.PNG"
+    ]
+  },
+  {
+    "id": 60,
+    "code": "34753356",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713274162389-Capture.PNG"
+    ]
+  },
+  {
+    "id": 61,
+    "code": "60f07cbe",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713274252656-Capture.PNG"
+    ]
+  },
+  {
+    "id": 62,
+    "code": "f3f760a0",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713274864114-Capture.PNG"
+    ]
+  },
+  {
+    "id": 63,
+    "code": "17dc5573",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713275155876-Capture.PNG"
+    ]
+  },
+  {
+    "id": 64,
+    "code": "23304db7",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "C:\\Users\\Lenovo\\Documents\\WORKSPACE\\mern_backend_coderhouse\\D.E.1\\src\\public\\img\\1713275170371-Capture.PNG"
+    ]
+  },
+  {
+    "id": 65,
+    "code": "4f1e1a93",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "1713275315592-Capture.PNG"
+    ]
+  },
+  {
+    "id": 66,
+    "code": "fc910fad",
+    "title": "imgae",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "1713275325557-5de399ac21ccc7c5c97bd776a158c8b4.jpg"
+    ]
+  },
+  {
+    "id": 67,
+    "code": "f961f798",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "1713275328199-Capture.PNG"
+    ]
+  },
+  {
+    "id": 68,
+    "code": "c112212e",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "1713275341031-Capture.PNG"
+    ]
+  },
+  {
+    "id": 69,
+    "code": "7117db75",
+    "title": "asdasd",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": [
+      "1713275352086-Capture.PNG"
+    ]
+  },
+  {
+    "id": 72,
+    "code": "a288faf0",
+    "title": "realtime test",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": null,
+    "category": "",
+    "thumbnails": []
+  },
+  {
+    "id": 73,
+    "code": "6b7c90a3",
+    "title": "tete",
+    "description": "",
+    "price": null,
+    "status": true,
+    "stock": 4,
+    "category": "",
+    "thumbnails": []
+  }
+]
