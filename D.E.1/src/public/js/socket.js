@@ -5,11 +5,11 @@ const socket = io();
 socket.on("server:ping", (data) => console.log(data));
 socket.emit("client:pong", "pong");
 
-const deleteProd = (id) => {
-  socket.emit("client:deleteprod", id);
+const deleteProd = (code) => {
+  socket.emit("client:deleteprod", code);
 };
-const getProd = (id) => {
-  socket.emit("client:getprod", id);
+const getProd = (code) => {
+  socket.emit("client:getprod", code);
 };
 
 socket.on("server:newprod", (prod) => console.log(prod)); //ui render prods

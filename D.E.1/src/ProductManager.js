@@ -17,7 +17,7 @@ class ProductManager {
   };
 
   deleteProduct = async (code) => {
-    const products = await this.getData();
+    let products = await this.getData();
     const product = products.find(
       (product) => product.code === code,
       (err) => {
@@ -28,9 +28,11 @@ class ProductManager {
     const filteredP = products.filter((product) => product.code !== code);
 
     // save
-    fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
+     fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
 
     console.log("PRODUCT DELETED successfully")
+
+    return filteredP
   };
 
   async getProducts() {
