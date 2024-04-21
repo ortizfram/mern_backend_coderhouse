@@ -1,0 +1,17 @@
+{
+  "name": "mern_backend_coderhouse",
+  "version": "1.0.0",
+  "description": "cada rama es una clase",
+  "main": "app.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.3.2"
+  }
+}
