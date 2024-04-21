@@ -9,6 +9,5 @@ const estudianteSchema = new mongoose.Schema({
   nota: { type: Number, required: true },
 });
 
-const Estudiante = mongoose.model("Estudiante", estudianteSchema);
 
-module.exports.Estudiante = Estudiante
+module.exports.estudianteModel = mongoose.model("Estudiante", estudianteSchema);

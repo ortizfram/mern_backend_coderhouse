@@ -1,12 +1,12 @@
 const express = require("express");
-const Estudiante = require("../models/estudiantes.model");
+const { estudianteModel } = require("../models/estudiantes.models");
 
 const router = express.Router();
 
 // Crear estudiante
 router.post("/", async (req, res) => {
   try {
-    const estudiante = new Estudiante(req.body);
+    const estudiante = new estudianteModel(req.body);
     await estudiante.save();
     res.status(201).json(estudiante);
   } catch (error) {
@@ -17,7 +17,7 @@ router.post("/", async (req, res) => {
 // Obtener todos los estudiantes
 router.get("/", async (req, res) => {
   try {
-    const estudiantes = await Estudiante.find();
+    const estudiantes = await estudianteModel.find();
     res.json(estudiantes);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
 // Obtener un estudiante por su id
 router.get("/:id", async (req, res) => {
   try {
-    const estudiante = await Estudiante.findById(req.params.id);
+    const estudiante = await estudianteModel.findById(req.params.id);
     if (!estudiante) {
       return res.status(404).json({ error: "Estudiante no encontrado" });
     }
@@ -40,7 +40,7 @@ router.get("/:id", async (req, res) => {
 // Actualizar estudiante por su id
 router.put("/:id", async (req, res) => {
   try {
-    const estudiante = await Estudiante.findByIdAndUpdate(
+    const estudiante = await estudianteModel.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true }
@@ -57,7 +57,7 @@ router.put("/:id", async (req, res) => {
 // Eliminar estudiante por su id
 router.delete("/:id", async (req, res) => {
   try {
-    const estudiante = await Estudiante.findByIdAndDelete(req.params.id);
+    const estudiante = await estudianteModel.findByIdAndDelete(req.params.id);
     if (!estudiante) {
       return res.status(404).json({ error: "Estudiante no encontrado" });
     }
@@ -67,4 +67,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-module.exports.router = router;
+module.exports = {studentRouter:router};

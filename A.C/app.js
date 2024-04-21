@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const router = require("./routes/estudiantes.routes");
+const {studentRouter} = require("./routes/estudiantes.routes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,7 +21,7 @@ db.once("open", function () {
   console.log("Connected to MongoDB Atlas");
 });
 
-app.use("/api/estudiantes", router);
+app.use("/api/estudiantes", studentRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
