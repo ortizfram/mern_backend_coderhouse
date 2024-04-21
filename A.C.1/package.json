@@ -1,0 +1,16 @@
+{
+  "name": "a.c.1",
+  "version": "1.0.0",
+  "description": "Sobre una base de datos llamada “colegio”, crear una colección “estudiantes” donde se agregarán documentos con los siguientes datos:\r - nombre\r - apellido\r - curso\r - edad\r - correo\r - sexo",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node": "^18.20.2"
+  }
+}

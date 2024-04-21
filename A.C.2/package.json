@@ -1,0 +1,13 @@
+{
+  "name": "a.c.2",
+  "version": "1.0.0",
+  "description": "Sobre la base y los datos cargados anteriormente\r 1. Insertar cinco documentos más en la colección clientes con los siguientes datos:\r ```\r { \"nombre\" : \"Pablo\", \"edad\" : 25 }\r { \"nombre\" : \"Juan\", \"edad\" : 22 }\r { \"nombre\" : \"Lucia\", \"edad\" : 25 }\r { \"nombre\" : \"Juan\", \"edad\" : 29 }\r { \"nombre\" : \"Fede\", \"edad\" : 35 }\r ```\r 2. Listar todos los documentos de la colección clientes ordenados por edad descendente.\r 3. Listar el cliente más joven.\r 4. Listar el segundo cliente más joven.\r 5. Listar los clientes llamados 'Juan'\r 6. Listar los clientes llamados 'Juan' que tengan 29 años.\r 7. Listar los clientes llamados 'Juan' ó 'Lucia'.\r 8. Listar los clientes que tengan más de 25 años.\r 9. Listar los clientes que tengan 25 años ó menos.\r 10. Listar los clientes que NO tengan 25 años.\r 11. Listar los clientes que estén entre los 26 y 35 años.\r 12. Actualizar la edad de Fede a 36 años, listando y verificando que no aparezca en el último listado.\r 13. Actualizar todas las edades de 25 años a 26 años, listando y verificando que aparezcan en el último listado.\r 14. Borrar los clientes que se llamen 'Juan' y listar verificando el resultado.\r 15. Eliminar además todos los documentos de estudiantes que hayan quedado con algún valor.",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
