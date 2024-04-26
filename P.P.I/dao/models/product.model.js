@@ -10,5 +10,5 @@ const productSchema = new mongoose.Schema({
     category: { type: String, required: true },
     thumbnails: { type: Array },
   });
-  
-module.exports.productSchema = mongoose.model("Product", productSchema);
+
+module.exports.productSchema = mongoose.model("Product", productSchema, "ecommerce");

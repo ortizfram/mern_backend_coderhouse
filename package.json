@@ -9,7 +9,7 @@
   "description": "- Express router\r - Express middlewares\r -  multer\r ----\r - 🥼 H.O.L: express router `users y pets`",
   "version": "1.0.0",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

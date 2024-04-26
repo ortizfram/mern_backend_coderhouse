@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { uploader } = require("../utils/multer");
-const CartManager = require("../CartManager.js");
+const CartManager = require("../dao/managers/CartManager.js");
 
 const cartManager = new CartManager();
 const router = Router();
