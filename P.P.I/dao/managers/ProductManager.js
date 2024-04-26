@@ -89,7 +89,7 @@ class ProductManager {
       // const product = products.find((product) => product.id === id);
 
       // Find the product by ID in the database
-      const product = await Product.findById(id);
+      const product = await Product.findById(new mongoose.Types.ObjectId(id));
 
       if (!product) {
         throw new Error("Product not found");
@@ -136,12 +136,12 @@ class ProductManager {
     // Find the product by ID in the database
     try {
       // Find the product by ID in the database
-      const product = await Product.findById(id);
-  
+      const product = await Product.findById(new mongoose.Types.ObjectId(id))
+
       if (!product) {
         throw new Error("Product not found");
       }
-  
+
       // Update the product fields
       product.code = code;
       product.description = description;
@@ -150,10 +150,10 @@ class ProductManager {
       product.stock = stock;
       product.category = category;
       product.thumbnails = thumbnails;
-  
+
       // Save the updated product to the database
       await product.save();
-  
+
       return product;
     } catch (error) {
       throw new Error("Error updating product: " + error.message);
@@ -177,12 +177,14 @@ class ProductManager {
     // return product;
     try {
       // Find the product by ID in the database
-      const product = await Product.findByIdAndDelete(id);
-  
+      const product = await Product.findByIdAndDelete(
+        new mongoose.Types.ObjectId(id)
+      );
+
       if (!product) {
         throw new Error("Product not found");
       }
-  
+
       return product;
     } catch (error) {
       throw new Error("Error deleting product: " + error.message);

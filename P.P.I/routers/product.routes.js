@@ -18,9 +18,13 @@ router.get("/", async (req, res) => {
 
 // getProductById
 router.get("/:pid", async (req, res) => {
-  let pid = parseInt(req.params.pid);
+  let pid = req.params.pid;
   try {
     const product = await productManager.getProductById(pid);
+    if (product.length === 0) {
+      // If product not found, return 404
+      return res.status(404).json({ error: "Product not found" });
+    }
     res.json({ success: "found", product });
   } catch (error) {
     res.status(404).json({ error: error.message });
@@ -99,7 +103,7 @@ router.put("/:pid", uploader.array("files"), async (req, res) => {
 // deleteProduct
 router.delete("/:pid", async (req, res) => {
   // fetch product
-  let pid = parseInt(req.params.pid);
+  let pid = req.params.pid;
   try {
     const product = await productManager.deleteProduct(pid);
     res.status(200).json({ success: "deleted", product: pid });
