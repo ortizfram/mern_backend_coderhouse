@@ -18,7 +18,7 @@ Swal.fire({
   socket.emit("authenticate", { id: socket.id, email: user });
 });
 
-// Display messages
+// emit message and clear
 const chatBox = document.getElementById("chatBox");
 chatBox.addEventListener("keyup", (evt) => {
   if (evt.key === "Enter") {// si ENTER
@@ -29,8 +29,19 @@ chatBox.addEventListener("keyup", (evt) => {
   }
 });
 
-// Socket listeners
+// Display messages
 socket.on("messageLogs", (data) => {
+  const log = document.getElementById("messageLogs");
+  let messages = "";
+  log.innerHTML = "";
+  data.forEach((message) => {
+    messages = messages + `${message.user} dice: ${message.message}<br>`;
+  });
+  log.innerHTML = messages;
+});
+
+// charge and display previous messages 
+socket.on("chatLogs", (data) => {
   const log = document.getElementById("messageLogs");
   let messages = "";
   data.forEach((message) => {

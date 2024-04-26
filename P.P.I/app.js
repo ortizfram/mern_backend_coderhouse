@@ -5,9 +5,7 @@ const mongoose = require("mongoose");
 const { Server } = require("socket.io");
 const handlebars = require("express-handlebars");
 const ViewsRoute = require("./chat_app/src/routes/views.routes.js");
-const { messageSchema:Message } = require("./dao/models/message.model.js");
-
-
+const { messageSchema: Message } = require("./dao/models/message.model.js");
 
 const app = express();
 const httpServer = app.listen(8080, () => console.log("Listening port 8080"));
@@ -20,9 +18,11 @@ let messages = [];
 io.on("connection", (socket) => {
   console.log("Nuevo cliente conectado");
 
-  socket.on("authenticate", (user) => {
+  socket.on("authenticate", async (user) => {
     // Add user to connectedUsers array
     connectedUsers.push(user);
+    // populate mesages
+    messages = await Message.find({});
     // Emit chat logs to the newly authenticated user
     socket.emit("chatLogs", messages);
     // Broadcast to all other users that a new user has connected
@@ -32,9 +32,13 @@ io.on("connection", (socket) => {
   socket.on("message", async (data) => {
     try {
       // Save the message to MongoDB using the Mongoose Message model
-      const message = await Message.create(data);
+      const message = await Message.create({
+        user: data.user,
+        message: data.message,
+      });
+      messages.push(message);
       // Emit the message to all clients
-      io.emit("messageLogs", message);
+      io.emit("messageLogs", messages);
     } catch (error) {
       console.error("Error saving message:", error);
     }
@@ -69,6 +73,6 @@ app.set("view engine", "handlebars");
 app.use(express.static(__dirname + "/public"));
 
 // routes
-app.use("/", ViewsRoute)
+app.use("/", ViewsRoute);
 app.use("/api/product", ProductRoute);
 app.use("/api/cart", CartRoute);
