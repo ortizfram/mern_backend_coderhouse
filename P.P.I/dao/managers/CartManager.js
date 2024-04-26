@@ -1,5 +1,8 @@
 const fs = require("fs");
 const ProductManager = require("./ProductManager.js");
+const mongoose = require("mongoose");
+const { cartSchema: Cart } = require("../models/cart.models.js");
+const { productSchema: Product } = require("../models/product.model.js");
 
 class CartManager {
   constructor() {
@@ -9,59 +12,55 @@ class CartManager {
     this.getData();
   }
 
-  getData() {
-    // leer archivo
-    try {
-      const data = fs.readFileSync(this.path, "utf8");
-      this.carritos = JSON.parse(data);
-    } catch (err) {
-      this.carritos = [];
-    }
-  }
-
-  saveData() {
-    // escribir archivo
-    fs.writeFileSync(this.path, JSON.stringify(this.carritos), "utf8");
-  }
-
-  newId() {
-    return parseInt(Date.now());
-  }
+  getData = async () => {
+    const data = await Cart.find({});
+    return data;
+  };
 
   async newCart() {
-    const nuevoCarrito = {
-      id: this.newId(),
-      products: [],
-    };
-    this.carritos.push(nuevoCarrito);
-    this.saveData();
-    return nuevoCarrito;
+    try {
+      const nuevoCarrito = await Cart.create({ products: [] });
+      return nuevoCarrito;
+    } catch (error) {
+      throw new Error("Error creating new cart: " + error.message);
+    }
   }
 
   async listProdsInCart(cid) {
-    const carrito = this.carritos.find((c) => c.id === cid);
-    return carrito ?  { id: carrito.id, products: carrito.products } : null;
+    try {
+      const carrito = await Cart.findById(new mongoose.Types.ObjectId(cid));
+      return carrito ? carrito : null;
+    } catch (error) {
+      throw new Error("Error fetching cart: " + error.message);
+    }
   }
 
   async addProdToCart(cid, pid) {
-    const product = await this.productManager.getProductById(pid);
-    const carrito = this.carritos.find((c) => c.id === cid);
-    if (!carrito) {
-      throw new Error("Carrito no encontrado");
-    }
-    if (!product) {
-      throw new Error("Producto no encontrado");
-    }
+    try {
+      const product = await Product.findById(new mongoose.Types.ObjectId(pid));
+      if (!product) {
+        throw new Error("Producto no encontrado");
+      }
 
-    const existingProduct = carrito.products.find((p) => p.product === pid);
-    if (existingProduct) {
-      existingProduct.quantity++;
-    } else {
-      carrito.products.push({ product: pid, quantity: 1 });
-    }
+      // Find the cart by its ID
+      const cart = await Cart.findById(new mongoose.Types.ObjectId(cid));
+      if (!cart) {
+        throw new Error("Carrito no encontrado");
+      }
 
-    this.saveData();
-    return carrito.products;
+      const existingProduct = cart.products.find((p) => p.product.equals(pid));
+      if (existingProduct) {
+        existingProduct.quantity++;
+      } else {
+        cart.products.push({ product: pid, quantity: 1 });
+      }
+
+      await cart.save();
+
+      return cart.products;
+    } catch (error) {
+      throw new Error("Error adding product to cart: " + error.message);
+    }
   }
 }
 
