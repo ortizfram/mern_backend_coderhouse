@@ -1,6 +1,7 @@
 const fs = require("fs");
 const crypto = require("crypto");
 const { productSchema: Product } = require("../models/product.model");
+const { mongoose } = require("mongoose");
 
 class ProductManager {
   constructor() {

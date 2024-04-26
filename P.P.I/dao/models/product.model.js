@@ -11,4 +11,4 @@ const productSchema = new mongoose.Schema({
     thumbnails: { type: Array },
   });
 
-module.exports.productSchema = mongoose.model("Product", productSchema, "ecommerce");
+module.exports.productSchema = mongoose.model("Product", productSchema, "products");
