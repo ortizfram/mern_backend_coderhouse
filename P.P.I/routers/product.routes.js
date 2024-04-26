@@ -2,6 +2,7 @@ const { Router } = require("express");
 const uploader = require("../utils/multer.js");
 const ProductManager = require("../ProductManager.js");
 
+
 const router = Router();
 const productManager = new ProductManager();
 
