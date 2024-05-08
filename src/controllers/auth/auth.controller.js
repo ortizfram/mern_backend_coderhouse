@@ -44,7 +44,51 @@ const inyectarSetCookie = (req, res) => {
   res.sendStatus(200);
 };
 
+// express-session
+const sessionCounter = (req,res)=>{
+  if(req.session.counter){
+    req.session.counter++
+    res.send(`se ha visitado el sitio ${req.session.counter} veces`)
+  }else {
+    req.session.counter = 1
+    res.send('Bienvenido!')
+  }
+}
+
+
+const loginConSession = (req,res)=>{
+  const {username,password} = req.query
+  if(username !== 'pepe' || password !== 'pepepass'){
+    return res.send('login failed')
+  }
+  req.session.user = username
+  req.session.admin=true
+  res.send('login success')
+}
+// limitar el acceso a determinadas rutas
+const middlewareAuth = (req,res, next)=>{
+  if(req.session?.user === 'pepe' && req.session?.admin){
+    return next()
+  }
+  return res.status(401).send("error de autentificacion")
+}
+
+const logoutConSession = (req,res)=>{
+  
+  req.session.destroy = (err =>{
+    if(err){
+      return res.json({status:'Logout ERROR',body:err})
+    }
+    res.send('Logout ok!')
+  })
+}
+
+
 module.exports = {
+  logoutConSession,
+  middlewareAuth,
+  loginConSession,
+  sessionCounter,
   inyectarGetCookie,
   inyectarSetCookie,
   setCoookie,

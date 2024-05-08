@@ -9,6 +9,10 @@ const {
   home,
   inyectarGetCookie,
   inyectarSetCookie,
+  sessionCounter,
+  loginConSession,
+  middlewareAuth,
+  logoutConSession,
 } = require("../../controllers/auth/auth.controller.js");
 
 const router = express.Router();
@@ -29,6 +33,12 @@ router.get("/inyectar/getCookie", inyectarGetCookie);
 router.post("/inyectar/setCookie", inyectarSetCookie);
 
 // express-session
-router.get('/session')
+router.get('/session', sessionCounter)
+router.get('/login', loginConSession)
+router.get('/privado', middlewareAuth, (req, res) => {
+  res.send("si ves esto ya te logueaste");
+});
+router.get('/logout', logoutConSession)
+
 
 module.exports = router;
