@@ -1,6 +1,8 @@
 # mern_backend_coderhouse
 
-## 15.primera_practica_integradora
+## 18.cookies-session-storage
 --- 
 
-- [x] 🥇1ra P.P.I: `primera practica integradora` `5.E.P.F`
+- `src` tiene todos los controllers de `cookies y session`
+
+- `acc1` tiene actividad de counter de visitas y req.session.username
