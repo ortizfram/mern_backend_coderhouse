@@ -48,13 +48,12 @@ const inyectarSetCookie = (req, res) => {
 const sessionCounter = (req,res)=>{
   if(req.session.counter){
     req.session.counter++
-    res.send(`se ha visitado el sitio ${req.session.counter} veces`)
+    res.send(`has visitado el sitio ${req.session.counter} veces`)
   }else {
     req.session.counter = 1
-    res.send('Bienvenido!')
+    res.send('')
   }
 }
-
 
 const loginConSession = (req,res)=>{
   const {username,password} = req.query
@@ -64,6 +63,20 @@ const loginConSession = (req,res)=>{
   req.session.user = username
   req.session.admin=true
   res.send(`te damos la bienvenida ${req.session.user}`)
+}
+const loginConSessionCounter = (req,res)=>{
+  const {username,password} = req.query
+  if(username !== 'pepe' || password !== 'pepepass'){
+    return res.send('login failed')
+  }
+  if(req.session.counter){
+    req.session.counter++
+  }else {
+    req.session.counter = 1
+  }
+  req.session.user = username
+  req.session.admin=true
+  res.send(`te damos la bienvenida ${req.session.user}, has visitado el sitio ${req.session.counter} veces`)
 }
 // limitar el acceso a determinadas rutas
 const middlewareAuth = (req,res, next)=>{
@@ -85,6 +98,7 @@ const logoutConSession = (req,res)=>{
 
 
 module.exports = {
+  loginConSessionCounter,
   logoutConSession,
   middlewareAuth,
   loginConSession,
