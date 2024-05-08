@@ -2,9 +2,15 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/auth/auth.routes.js");
 const handlebars = require("express-handlebars");
+const session = require("express-session")
 
 const app = express();
 app.use(express.json())
+app.use(session({
+  secret:'secret',
+  resave:true,
+  saveUninitialized:true
+}))
 
 app.use(express.static(__dirname + "/public"));
 app.engine("handlebars", handlebars.engine());

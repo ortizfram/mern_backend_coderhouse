@@ -28,4 +28,7 @@ router.get("/deleteSignedCookie", deleteSignedCoookie);
 router.get("/inyectar/getCookie", inyectarGetCookie);
 router.post("/inyectar/setCookie", inyectarSetCookie);
 
+// express-session
+router.get('/session')
+
 module.exports = router;
