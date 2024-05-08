@@ -4,7 +4,7 @@ const authRouter = require("./routes/auth/auth.routes.js");
 
 const app = express();
 
-app.use(cookieParser());
+app.use(cookieParser("secret")); //pass secret from .env
 app.use("/", authRouter);
 
 app.listen(8080, () => {
