@@ -1,5 +1,7 @@
+const User = require("../../models/user.model");
+
 const home = (req, res) => {
-  res.render("registro", {});
+  res.render("home", {});
 };
 
 const login = (req,res)=> {
@@ -28,10 +30,20 @@ const getRegister = (req,res)=> {
   res.render("registro", {})
 }
 const postRegister = (req,res)=> {
-  const { user } = req.body;
-  res.cookie("user", user, { maxAge: 10000, signed: true }); // Cookie válida por 10 segundos
-  console.log("Cookie creada:", { user });
+  const { first_name,last_name,email,password,age } = req.body;
+  try {
+    //esto va en login
+  // res.cookie("user", user, { maxAge: 10000, signed: true });
+  // console.log("Cookie creada:", { user });
+  const newUser = new User({first_name,last_name,email,password,age})
+  // save in db
+  newUser.save()
+
   res.sendStatus(200);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).send("Error creating user");
+  }
 }
 const perfil = (req,res)=> {
   res.render("perfil", {})
@@ -42,18 +54,6 @@ module.exports = {
   getRegister,
   postRegister,
   login,
-  loginConSessionCounter,
-  logoutConSession,
   middlewareAuth,
-  loginConSession,
-  sessionCounter,
-  inyectarGetCookie,
-  inyectarSetCookie,
-  setCoookie,
-  getCoookie,
-  deleteCoookie,
-  setSignedCoookie,
-  getSignedCoookie,
-  deleteSignedCoookie,
   home,
 };

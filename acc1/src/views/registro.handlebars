@@ -1,44 +1,36 @@
 {{! index.handlebars }}
 <h1>Registro</h1>
-<label for="first_name">Nombre del Cliente:</label>
+<label for="first_name">Nombre</label>
 <input type="text" id="first_name" name="first_namename" /><br /><br />
-<label for="last_name">apellido del Cliente:</label>
+<label for="last_name">apellido:</label>
 <input type="text" id="last_name" name="last_name" /><br /><br />
 <label for="age">edad:</label>
 <input type="text" id="age" name="age" /><br /><br />
-<label for="email">Correo Electrónico:</label>
+<label for="email">Email:</label>
 <input type="email" id="email" name="email" /><br /><br />
 <label for="password">contrasena:</label>
 <input type="password" id="password" name="password" /><br /><br />
-{{!-- <button onclick="getCookie()">Obtener Cookie</button> --}}
 <button onclick="submitForm()">Enviar</button><br/><br/>
-<a href="/login">ya tengo una cuenta</a>
+<a href="/api/sessions/login">ya tengo una cuenta</a>
 
 <script>
-  function getCookie() { 
-    fetch("/inyectar/getCookie") 
-      .then((response) => response.json()) 
-      .then((data) => console.log(data)) 
-      .catch((error) => console.error("Error:", error)); 
-  }
-
   function submitForm() { 
     const first_name = document.getElementById("first_name").value; 
     const last_name = document.getElementById("last_name").value; 
     const email = document.getElementById("email").value; 
     const password = document.getElementById("password").value; 
     const age = document.getElementById("age").value; 
-    fetch("/inyectar/setCookie", {
+    fetch("/api/sessions/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" }, 
-      body: JSON.stringify({ user: {email,first_name,last_name,age} }),
+      body: JSON.stringify({ email,password,first_name,last_name,age}),
     })
       .then((response) => { 
         if (response.ok) { 
-          console.log("Cookie creada correctamente"); 
-          window.location.href = "/login"
+          console.log("Usuario Creado"); 
+          window.location.href = "/api/sessions/login"
         } else { 
-          console.error("Error al crear la cookie"); 
+          console.error("Error al crear usuario"); 
         } 
       }) 
       .catch((error) => console.error("Error:", error)); 
