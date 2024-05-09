@@ -1,11 +1,12 @@
 {{! index.handlebars }}
-<h1>Te damos la bienvenida</h1>
-{{!-- <label for="name">Nombre del Cliente:</label>
-<input type="text" id="name" name="name" /><br /><br />
+<h1>login</h1>
 <label for="email">Correo Electrónico:</label>
 <input type="email" id="email" name="email" /><br /><br />
+<label for="password">contrasena:</label>
+<input type="password" id="password" name="password" /><br /><br />
 <button onclick="getCookie()">Obtener Cookie</button>
-<button onclick="submitForm()">Enviar</button> --}}
+<button onclick="submitForm()">Enviar</button>
+<a href="/register">aun no tengo una cuenta</a>
 
 <script>
   function getCookie() { 
@@ -13,19 +14,23 @@
       .then((response) => response.json()) 
       .then((data) => console.log(data)) 
       .catch((error) => console.error("Error:", error)); 
-  } 
+  }
 
   function submitForm() { 
-    const name = document.getElementById("name").value; 
+    const first_name = document.getElementById("first_name").value; 
+    const last_name = document.getElementById("last_name").value; 
     const email = document.getElementById("email").value; 
-    fetch("/inyectar/setCookie", { 
-      method: "POST", 
+    const password = document.getElementById("password").value; 
+    const age = document.getElementById("age").value; 
+    fetch("/inyectar/setCookie", {
+      method: "POST",
       headers: { "Content-Type": "application/json" }, 
-      body: JSON.stringify({ user: email }), 
-    }) 
+      body: JSON.stringify({ user: {email,first_name,last_name,age} }),
+    })
       .then((response) => { 
         if (response.ok) { 
           console.log("Cookie creada correctamente"); 
+          window.location.href = "/perfil"
         } else { 
           console.error("Error al crear la cookie"); 
         } 

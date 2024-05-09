@@ -1,24 +1,21 @@
 const express = require("express");
 const {
-  setCoookie,
-  getCoookie,
-  deleteCoookie,
-  setSignedCoookie,
-  getSignedCoookie,
-  deleteSignedCoookie,
   home,
   inyectarGetCookie,
   inyectarSetCookie,
-  sessionCounter,
-  loginConSession,
   middlewareAuth,
   logoutConSession,
-  loginConSessionCounter,
+  login,
+  getRegister,
+  postRegister,
 } = require("../../controllers/auth/auth.controller.js");
 
 const router = express.Router();
 
 router.get("/", home);
+router.get("/login", login);
+router.get("/register", getRegister);
+router.post("/register", postRegister);
 // normal cookies
 router.get("/setCookie", setCoookie);
 router.get("/getCookie", getCoookie);
@@ -35,7 +32,7 @@ router.post("/inyectar/setCookie", inyectarSetCookie);
 
 // express-session
 router.get('/session', sessionCounter)
-router.get('/login', loginConSessionCounter)
+// router.get('/login', loginConSessionCounter)
 router.get('/privado', middlewareAuth, (req, res) => {
   res.send("si ves esto ya te logueaste");
 });
