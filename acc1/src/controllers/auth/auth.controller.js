@@ -4,7 +4,7 @@ const home = (req, res) => {
   let user = req.session.user;
   res.render("login", { user: user });
 };
-
+ 
 // limitar el acceso a determinadas rutas
 const middlewareAuth = (req, res, next) => {
   if (req.session?.user) {
