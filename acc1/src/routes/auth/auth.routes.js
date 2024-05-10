@@ -2,16 +2,21 @@ const express = require("express");
 const {
   home,
   middlewareAuth,
-  logoutConSession,
   login,
   getRegister,
   postRegister,
+  postLogin,
+  perfil,
+  logoutConSession,
 } = require("../../controllers/auth/auth.controller.js");
 
 const router = express.Router();
 
 router.get("/", home);
+router.get("/perfil", perfil);
+router.get("/logout", logoutConSession);
 router.get("/login", login);
+router.post("/login", postLogin);
 router.get("/register", getRegister);
 router.post("/register", postRegister);
 
