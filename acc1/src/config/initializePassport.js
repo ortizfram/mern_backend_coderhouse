@@ -32,7 +32,7 @@ const initializePassport = () => {
         }
       }
     )
-  );
+  ); 
 
   /**LOGIN */
   passport.use(
