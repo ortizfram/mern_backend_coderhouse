@@ -1,5 +1,5 @@
 <h1>Productos</h1>
-<p style="color: blue;">Holaaa! {{user.email}} Bienvenid@</p>
+<p style="color: blue;">Holaaa! {{user}} Bienvenid@</p>
 <p style="color: green;">admin: {{admin}}</p>
 <button onclick="logout()">logout</button>
 <br/>
@@ -26,14 +26,14 @@
 
 <script>
   function logout() { 
-    fetch("/api/sessions/logout", { // Corrected the URL to point to logout route
+    fetch("/api/sessions/logout", {
       method: "GET",
       headers: { "Content-Type": "application/json" }, 
     })
     .then((response) => { 
       if (response.ok) { 
         console.log("logged-out"); 
-        window.location.href = "/api/sessions/login"; // Redirect to login page after logout
+        window.location.href = "/api/sessions/login"; 
       } else { 
         console.error("Error al salir de sesion"); 
       } 

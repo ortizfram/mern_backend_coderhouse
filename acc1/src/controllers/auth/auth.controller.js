@@ -1,3 +1,4 @@
+const passport = require("passport");
 const User = require("../../models/user.model");
 const { createHash, isValidPassword } = require("../../utils/utils");
 
@@ -6,9 +7,9 @@ const home = (req, res) => {
   res.render("login", { user: user });
 };
 
-// limitar el acceso a determinadas rutas
+// Middleware to protect routes
 const middlewareAuth = (req, res, next) => {
-  if (req.session?.user) {
+  if (req.isAuthenticated()) {
     return next();
   }
   return res.status(401).send("error de autentificacion");
@@ -16,7 +17,7 @@ const middlewareAuth = (req, res, next) => {
 
 const logoutConSession = (req, res) => {
   res.clearCookie("user", { signed: true }); // Clear the signed cookie named 'user'
-  req.session.destroy((err) => {
+  req.logout((err) => {
     if (err) {
       return res.json({ status: "Logout ERROR", body: err });
     }
@@ -24,67 +25,25 @@ const logoutConSession = (req, res) => {
   });
 };
 
+
 const getRegister = (req, res) => {
   res.render("registro", {});
 };
-const postRegister = (req, res) => {
-  const { first_name, last_name, email, password, age } = req.body;
-  try {
-    const role = email === "adminCoder@coder.com" ? "admin" : "user";
 
-    // console.log("Cookie creada:", { user });
-    const hash = createHash(password);
-    const newUser = new User({
-      first_name,
-      last_name,
-      email,
-      password: hash,
-      age,
-      role,
-    });
-    // save in db
-    newUser.save();
-
-    res.sendStatus(200);
-  } catch (error) {
-    console.error("Error:", error);
-    res.status(500).send("Error creating user");
-  }
-};
-const login = (req, res) => {
+const getLogin = (req, res) => {
   res.render("login", {});
 };
-const postLogin = async (req, res) => {
-  const { email, password } = req.body;
 
-  try {
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
-
-    const isMatch = isValidPassword({ userPassword: user.password, password });
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
-
-    // Successful login logic here (e.g., creating a session or JWT)
-    res.status(200).json({ message: "Logged in successfully" });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
 const perfil = (req, res) => {
-  const user = req.session.user;
+  const user = req.user;
   res.render("perfil", { user: user });
 };
-const getResetPassword = (req,res)=>{
-  res.render("resetPassword", {})
-}
-const postResetPassword = async(req,res)=>{
+
+const getResetPassword = (req, res) => {
+  res.render("resetPassword", {});
+};
+
+const postResetPassword = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -93,10 +52,8 @@ const postResetPassword = async(req,res)=>{
     if (!user) {
       return res.status(401).json({ message: "User not found" });
     }
-    // Hash the new password
-    const hashedPassword = createHash(password);
 
-    // Update the user's password
+    const hashedPassword = createHash(password);
     user.password = hashedPassword;
     await user.save();
 
@@ -105,17 +62,15 @@ const postResetPassword = async(req,res)=>{
     console.error("Reset error:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
 module.exports = {
   getResetPassword,
   postResetPassword,
   perfil,
-  postLogin,
+  getLogin,
   getRegister,
-  postRegister,
-  login,
-  middlewareAuth,
   logoutConSession,
   home,
+  middlewareAuth,
 };
