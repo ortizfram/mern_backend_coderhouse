@@ -8,10 +8,17 @@ const home = (req, res) => {
 
 // limitar el acceso a determinadas rutas
 const middlewareAuth = (req, res, next) => {
-  if (req.session?.user) {
+  if (req.isAuthenticated()) {
     return next();
   }
-  return res.status(401).send("error de autentificacion");
+  res.redirect('/api/products');
+};
+
+const isAdmin = (req, res, next) => {
+  if (req.isAuthenticated() && req.user.role === 'admin') {
+    return next();
+  }
+  res.status(403).send("Access denied");
 };
 
 const logoutConSession = (req, res) => {
@@ -108,6 +115,7 @@ const postResetPassword = async(req,res)=>{
 }
 
 module.exports = {
+  isAdmin,
   getResetPassword,
   postResetPassword,
   perfil,

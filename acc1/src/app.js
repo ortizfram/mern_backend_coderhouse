@@ -6,6 +6,8 @@ const handlebars = require("express-handlebars");
 const session = require("express-session");
 const router = require("./routes/index/index.routes.js");
 const { default: mongoose } = require("mongoose");
+const passport = require("passport");
+const initializePassport = require("./config/passport.config.js");
 
 
 const app = express();
@@ -17,11 +19,14 @@ app.use(session({
   saveUninitialized:true,
   cookie:{secure:false}
 }))
-// Connect to MongoDB
+
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
+
 mongoose.connect('mongodb+srv://ortizfram:cGLEWsgUqdXZNLoZ@codercluster.lmawmpi.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Failed to connect to MongoDB', err));
-
 
 app.use(express.static(__dirname + "/public"));
 app.engine("handlebars", handlebars.engine());

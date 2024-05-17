@@ -2,8 +2,11 @@ const ProductManager = require("../../ProductManager.js");
 const pm = new ProductManager()
 
 const getProducts = async(req,res)=>{
-    const user = req.session.user
-    const admin = req.session.admin
+    // const user = req.session.user
+    // const admin = req.session.admin
+    // con passport
+    const user = req.user
+    const admin = req.user.role === 'admin'
 
     try {
         const products = await pm.getProducts();
