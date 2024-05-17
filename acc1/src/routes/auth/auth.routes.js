@@ -8,6 +8,8 @@ const {
   postLogin,
   perfil,
   logoutConSession,
+  getResetPassword,
+  postResetPassword,
 } = require("../../controllers/auth/auth.controller.js");
 
 const router = express.Router();
@@ -19,6 +21,8 @@ router.get("/login", login);
 router.post("/login", postLogin);
 router.get("/register", getRegister);
 router.post("/register", postRegister);
+router.get("/reset_password", getResetPassword);
+router.post("/reset_password", postResetPassword);
 
 // router.get('/login', loginConSessionCounter)
 router.get('/privado', middlewareAuth, (req, res) => {

@@ -5,11 +5,11 @@ const createHash = (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 };
 const isValidPassword = ({ userPassword, password }) => {
- console.log("isValidPassword called")
-  /** compara el password con el de la base */
-  console.log(userPassword)
-  console.log(typeof(userPassword))
-  return bcrypt.compareSync(password,userPassword)
+  console.log("isValidPassword called")
+  const isMatch = bcrypt.compareSync(password, userPassword);
+  console.log(isMatch);
+  console.log(typeof isMatch);
+  return isMatch;
 };
 
 module.exports = {
