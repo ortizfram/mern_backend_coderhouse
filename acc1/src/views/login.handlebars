@@ -1,4 +1,3 @@
-{{! index.handlebars }}
 <h1>login</h1>
 <label for="email">Correo Electrónico:</label>
 <input type="email" id="email" name="email" /><br /><br />
@@ -15,12 +14,22 @@
 <a href="/api/sessions/reset_password">Olvide mi contrasena</a>
 
 <script>
-  function submitForm() { const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  fetch("/api/sessions/login", { method: "POST", headers: { "Content-Type":
-  "application/json" }, body: JSON.stringify({ email,password}), })
-  .then((response) => { if (response.ok) { console.log("logged-in and Cookie
-  creada correctamente"); window.location.href = "/api/products" } else {
-  console.error("Error al crear la cookie"); } }) .catch((error) =>
-  console.error("Error:", error)); }
+  function submitForm() { 
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    fetch("/api/sessions/login", { 
+      method: "POST", 
+      headers: { "Content-Type": "application/json" }, 
+      body: JSON.stringify({ email, password }), 
+    })
+    .then((response) => { 
+      if (response.ok) { 
+        console.log("Logged in successfully");
+        window.location.href = "/api/products";
+      } else {
+        console.error("Login failed");
+      } 
+    })
+    .catch((error) => console.error("Error:", error));
+  }
 </script>

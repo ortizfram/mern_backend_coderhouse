@@ -1,11 +1,14 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const GitHubStrategy = require("passport-github").Strategy;
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const jwt = require("jsonwebtoken");
 const userService = require("../models/user.model");
 const { createHash, isValidPassword } = require("../utils/utils");
 
 const initializePassport = () => {
-  /**REGISTER */
+  // Local Strategy for Register
   passport.use(
     "register",
     new LocalStrategy(
@@ -32,26 +35,20 @@ const initializePassport = () => {
         }
       }
     )
-  ); 
+  );
 
-  /**LOGIN */
+  // Local Strategy for Login
   passport.use(
     "login",
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {
         try {
-          console.log("Finding user with email:", email);
           const user = await userService.findOne({ email: email });
           if (!user) {
             return done(null, false, { message: "Invalid email or password" });
           }
-          console.log("User found:", user);
-          console.log("Comparing provided password with stored password");
-          const isMatch = isValidPassword({
-            userPassword: user.password,
-            password,
-          });
+          const isMatch = isValidPassword({ userPassword: user.password, password });
           if (!isMatch) {
             return done(null, false, { message: "Invalid email or password" });
           }
@@ -63,7 +60,7 @@ const initializePassport = () => {
     )
   );
 
-  /**GITHUB AUTH */
+  // GitHub Strategy
   passport.use(
     new GitHubStrategy(
       {
@@ -78,9 +75,8 @@ const initializePassport = () => {
             {
               $setOnInsert: {
                 githubId: profile.id,
-                email: profile.emails, // assuming profile.emails is an array
+                email: profile.emails[0].value,
                 first_name: profile.displayName,
-                // other fields from profile as needed
               },
             },
             { new: true, upsert: true }
@@ -88,6 +84,36 @@ const initializePassport = () => {
           return done(null, user);
         } catch (err) {
           return done(err);
+        }
+      }
+    )
+  );
+
+  // JWT Strategy
+  passport.use(
+    new JwtStrategy(
+      {
+        jwtFromRequest: ExtractJwt.fromExtractors([
+          (req) => {
+            let token = null;
+            if (req && req.cookies) {
+              token = req.cookies['jwt'];
+            }
+            return token;
+          },
+        ]),
+        secretOrKey: "your_jwt_secret", // Change to your secret
+      },
+      async (jwt_payload, done) => {
+        try {
+          const user = await userService.findById(jwt_payload.id);
+          if (user) {
+            return done(null, user);
+          } else {
+            return done(null, false);
+          }
+        } catch (error) {
+          return done(error, false);
         }
       }
     )

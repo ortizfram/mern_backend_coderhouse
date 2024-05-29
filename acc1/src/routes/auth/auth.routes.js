@@ -9,6 +9,8 @@ const {
   logoutConSession,
   getResetPassword,
   postResetPassword,
+  loginUser,
+  getCurrentUser,
 } = require("../../controllers/auth/auth.controller.js");
 
 const router = express.Router();
@@ -19,14 +21,7 @@ router.get("/logout", logoutConSession);
 
 /**LOGIN*/
 router.get("/login", getLogin);
-router.post(
-  "/login",
-  passport.authenticate("login", {
-    successRedirect: "/api/products", // Redirect to products on successful login
-    failureRedirect: "/api/sessions/login", // Redirect back to login on failure
-    failureFlash: true,
-  })
-);
+router.post("/login", loginUser);
 
 /**REGISTER*/
 router.get("/register", getRegister);
@@ -57,5 +52,8 @@ router.post("/reset_password", postResetPassword);
 router.get("/privado", middlewareAuth, (req, res) => {
   res.send("si ves esto ya te logueaste");
 });
+
+/**GET CURRENT USER FROM JWT*/
+router.get("/current", middlewareAuth, getCurrentUser);
 
 module.exports = router;

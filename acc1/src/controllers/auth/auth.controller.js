@@ -1,6 +1,13 @@
 const passport = require("passport");
 const User = require("../../models/user.model");
 const { createHash, isValidPassword } = require("../../utils/utils");
+const jwt = require("jsonwebtoken");
+
+const generateJWT = (user) => {
+  const payload = { id: user._id, email: user.email, role: user.role };
+  const token = jwt.sign(payload, "your_jwt_secret", { expiresIn: "1h" });
+  return token;
+};
 
 const home = (req, res) => {
   let user = req.session.user;
@@ -16,15 +23,9 @@ const middlewareAuth = (req, res, next) => {
 };
 
 const logoutConSession = (req, res) => {
-  res.clearCookie("user", { signed: true }); // Clear the signed cookie named 'user'
-  req.logout((err) => {
-    if (err) {
-      return res.json({ status: "Logout ERROR", body: err });
-    }
-    res.redirect("/api/sessions/login"); // Redirect to login page after logout
-  });
+  res.clearCookie("jwt"); // Clear the JWT cookie
+  res.redirect("/api/sessions/login"); // Redirect to login page after logout
 };
-
 
 const getRegister = (req, res) => {
   res.render("registro", {});
@@ -64,7 +65,33 @@ const postResetPassword = async (req, res) => {
   }
 };
 
+const loginUser = (req, res) => {
+  passport.authenticate('login', (err, user, info) => {
+    if (err) {
+      return res.status(500).json({ message: "Internal server error" });
+    }
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+    req.login(user, { session: false }, (err) => {
+      if (err) {
+        return res.status(500).json({ message: "Internal server error" });
+      }
+      const token = generateJWT(user);
+      res.cookie("jwt", token, { httpOnly: true });
+      return res.json({ message: "Logged in successfully" });
+    });
+  })(req, res);
+};
+
+const getCurrentUser = (req, res) => {
+  res.json({ user: req.user });
+};
+
 module.exports = {
+  loginUser,
+  getCurrentUser,
+  generateJWT,
   getResetPassword,
   postResetPassword,
   perfil,

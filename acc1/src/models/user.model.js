@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   age: Number,
   role: { type: String, default: "user" },
   githubId: String,
+  cart: { type: mongoose.Schema.Types.ObjectId, ref: 'Cart' } 
 });
 
 const User = mongoose.model("User", userSchema);
