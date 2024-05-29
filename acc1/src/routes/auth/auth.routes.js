@@ -28,8 +28,8 @@ router.get("/register", getRegister);
 router.post(
   "/register",
   passport.authenticate("register", {
-    successRedirect: "/api/sessions/login", // Redirect to login on successful registration
-    failureRedirect: "/api/sessions/register", // Redirect back to register on failure
+    successRedirect: "/api/sessions/login",
+    failureRedirect: "/api/sessions/register",
     failureFlash: true,
   })
 );
@@ -40,12 +40,11 @@ router.get(
   "/github/callback",
   passport.authenticate("github", { failureRedirect: "/api/sessions/login" }),
   function (req, res) {
-    // Successful authentication, redirect home.
     res.redirect("/api/products");
   }
 );
 
-/**RESET PASSW*/
+/**RESET PASSWORD*/
 router.get("/reset_password", getResetPassword);
 router.post("/reset_password", postResetPassword);
 

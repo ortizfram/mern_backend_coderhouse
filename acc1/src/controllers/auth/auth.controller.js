@@ -16,10 +16,16 @@ const home = (req, res) => {
 
 // Middleware to protect routes
 const middlewareAuth = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  return res.status(401).send("error de autentificacion");
+  passport.authenticate("jwt", { session: false }, (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).send("Authentication error");
+    }
+    req.user = user;
+    next();
+  })(req, res, next);
 };
 
 const logoutConSession = (req, res) => {
@@ -66,7 +72,7 @@ const postResetPassword = async (req, res) => {
 };
 
 const loginUser = (req, res) => {
-  passport.authenticate('login', (err, user, info) => {
+  passport.authenticate("login", (err, user, info) => {
     if (err) {
       return res.status(500).json({ message: "Internal server error" });
     }
@@ -78,14 +84,25 @@ const loginUser = (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
       }
       const token = generateJWT(user);
-      res.cookie("jwt", token, { httpOnly: true });
+      console.log("token: ", token);
+      res.cookie("jwt", token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "Strict",
+      }); // Adjust 'secure' according to your environment
       return res.json({ message: "Logged in successfully" });
     });
   })(req, res);
 };
 
 const getCurrentUser = (req, res) => {
-  res.json({ user: req.user });
+  const user = User.findOne({ _id: req.user });
+  if (user) {
+    const { password, ...userWithoutPassword } = req.user.toObject();
+    res.json({ user: userWithoutPassword });
+  } else {
+    res.status(404).json({ error: "error de passport" });
+  }
 };
 
 module.exports = {
