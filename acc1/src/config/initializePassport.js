@@ -4,7 +4,7 @@ const GitHubStrategy = require("passport-github").Strategy;
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const jwt = require("jsonwebtoken");
-const userService = require("../models/user.model");
+const userService = require("../dao/models/user.model");
 const { createHash, isValidPassword } = require("../utils/utils");
 
 const initializePassport = () => {

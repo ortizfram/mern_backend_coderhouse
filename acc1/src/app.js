@@ -8,12 +8,14 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const initializePassport = require("./config/initializePassport.js");
 const router = require("./routes/index/index.routes.js");
+const { MONGODB_URI, SESSION_SECRET } = require("./config/config.js");
+
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
-  secret: 'secret',
+  secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false }
@@ -24,7 +26,7 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb+srv://ortizfram:cGLEWsgUqdXZNLoZ@codercluster.lmawmpi.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Failed to connect to MongoDB', err));
 
@@ -33,7 +35,7 @@ app.engine("handlebars", handlebars.engine());
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 
-app.use(cookieParser("secret")); // pass secret from .env
+app.use(cookieParser(SESSION_SECRET)); // pass secret from .env
 app.use("/", router);
 app.use("/api/sessions", authRouter);
 app.use("/api/products", productsRouter);

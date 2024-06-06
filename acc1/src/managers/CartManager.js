@@ -1,8 +1,8 @@
 const fs = require("fs");
 const ProductManager = require("./ProductManager.js");
 const mongoose = require("mongoose");
-const { cartSchema: Cart } = require("../models/cart.models.js");
-const { productSchema: Product } = require("../models/product.model.js");
+const { cartSchema: Cart } = require("../dao/models/cart.models.js");
+const { productSchema: Product } = require("../dao/models/product.model.js");
 
 class CartManager {
   constructor() {

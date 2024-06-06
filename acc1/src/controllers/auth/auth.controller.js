@@ -1,11 +1,12 @@
 const passport = require("passport");
-const User = require("../../models/user.model");
+const User = require("../../dao/models/user.model");
 const { createHash, isValidPassword } = require("../../utils/utils");
 const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = require("../../config/config");
 
 const generateJWT = (user) => {
   const payload = { id: user._id, email: user.email, role: user.role };
-  const token = jwt.sign(payload, "your_jwt_secret", { expiresIn: "1h" });
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
   return token;
 };
 

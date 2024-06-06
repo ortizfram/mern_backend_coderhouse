@@ -1,4 +1,4 @@
-const ProductManager = require("../../ProductManager.js");
+const ProductManager = require("../../managers/ProductManager.js");
 const pm = new ProductManager();
 
 const getProducts = async (req, res) => {
