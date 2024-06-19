@@ -5,6 +5,7 @@ const productsRouter = require("./routes/products/products.routes.js");
 const mailingRouter = require("./routes/mailing/mailing.routes.js");
 const smsRouter = require("./routes/sms/sms.routes.js");
 const handlebars = require("express-handlebars");
+const { create } = require('express-handlebars');
 const session = require("express-session");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -36,7 +37,15 @@ mongoose
   .catch((err) => console.error("Failed to connect to MongoDB", err));
 
 app.use(express.static(__dirname + "/public"));
-app.engine("handlebars", handlebars.engine());
+const hbs =create({
+  // Specify runtime options
+  defaultLayout: 'main',
+  runtimeOptions: {
+    allowProtoPropertiesByDefault: true,
+    allowProtoMethodsByDefault: true,
+  }
+});
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
 

@@ -6,13 +6,13 @@ const { mongoose } = require("mongoose");
 class ProductManager {
   constructor() {
     this.products = [];
-    this.path = "./productos.json";
+    this.path = "acc1/src/dao/productos.json";
     this.getData();
   }
 
   getData = async () => {
     // FS---------------
-    //   retorna readFile data
+      // retorna readFile data
     // const data = await fs.promises.readFile(this.path);
     // return JSON.parse(data);
     // mongo ------------------

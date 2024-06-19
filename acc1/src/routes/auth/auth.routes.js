@@ -17,6 +17,8 @@ const router = express.Router();
 
 router.get("/", home);
 router.get("/perfil", middlewareAuth, perfil);
+
+/**LOGOUT*/
 router.get("/logout", logoutConSession);
 
 /**LOGIN*/
@@ -48,6 +50,7 @@ router.get(
 router.get("/reset_password", getResetPassword);
 router.post("/reset_password", postResetPassword);
 
+/**PRIVATE*/
 router.get("/privado", middlewareAuth, (req, res) => {
   res.send("si ves esto ya te logueaste");
 });

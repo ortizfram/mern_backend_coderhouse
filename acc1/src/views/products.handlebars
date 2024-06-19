@@ -7,14 +7,14 @@
 <button><a href="/">Home</a></button>
 
 <!-- Display products -->
-{{#if products}}
+{{#if products.length}}
   <ul>
     {{#each products}}
       <li>
-        <h2>{{title}}</h2>
-        <p>Description: {{description}}</p>
-        <p>Price: {{price}}</p>
-        <p>Stock: {{stock}}</p>
+        <h2>Title: {{this.title}}</h2>
+        <p>Description: {{this.description}}</p>
+        <p>$ {{this.price}}</p>
+        <p>Stock: {{this.stock}}</p>
         <!-- You can display other product details here -->
         <hr>
       </li>
