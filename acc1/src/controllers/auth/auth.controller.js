@@ -96,11 +96,12 @@ const loginUser = (req, res) => {
   })(req, res);
 };
 
-const getCurrentUser = (req, res) => {
+const getCurrentUser = (req, res,next) => {
   const user = User.findOne({ _id: req.user });
   if (user) {
     const { password, ...userWithoutPassword } = req.user.toObject();
-    res.json({ user: userWithoutPassword });
+    req.user = userWithoutPassword
+    next()
   } else {
     res.status(404).json({ error: "error de passport" });
   }
