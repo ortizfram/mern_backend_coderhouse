@@ -62,6 +62,33 @@ class CartManager {
       throw new Error("Error adding product to cart: " + error.message);
     }
   }
+  async unlistProdFromCart(cid, pid) {
+    try {
+      const product = await Product.findById(new mongoose.Types.ObjectId(pid));
+      if (!product) {
+        throw new Error("Producto no encontrado");
+      }
+
+      // Find the cart by its ID
+      const cart = await Cart.findById(new mongoose.Types.ObjectId(cid));
+      if (!cart) {
+        throw new Error("Carrito no encontrado");
+      }
+
+      const existingProduct = cart.products.find((p) => p.product.equals(pid));
+      if (existingProduct && existingProduct.quantity > 1) {
+        existingProduct.quantity--;
+      } else {//prod had no stock
+        cart.products.pop({ product: pid});
+      }
+
+      await cart.save();
+
+      return cart.products;
+    } catch (error) {
+      throw new Error("Error adding product to cart: " + error.message);
+    }
+  }
 }
 
 module.exports = CartManager;
