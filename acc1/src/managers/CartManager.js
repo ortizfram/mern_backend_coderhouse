@@ -35,9 +35,11 @@ class CartManager {
     }
   }
 
-  async addProdToCart(cid, pid) {
+  async addProdToCart({cid, pid}) {
     try {
-      const product = await Product.findById(new mongoose.Types.ObjectId(pid));
+      const product = await Product.findById({
+        _id: new mongoose.Types.ObjectId(pid),
+      });
       if (!product) {
         throw new Error("Producto no encontrado");
       }
@@ -78,8 +80,9 @@ class CartManager {
       const existingProduct = cart.products.find((p) => p.product.equals(pid));
       if (existingProduct && existingProduct.quantity > 1) {
         existingProduct.quantity--;
-      } else {//prod had no stock
-        cart.products.pop({ product: pid});
+      } else {
+        //prod had no stock
+        cart.products.pop({ product: pid });
       }
 
       await cart.save();

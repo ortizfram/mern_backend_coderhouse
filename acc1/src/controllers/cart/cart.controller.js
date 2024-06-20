@@ -16,7 +16,7 @@ const getCartById = async (req, res) => {
   try {
     const cid = req.params;
     const cart = cm.listProdsInCart(cid);
-    res.status(200).json({ cart: cid, prod: cart.product });
+    res.render("cart", { cart });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
