@@ -20,7 +20,7 @@ const getProducts = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { pid } = req.params;
-  const { title, description, price, stock,category,status } = req.body;
+  const { title, description, price, stock, category, status } = req.body;
 
   try {
     const updatedProduct = await pm.updateProduct(pid, {
@@ -29,7 +29,7 @@ const updateProduct = async (req, res) => {
       price,
       stock,
       category,
-      status
+      status,
     });
     res.json(updatedProduct);
   } catch (error) {
@@ -37,8 +37,19 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const deleteProduct = async(req,res)=>{
-  const { id } = req.params;
+const getProductById = async (req, res) => {
+  const { pid } = req.params;
+  try {
+    const foundProduct = await pm.getProductById(pid);
+    res.json(foundProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  const { pid } = req.params;
 
   try {
     await pm.deleteProduct(id);
@@ -46,10 +57,11 @@ const deleteProduct = async(req,res)=>{
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 module.exports = {
   getProducts,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getProductById,
 };

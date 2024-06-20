@@ -83,13 +83,15 @@ class ProductManager {
       console.error("Error reading file" + error.message);
     }
   }
-  getProductById = async (id) => {
+  getProductById = async (pid) => {
     try {
       // const products = await this.getData();
       // const product = products.find((product) => product.id === id);
 
       // Find the product by ID in the database
-      const product = await Product.findById(new mongoose.Types.ObjectId({id}));
+      let product = await Product.findById({
+        _id: new mongoose.Types.ObjectId(pid),
+      });
 
       if (!product) {
         throw new Error("Product not found");
@@ -146,12 +148,12 @@ class ProductManager {
       }
 
       // Update the product fields
-      if (title) product.title = title;
-      if (description) product.description = description;
-      if (price !== undefined) product.price = parseFloat(price);
-      if (status) product.status = status;
-      if (stock !== undefined) product.stock = parseInt(stock, 10);
-      if (category) product.category = category;
+      if (title !== undefined && title !== "") product.title = title;
+      if (description !== undefined && description !== "") product.description = description;
+      if (price !== undefined && price !== "" || price !== null) product.price = parseFloat(price);
+      if (status !== undefined && status !== "") product.status = status;
+      if (stock !== undefined && stock !== ""|| stock !==null) product.stock = parseInt(stock, 10);
+      if (category !== undefined && category !== "") product.category = category;
       //product.thumbnails = thumbnails;
 
       // Save the updated product to the database
