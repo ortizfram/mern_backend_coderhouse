@@ -37,17 +37,17 @@ class ProductManager {
       // const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
 
       const code = crypto.randomBytes(4).toString("hex");
-      const product = {
-        // id,
-        code,
-        title,
-        description,
-        price,
-        status,
-        stock,
-        category,
-        //thumbnails,
-      };
+      // const product = {
+      //   // id,
+      //   code,
+      //   title,
+      //   description,
+      //   price,
+      //   status,
+      //   stock,
+      //   category,
+      //   //thumbnails,
+      // };
 
       // Concatenate the new product with the existing products array
       // products.push(product);
@@ -59,9 +59,9 @@ class ProductManager {
         //code,
         title,
         description,
-        price,
+        price:parseFloat(price),
         status,
-        stock,
+        stock:parseInt(stock),
         category,
        // thumbnails,
       });
