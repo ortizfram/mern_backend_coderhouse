@@ -16,7 +16,7 @@ class ProductManager {
     // const data = await fs.promises.readFile(this.path);
     // return JSON.parse(data);
     // mongo ------------------
-    const data = await Product.find({});
+    const data = await Product.find({}).sort({ updatedAt: -1 });
     return data;
   };
 

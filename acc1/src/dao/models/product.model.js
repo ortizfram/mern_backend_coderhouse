@@ -8,6 +8,8 @@ const productSchema = new mongoose.Schema({
     status: { type: String, required: true },
     stock: { type: Number, required: true },
     category: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
     //thumbnails: { type: Array },
   });
 
