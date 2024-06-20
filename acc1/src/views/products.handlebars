@@ -6,7 +6,7 @@
 <br />
 <button><a href="/">Home</a></button>
 {{#if isAdmin}}
-  <button style="background:green;"><a href="#" style="color:white;">Create New
+  <button style="background:green;"><a href="#" style="color:white;" onclick="addNewProduct()">Create New
       Product</a></button>
 {{/if}}
 
@@ -51,7 +51,50 @@
   "/api/sessions/login"; } else { console.error("Error al salir de sesion"); }
   }) .catch((error) => console.error("Error:", error)); }
 </script>
+<script>
+  //addProduct
+    function addNewProduct() {
+    const title = prompt("Enter product title:");
+    const description = prompt("Enter product description:");
+    const price = prompt("Enter product price:");
+    const stock = prompt("Enter product stock:");
+    const category = prompt("Enter product category:");
+    const status = "active"; // Default status for a new product
 
+    if (title && description && price && stock && category) {
+      const newProduct = {
+        title,
+        description,
+        price,
+        stock,
+        category,
+        status,
+      };
+
+      fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newProduct)
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Product added successfully!");
+          location.reload(); // Reload the page after successful addition
+        } else {
+          return response.json().then(errorData => {
+            throw new Error(errorData.error || 'Failed to add product');
+          });
+        }
+      })
+      .catch(error => {
+        alert("Failed to add product: " + error.message);
+      });
+    }
+  }
+
+</script>
 <script>
   function updateProduct(productId) {
   // Fetch the current product details from the server
