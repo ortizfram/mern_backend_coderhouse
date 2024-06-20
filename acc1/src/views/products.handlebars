@@ -2,21 +2,41 @@
 <p style="color: blue;">Holaaa! {{firstName}} Bienvenid@</p>
 <p style="color: green;">admin: {{isAdmin}}</p>
 <button onclick="logout()">logout</button>
-<br/>
-<br/>
+<br />
+<br />
 <button><a href="/">Home</a></button>
+{{#if isAdmin}}
+  <button style="background:green;"><a href="#" style="color:white;">Create New
+      Product</a></button>
+{{/if}}
 
 <!-- Display products -->
 {{#if products.length}}
   <ul>
     {{#each products}}
       <li>
+
+        {{!-- Admin Actions --}}
+        {{#if ../isAdmin}}
+          <button
+            style="background-color:blue;"
+            onclick="updateProduct('{{this._id}}')"
+          >Update</button>
+          <button
+            style="background-color:red;"
+            onclick="deleteProduct('{{this._id}}')"
+          >Delete</button>
+        {{/if}}
+
+        {{!-- Content --}}
         <h2>Title: {{this.title}}</h2>
         <p>Description: {{this.description}}</p>
         <p>$ {{this.price}}</p>
         <p>Stock: {{this.stock}}</p>
+        <p>Category: {{this.category}}</p>
+
         <!-- You can display other product details here -->
-        <hr>
+        <hr />
       </li>
     {{/each}}
   </ul>
@@ -25,19 +45,66 @@
 {{/if}}
 
 <script>
-  function logout() { 
-    fetch("/api/sessions/logout", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" }, 
-    })
-    .then((response) => { 
-      if (response.ok) { 
-        console.log("logged-out"); 
-        window.location.href = "/api/sessions/login"; 
-      } else { 
-        console.error("Error al salir de sesion"); 
-      } 
-    }) 
-    .catch((error) => console.error("Error:", error)); 
+  function logout() { fetch("/api/sessions/logout", { method: "GET", headers: {
+  "Content-Type": "application/json" }, }) .then((response) => { if
+  (response.ok) { console.log("logged-out"); window.location.href =
+  "/api/sessions/login"; } else { console.error("Error al salir de sesion"); }
+  }) .catch((error) => console.error("Error:", error)); }
+</script>
+<script>
+  function updateProduct(productId) {
+    const newTitle = prompt(`${productId} Enter new title:`);
+    const newDescription = prompt("Enter new description:");
+    const newPrice = prompt("Enter new price:");
+    const newStock = prompt("Enter stock for product:");
+    const newCategory = prompt("Enter category for product:");
+    const newStatus = prompt("Enter status 'active':");
+
+    if (newTitle && newDescription && newPrice && newStock && newStatus) {
+      fetch(`/api/products/${productId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: newTitle,
+          description: newDescription,
+          price: parseFloat(newPrice),
+          stock: parseFloat(newStock),
+          category: newCategory,
+          status: newStatus,
+        }),
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Product updated successfully!");
+          location.reload();
+        } else {
+          return response.json().then(errorData => {
+            throw new Error(errorData.error || 'Failed to update product');
+          });
+        }
+      })
+      .catch(error => {
+        alert("Failed to update product: " + error.message);
+      });
+    }
   }
+</script>
+
+<script>
+    function deleteProduct(productId) {
+      if (confirm("Are you sure you want to delete this product?")) {
+        fetch(`/api/products/${productId}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        })
+        .then(response => {
+          if (response.ok) {
+            location.reload();
+          } else {
+            alert("Failed to delete product.");
+          }
+        })
+        .catch(error => console.error("Error:", error));
+      }
+    }
 </script>

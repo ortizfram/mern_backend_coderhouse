@@ -12,7 +12,7 @@ class ProductManager {
 
   getData = async () => {
     // FS---------------
-      // retorna readFile data
+    // retorna readFile data
     // const data = await fs.promises.readFile(this.path);
     // return JSON.parse(data);
     // mongo ------------------
@@ -89,7 +89,7 @@ class ProductManager {
       // const product = products.find((product) => product.id === id);
 
       // Find the product by ID in the database
-      const product = await Product.findById(new mongoose.Types.ObjectId(id));
+      const product = await Product.findById(new mongoose.Types.ObjectId({id}));
 
       if (!product) {
         throw new Error("Product not found");
@@ -100,15 +100,16 @@ class ProductManager {
     }
   };
   updateProduct = async (
-    id,
-    code,
-    title,
-    description,
-    price,
-    status,
-    stock,
-    category,
-    thumbnails = []
+    pid,
+    {
+      title,
+      description,
+      price,
+      status,
+      stock,
+      category,
+      //thumbnails = []
+    }
   ) => {
     // const products = await this.getData();
     // const productIndex = products.findIndex((product) => product.id === id);
@@ -136,20 +137,22 @@ class ProductManager {
     // Find the product by ID in the database
     try {
       // Find the product by ID in the database
-      const product = await Product.findById(new mongoose.Types.ObjectId(id))
+      let product = await Product.findById({
+        _id: new mongoose.Types.ObjectId(pid),
+      });
 
       if (!product) {
         throw new Error("Product not found");
       }
 
       // Update the product fields
-      product.code = code;
-      product.description = description;
-      product.price = price;
-      product.status = status;
-      product.stock = stock;
-      product.category = category;
-      product.thumbnails = thumbnails;
+      if (title) product.title = title;
+      if (description) product.description = description;
+      if (price !== undefined) product.price = parseFloat(price);
+      if (status) product.status = status;
+      if (stock !== undefined) product.stock = parseInt(stock, 10);
+      if (category) product.category = category;
+      //product.thumbnails = thumbnails;
 
       // Save the updated product to the database
       await product.save();
