@@ -7,7 +7,7 @@
 - Conocer el modelo de mensajería de Twilio
 - Desarrollar un modelo práctico de mailing
 # A entregar
-- [ ] solo admin puede agregar, actualizar, eliminar productos del cart
+- [x] solo admin puede agregar, actualizar, eliminar productos del cart
 - [ ] solo admin puede enviar msg al chat
 - [ ] solo user puede agregar productos as carrito
 - [ ] crear modelo Ticket: cuando la compra se realizo
