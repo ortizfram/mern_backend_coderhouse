@@ -1,6 +1,23 @@
 const ProductManager = require("../../managers/ProductManager.js");
 const pm = new ProductManager();
 
+const addProduct = async (req, res) => {
+  const { title, description, price, stock, category, status } = req.body;
+  try {
+    const addedProduct = await pm.addProduct({
+      title,
+      description,
+      price,
+      stock,
+      category,
+      status,
+    });
+    res.json(addedProduct);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 const getProducts = async (req, res) => {
   const user = req.user;
 
@@ -52,7 +69,7 @@ const deleteProduct = async (req, res) => {
   const { pid } = req.params;
 
   try {
-    await pm.deleteProduct(id);
+    await pm.deleteProduct(pid);
     res.status(204).end();
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -60,6 +77,7 @@ const deleteProduct = async (req, res) => {
 };
 
 module.exports = {
+  addProduct,
   getProducts,
   updateProduct,
   deleteProduct,

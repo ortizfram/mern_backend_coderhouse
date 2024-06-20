@@ -24,14 +24,14 @@ class ProductManager {
     title,
     description,
     price,
-    status = true,
+    status = "active",
     stock,
     category,
-    thumbnails = [],
+    //thumbnails = [],
   }) {
     try {
-      // Read existing products from the file
-      let products = await this.getData();
+      // Read existing products from the file for FS
+      //let products = await this.getData();
 
       // Generate the new product ID
       // const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
@@ -46,7 +46,7 @@ class ProductManager {
         status,
         stock,
         category,
-        thumbnails,
+        //thumbnails,
       };
 
       // Concatenate the new product with the existing products array
@@ -56,14 +56,14 @@ class ProductManager {
       // await fs.promises.writeFile(this.path, JSON.stringify(products));
       // Create a new product instance using the Product model
       const newProduct = new Product({
-        code,
+        //code,
         title,
         description,
         price,
         status,
         stock,
         category,
-        thumbnails,
+       // thumbnails,
       });
 
       // Save the new product to the database
@@ -165,7 +165,7 @@ class ProductManager {
     }
   };
 
-  deleteProduct = async (id) => {
+  deleteProduct = async (pid) => {
     // const products = await this.getData();
     // const product = products.find(
     //   (product) => product.id === id,
@@ -182,9 +182,9 @@ class ProductManager {
     // return product;
     try {
       // Find the product by ID in the database
-      const product = await Product.findByIdAndDelete(
-        new mongoose.Types.ObjectId(id)
-      );
+      let product = await Product.findByIdAndDelete({
+        _id: new mongoose.Types.ObjectId(pid),
+      });
 
       if (!product) {
         throw new Error("Product not found");
