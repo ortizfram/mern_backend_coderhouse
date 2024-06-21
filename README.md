@@ -9,7 +9,7 @@
 # A entregar
 - [x] Solo admin puede agregar, actualizar, eliminar productos del cart
 - [ ] Solo admin puede enviar msg al chat
-- [ ] Solo user puede agregar productos as carrito
+- [x] Solo user puede agregar productos as carrito
 - [ ] Crear modelo Ticket: cuando la compra se realizo
 ```
 TICKET:

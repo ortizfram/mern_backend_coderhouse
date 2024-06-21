@@ -238,76 +238,79 @@
       });
     }
 
-    function removeProductFromCart(productId) {
-      console.log(`Remove product ${productId} from cart ${cartId}`);
-      fetch(`/api/cart/${cartId}/${productId}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-      }).then(response => response.json()).then(data => {
-        console.log('Product removed:', data);
-        updateCartView();
-      }).catch(error => {
-        console.error('Error removing product from cart:', error);
-      });
+  function removeProductFromCart(productId) {
+  console.log(`Remove product ${productId} from cart ${cartId}`);
+  fetch(`/api/cart/${cartId}/${productId}`, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  }).then(response => response.json()).then(data => {
+    console.log('Product removed:', data);
+    // Update cart view
+    updateCartView();
+  }).catch(error => {
+    console.error('Error removing product from cart:', error);
+  });
+}
+
+
+   async function updateCartView() {
+  try {
+    const response = await fetch(`/api/cart/${cartId}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch cart');
     }
+    const cart = await response.json();
+    console.log('Cart:', cart); // Log the cart object for debugging
 
+    const cartContent = document.getElementById('cart-content');
+    cartContent.innerHTML = ''; // Clear the existing content
 
-    async function updateCartView() {
-    try {
-      const response = await fetch(`/api/cart/${cartId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch cart');
-      }
-      const cart = await response.json();
-      console.log('Cart:', cart); // Log the cart object for debugging
+    let totalPrice = 0;
+    if (cart.products && cart.products.length > 0) {
+      for (const item of cart.products) {
+        console.log('Cart item:', item); // Log each item for debugging
 
-      const cartContent = document.getElementById('cart-content');
-      cartContent.innerHTML = ''; // Clear the existing content
+        const productId = item.product; // Assuming item.product contains the product ID
+        const quantity = item.quantity;
 
-      let totalPrice = 0;
-      if (cart.products && cart.products.length > 0) {
-        for (const item of cart.products) {
-          console.log('Cart item:', item); // Log each item for debugging
-
-          const productId = item.product; // Assuming item.product contains the product ID
-          const quantity = item.quantity;
-
-          // Fetch product details by product ID
-          const productResponse = await fetch(`/api/products/${productId}`);
-          if (!productResponse.ok) {
-            throw new Error(`Failed to fetch product ${productId}`);
-          }
-          const product = await productResponse.json();
-          console.log('Product:', product); // Log the product details for debugging
-
-          if (product) {
-            const title = product.title || 'No title'; // Use default value if undefined
-            const price = product.price || 0; // Use default value if undefined
-
-            const productElement = document.createElement('div');
-            productElement.innerHTML = `
-              <h3>${title}</h3>
-              <p>Price: $${price}</p>
-              <p>Quantity: ${quantity}</p>
-              <hr>
-            `;
-            cartContent.appendChild(productElement);
-            totalPrice += price * quantity;
-          } else {
-            console.error('Product is undefined for product ID:', productId);
-          }
+        // Fetch product details by product ID
+        const productResponse = await fetch(`/api/products/${productId}`);
+        if (!productResponse.ok) {
+          throw new Error(`Failed to fetch product ${productId}`);
         }
+        const product = await productResponse.json();
+        console.log('Product:', product); // Log the product details for debugging
 
-        const totalElement = document.createElement('p');
-        totalElement.textContent = `Total Price: $${totalPrice}`;
-        cartContent.appendChild(totalElement);
-      } else {
-        cartContent.innerHTML = '<p>Your cart is empty.</p>';
+        if (product) {
+          const title = product.title || 'No title'; // Use default value if undefined
+          const price = product.price || 0; // Use default value if undefined
+
+          const productElement = document.createElement('div');
+          productElement.innerHTML = `
+            <h3>${title}</h3>
+            <p>Price: $${price}</p>
+            <p>Quantity: ${quantity}</p>
+            <button onclick="removeProductFromCart('${productId}')">Remove</button>
+            <hr>
+          `;
+          cartContent.appendChild(productElement);
+          totalPrice += price * quantity;
+        } else {
+          console.error('Product is undefined for product ID:', productId);
+        }
       }
-    } catch (error) {
-      console.error('Error fetching cart:', error);
+
+      const totalElement = document.createElement('p');
+      totalElement.textContent = `Total Price: $${totalPrice}`;
+      cartContent.appendChild(totalElement);
+    } else {
+      cartContent.innerHTML = '<p>Your cart is empty.</p>';
     }
+  } catch (error) {
+    console.error('Error fetching cart:', error);
   }
+}
+
   createCart();
   </script>
 </body>

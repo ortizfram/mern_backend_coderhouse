@@ -31,13 +31,14 @@ const getCartById = async (req, res) => {
 const deleteProdFromCart = async (req, res) => {
   try {
     const { cid, pid } = req.params;
-    const cart = cm.unlistProdFromCart({ cid, pid });
-    res.status(204);
+    const products = await cm.unlistProdFromCart(cid, pid);
+    res.status(200).json({ success: true, products });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
   }
 };
+
 const addProdToCart = async (req, res) => {
   try {
     const { cid, pid } = req.params;

@@ -74,32 +74,32 @@ class CartManager {
   }
   async unlistProdFromCart(cid, pid) {
     try {
-      const product = await Product.findById(new mongoose.Types.ObjectId(pid));
+      const product = await Product.findById(pid);
       if (!product) {
-        throw new Error("Producto no encontrado");
+        throw new Error("Product not found");
       }
-
-      // Find the cart by its ID
-      const cart = await this.getCartById(cid)
+  
+      const cart = await Cart.findById(cid);
       if (!cart) {
-        throw new Error("Carrito no encontrado");
+        throw new Error("Cart not found");
       }
-
-      const existingProduct = cart.products.find((p) => p.product.equals(pid));
-      if (existingProduct && existingProduct.quantity > 1) {
-        existingProduct.quantity--;
-      } else {
-        //prod had no stock
-        cart.products.pop({ product: pid });
+  
+      const existingProductIndex = cart.products.findIndex(p => p.product.equals(pid));
+      if (existingProductIndex !== -1) {
+        if (cart.products[existingProductIndex].quantity > 1) {
+          cart.products[existingProductIndex].quantity--;
+        } else {
+          cart.products.splice(existingProductIndex, 1); // Remove the product from the cart if quantity is 1
+        }
+        await cart.save();
       }
-
-      await cart.save();
-
-      return cart.products;
+  
+      return cart.products; // Return updated products array
     } catch (error) {
-      throw new Error("Error adding product to cart: " + error.message);
+      throw new Error("Error removing product from cart: " + error.message);
     }
   }
+  
 }
 
 module.exports = CartManager;
