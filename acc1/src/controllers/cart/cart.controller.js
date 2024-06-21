@@ -36,7 +36,7 @@ const addProdToCart = async (req, res) => {
   try {
     const { cid, pid } = req.params;
     const cart = cm.addProdToCart({ cid, pid });
-    res.status(200).json({ cart: cid, prod: cart.product });
+    res.status(200).json({ cart: cid, products: cart });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
