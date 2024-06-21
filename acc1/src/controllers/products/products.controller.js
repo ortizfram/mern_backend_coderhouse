@@ -18,6 +18,7 @@ const addProduct = async (req, res) => {
   }
 };
 
+
 const getProducts = async (req, res) => {
   const user = req.user;
 

@@ -38,7 +38,7 @@ mongoose
   .catch((err) => console.error("Failed to connect to MongoDB", err));
 
 app.use(express.static(__dirname + "/public"));
-const hbs =create({
+const hbs = create({
   // Specify runtime options
   defaultLayout: 'main',
   runtimeOptions: {
@@ -58,7 +58,23 @@ app.use("/api/cart", cartRouter);
 app.use("/api/mail", mailingRouter);
 app.use("/api/sms", smsRouter);
 
-app.listen(8080, () => {
-  console.log("listening to port 8080");
+// http y socket
+const { Server } = require("socket.io");
+const serverHTTP = app.listen(8080, () => console.log(`http & express on port 8080`));
+const io = new Server(serverHTTP);
+
+io.on("connection", (socket) => {
+  console.log("socket connected");
+
+  socket.on("chat message", (msg) => {
+    io.emit("chat message", msg);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("socket disconnected");
+  });
 });
 
+// app.listen(8080, () => {
+//   console.log("express on port 8080");
+// });

@@ -9,9 +9,9 @@ const isValidPassword = ({ userPassword, password }) => {
     console.error("Invalid arguments: userPassword or password is missing");
     return false;
   }
-  console.log("Comparing passwords:", password, userPassword);
+  // console.log("Comparing passwords:", password, userPassword);
   const isMatch = bcrypt.compareSync(password, userPassword);
-  console.log("Password match result:", isMatch);
+  // console.log("Password match result:", isMatch);
   return isMatch;
 };
 
