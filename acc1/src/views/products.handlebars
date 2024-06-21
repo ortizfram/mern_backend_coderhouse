@@ -231,6 +231,7 @@
       headers: { 'Content-Type': 'application/json' },
     }).then(response => response.json()).then(data => {
       console.log('Product added:', data);
+      updateCartView(cartId)
     }).catch(error => {
       console.error('Error adding product to cart:', error);
     });
@@ -252,7 +253,16 @@
   // Create or retrieve the cart when the page loads
   window.onload = createCart;
 
-  function updateCartView(cart) {
+  function updateCartView(cartId) {
+    // fetch cart by Id
+    fetch(`/api/cart/${cartId}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch cart');
+      }
+      return response.json();
+    }) .then(cart => {
+
     const cartContent = document.getElementById('cart-content');
     cartContent.innerHTML = '';
 
@@ -273,5 +283,12 @@
     } else {
       cartContent.innerHTML = '<p>Your cart is empty.</p>';
     }
+    })
+    .catch(error => {
+      console.error('Error fetching cart:', error);
+      // Handle error or display an error message
+      const cartContent = document.getElementById('cart-content');
+      cartContent.innerHTML = '<p>Failed to load cart. Please try again later.</p>';
+    });
   }
 </script>

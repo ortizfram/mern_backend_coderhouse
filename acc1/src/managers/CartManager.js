@@ -25,11 +25,19 @@ class CartManager {
       throw new Error("Error creating new cart: " + error.message);
     }
   }
+  async  getCartById(cid) {
+    try {
+      const cart = await Cart.findById(cid).exec();
+      return cart; // Return the found cart object
+    } catch (error) {
+      throw new Error(`Failed to fetch cart: ${error.message}`);
+    }
+  }
 
   async listProdsInCart(cid) {
     try {
-      const carrito = await Cart.findById(new mongoose.Types.ObjectId(cid));
-      return carrito ? carrito : null;
+      const cart = await this.getCartById(cid)
+      return cart ? cart : null;
     } catch (error) {
       throw new Error("Error fetching cart: " + error.message);
     }
@@ -45,7 +53,7 @@ class CartManager {
       }
 
       // Find the cart by its ID
-      const cart = await Cart.findById(new mongoose.Types.ObjectId(cid));
+      const cart = await this.getCartById(cid)
       if (!cart) {
         throw new Error("Carrito no encontrado");
       }
@@ -72,7 +80,7 @@ class CartManager {
       }
 
       // Find the cart by its ID
-      const cart = await Cart.findById(new mongoose.Types.ObjectId(cid));
+      const cart = await this.getCartById(cid)
       if (!cart) {
         throw new Error("Carrito no encontrado");
       }

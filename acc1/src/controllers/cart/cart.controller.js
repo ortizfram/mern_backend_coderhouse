@@ -14,9 +14,15 @@ const createCart = async (req, res) => {
 };
 const getCartById = async (req, res) => {
   try {
-    const cid = req.params;
-    const cart = cm.listProdsInCart(cid);
-    res.render("cart", { cart });
+    const cid = req.params.cid;
+    const cart = await cm.getCartById(cid)
+
+    if (!cart) {
+      return res.status(404).json({ error: 'Cart not found' });
+    }
+
+    // Assuming cart.products contains array of products
+    res.status(200).json(cart); // Send the cart as JSON response
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
