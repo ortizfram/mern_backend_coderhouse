@@ -6,6 +6,6 @@ router.post("/", createCart);
 router.get("/:cid", getCartById);
 router.put("/:cid/:pid", addProdToCart);
 router.delete("/:cid/:pid", deleteProdFromCart);
-router.post("/:cid/purchase", console.log("purchase"));
+// router.post("/:cid/purchase", console.log("purchase"));
 
 module.exports = router;
