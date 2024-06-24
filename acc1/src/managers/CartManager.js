@@ -3,6 +3,7 @@ const ProductManager = require("./ProductManager.js");
 const mongoose = require("mongoose");
 const { cartSchema: Cart } = require("../dao/models/cart.models.js");
 const { productSchema: Product } = require("../dao/models/product.model.js");
+const { ticketSchema } = require("../dao/models/ticket.model.js");
 
 class CartManager {
   constructor() {
@@ -27,7 +28,7 @@ class CartManager {
   }
   async  getCartById(cid) {
     try {
-      const cart = await Cart.findById(cid).exec();
+      const cart = await Cart.findById({_id:new mongoose.Types.ObjectId(cid)}).exec();
       return cart; // Return the found cart object
     } catch (error) {
       throw new Error(`Failed to fetch cart: ${error.message}`);
@@ -74,12 +75,12 @@ class CartManager {
   }
   async unlistProdFromCart(cid, pid) {
     try {
-      const product = await Product.findById(pid);
+      const product = await Product.findById({_id:new mongoose.Types.ObjectId(pid)});
       if (!product) {
         throw new Error("Product not found");
       }
   
-      const cart = await Cart.findById(cid);
+      const cart = await Cart.findById({_id:new mongoose.Types.ObjectId(cid)});
       if (!cart) {
         throw new Error("Cart not found");
       }
@@ -99,7 +100,43 @@ class CartManager {
       throw new Error("Error removing product from cart: " + error.message);
     }
   }
-  
+  async purchaseCart(cid, userId) {
+    const cart = await this.getCartById(cid);
+    if (!cart) {
+      throw new Error('Cart not found');
+    }
+    
+    const unprocessedProducts = [];
+    let totalAmount = 0;
+
+    for (const item of cart.products) {
+      const product = await Product.findById({_id:new mongoose.Types.ObjectId(item.product)});
+      if (product.stock >= item.quantity) {
+        product.stock -= item.quantity;
+        await product.save();
+        totalAmount += product.price * item.quantity;
+      } else {
+        unprocessedProducts.push(item.product._id);
+      }
+    }
+
+    if (totalAmount > 0) {
+      const ticket = new ticketSchema({
+        code: `TCKT-${Date.now()}`,
+        amount: totalAmount,
+        purchaser: userId
+      });
+      await ticket.save();
+
+      // Remove processed items from the cart
+      cart.products = cart.products.filter(item => !unprocessedProducts.includes(item.product._id));
+      await cart.save();
+
+      return { ticket, unprocessedProducts };
+    } else {
+      throw new Error('No items processed');
+    }
+  }
 }
 
 module.exports = CartManager;
