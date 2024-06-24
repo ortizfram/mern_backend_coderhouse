@@ -33,6 +33,20 @@
       color: white;
       text-decoration: none;
     }
+    .total-btn {
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    total-elem{
+      font-weight: bold;
+
+    }
     #user-actions button {
       margin: 5px;
     }
@@ -65,7 +79,7 @@
       {{#if products.length}}
       <ul>
         {{#each products}}
-        <li id="prod-container">
+        <li id="prod-container-{{this._id}}">
           {{#if ../isAdmin}}
           <div id="admin-actions" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
             <button style="background-color:blue;color:white" onclick="updateProduct('{{this._id}}')">Update</button>
@@ -101,7 +115,7 @@
     </div>
   </div>
  
- {{!-- CHAT --}}
+  {{!-- CHAT --}}
   <script src="/socket.io/socket.io.js"></script>
    <h2>Chat</h2>
   <div id="chat-container">
@@ -273,79 +287,119 @@
       });
     }
 
-  function removeProductFromCart(productId) {
-  console.log(`Remove product ${productId} from cart ${cartId}`);
-  fetch(`/api/cart/${cartId}/${productId}`, {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-  }).then(response => response.json()).then(data => {
-    console.log('Product removed:', data);
-    // Update cart view
-    updateCartView();
-  }).catch(error => {
-    console.error('Error removing product from cart:', error);
-  });
-}
-
-
-   async function updateCartView() {
-  try {
-    const response = await fetch(`/api/cart/${cartId}`);
-    if (!response.ok) {
-      throw new Error('Failed to fetch cart');
+    function removeProductFromCart(productId) {
+      console.log(`Remove product ${productId} from cart ${cartId}`);
+      fetch(`/api/cart/${cartId}/${productId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      }).then(response => response.json()).then(data => {
+        console.log('Product removed:', data);
+        updateCartView();
+      }).catch(error => {
+        console.error('Error removing product from cart:', error);
+      });
     }
-    const cart = await response.json();
-    console.log('Cart:', cart); // Log the cart object for debugging
+    async function purchaseCart() {
+      
+    try {
+      const response = await fetch(`/api/cart/${cartId}/purchase`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    const cartContent = document.getElementById('cart-content');
-    cartContent.innerHTML = ''; // Clear the existing content
-
-    let totalPrice = 0;
-    if (cart.products && cart.products.length > 0) {
-      for (const item of cart.products) {
-        console.log('Cart item:', item); // Log each item for debugging
-
-        const productId = item.product; // Assuming item.product contains the product ID
-        const quantity = item.quantity;
-
-        // Fetch product details by product ID
-        const productResponse = await fetch(`/api/products/${productId}`);
-        if (!productResponse.ok) {
-          throw new Error(`Failed to fetch product ${productId}`);
-        }
-        const product = await productResponse.json();
-        console.log('Product:', product); // Log the product details for debugging
-
-        if (product) {
-          const title = product.title || 'No title'; // Use default value if undefined
-          const price = product.price || 0; // Use default value if undefined
-
-          const productElement = document.createElement('div');
-          productElement.innerHTML = `
-            <h3>${title}</h3>
-            <p>Price: $${price}</p>
-            <p>Quantity: ${quantity}</p>
-            <button onclick="removeProductFromCart('${productId}')">Remove</button>
-            <hr>
-          `;
-          cartContent.appendChild(productElement);
-          totalPrice += price * quantity;
-        } else {
-          console.error('Product is undefined for product ID:', productId);
-        }
+      if (!response.ok) {
+        throw new Error('Failed to complete the purchase');
       }
 
-      const totalElement = document.createElement('p');
-      totalElement.textContent = `Total Price: $${totalPrice}`;
-      cartContent.appendChild(totalElement);
-    } else {
-      cartContent.innerHTML = '<p>Your cart is empty.</p>';
-    }
-  } catch (error) {
-    console.error('Error fetching cart:', error);
-  }
-}
+      const data = await response.json();
+      if (data.success) {
+        alert(`Purchase successful! Ticket code: ${data.ticket.code}`);
+        updateCartView();  // Update the cart view to reflect the purchase
+      } else {
+        alert('No items processed');
+      }
 
+      if (data.unprocessedProducts.length > 0) {
+        console.warn('Some products could not be processed:', data.unprocessedProducts);
+      }
+    } catch (error) {
+      console.error('Error purchasing cart:', error);
+    }
+  }
+
+    async function updateCartView() {
+      try {
+        const response = await fetch(`/api/cart/${cartId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch cart');
+        }
+        const cart = await response.json();
+        console.log('Cart:', cart);
+
+        const cartContent = document.getElementById('cart-content');
+        cartContent.innerHTML = '';
+
+        let totalPrice = 0;
+        if (cart.products && cart.products.length > 0) {
+          for (const item of cart.products) {
+            const productId = item.product;
+            const quantity = item.quantity;
+
+            const productResponse = await fetch(`/api/products/${productId}`);
+            if (!productResponse.ok) {
+              throw new Error(`Failed to fetch product ${productId}`);
+            }
+            const product = await productResponse.json();
+
+            if (product) {
+              const title = product.title || 'No title';
+              const price = product.price || 0;
+
+              const productElement = document.createElement('div');
+              productElement.innerHTML = `
+                <h3>${title}</h3>
+                <p>Price: $${price}</p>
+                <p>Quantity: ${quantity}</p>
+                <button onclick="removeProductFromCart('${productId}')">Remove</button>
+                <hr>
+              `;
+              cartContent.appendChild(productElement);
+              totalPrice += price * quantity;
+            } else {
+              console.error('Product is undefined for product ID:', productId);
+            }
+          }
+
+          const totalElement = document.createElement('h1');
+          const totalBtn = document.createElement('button');
+          totalElement.textContent = `Total Price: $${totalPrice}`;
+          totalBtn.textContent = `Ordenar`;
+          totalBtn.className = 'total-btn';
+          /**totalBtn.onclick = function() {
+            alert("Generar ticket");
+          };*/
+          totalElement.className = 'total-elem'
+          cartContent.appendChild(totalElement);
+          cartContent.appendChild(totalBtn);
+                  totalBtn.addEventListener('click', purchaseCart);
+
+        } else {
+          cartContent.innerHTML = '<p>Your cart is empty.</p>';
+        }
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      }
+    }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const totalBtn = document.getElementsByClassName('.total-btn');
+    const totalBtnClicked = totalBtn.addEventListener('click', purchaseCart);
+  if (totalBtnClicked) {
+    console.log("click")
+    alert("click")
+  }
+
+});
   createCart();
   </script>
 </body>
