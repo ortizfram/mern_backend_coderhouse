@@ -10,7 +10,7 @@
 - [x] Solo admin puede agregar, actualizar, eliminar productos del cart
 - [ ] Solo admin puede enviar msg al chat
 - [x] Solo user puede agregar productos as carrito
-- [ ] Crear modelo Ticket: cuando la compra se realizo
+- [x] Crear modelo Ticket: cuando la compra se realizo
 ```
 TICKET:
 > Id (autogenerado por mongo)
