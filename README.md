@@ -25,6 +25,7 @@ TICKET:
 Implementar, en el router de carts, la ruta `/:cid/purchase`, la cual permitirá finalizar el proceso de compra de dicho carrito.
 > La compra debe corroborar el stock del producto al momento de finalizarse
 
+```
 > Si el producto tiene suficiente stock para la cantidad indicada en el producto del carrito, entonces restarlo del stock del producto y continuar. `desde el arreglo compra dentro del carrito validar`
 
 > Si el producto no tiene suficiente stock para la cantidad indicada en el producto del carrito, entonces no agregar el producto al proceso de compra. desde el arreglo unprocessed dentro del carrito validar
