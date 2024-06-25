@@ -55,7 +55,7 @@ const addProdToCart = async (req, res) => {
 
 const purchaseCart = async (req, res) => {
   const cartId = req.params.cid;
-  const userId = req.user.id;
+  const userId = req.user._id;
   try {
     const { ticket, unprocessedProducts } = await cm.purchaseCart(cartId, userId);
     res.json({ success: true, ticket, unprocessedProducts });
