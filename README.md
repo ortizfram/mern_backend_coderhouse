@@ -10,7 +10,7 @@
 - [x] Solo admin puede agregar, actualizar, eliminar productos del cart
 - [x] Solo admin puede enviar msg al chat
 - [x] Solo user puede agregar productos as carrito
-- [ ] Crear modelo Ticket: cuando la compra se realizo
+- [x] Crear modelo Ticket: cuando la compra se realizo
 ```
 TICKET:
 > Id (autogenerado por mongo)
@@ -35,9 +35,6 @@ Implementar, en el router de carts, la ruta `/:cid/purchase`, la cual permitirá
 
 > retornar arreglo unprocessed en el carrito
 
-
-
 # Entrega
-> - [ ] Agregar el `.env` 
-
+> - [x] Agregar el `.env` 
 
