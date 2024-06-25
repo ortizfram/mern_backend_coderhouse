@@ -5,7 +5,7 @@
 
 - Conocer y utilizar el módulo Nodemailer para el desarrollo de mensajería.
 - Conocer el modelo de mensajería de Twilio
-- Desarrollar un modelo práctico de mailing
+- Desarrollar un modelo práctico de mailing 
 # A entregar
 - [x] Solo admin puede agregar, actualizar, eliminar productos del cart
 - [x] Solo admin puede enviar msg al chat
