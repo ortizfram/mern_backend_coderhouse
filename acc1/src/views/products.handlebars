@@ -293,14 +293,14 @@
         if (!updatedResponse.ok) {
           throw new Error('Failed to update product stock');
         }
-        console.log('Product stock updated successfully');
+        {{!-- console.log('Product stock updated successfully'); --}}
       } catch (error) {
         console.error('Error updating product stock:', error);
       }
     }
 
     async function addProductToCart(productId) {
-      console.log(`Add product ${productId} to cart ${cartId}`);
+      {{!-- console.log(`Add product ${productId} to cart ${cartId}`); --}}
       try {
         const response = await fetch(`/api/cart/${cartId}/${productId}`, {
           method: 'PUT',
@@ -389,9 +389,9 @@
           // Check if product is out of stock
           const addBtn = document.querySelector(`button[data-product-id="${productId}"]`);
           if (product.stock <= 0 && addBtn) {
-            addBtn.disabled = true;
+            {{!-- addBtn.disabled = true;
             addBtn.style.opacity = '0.5';
-            addBtn.onclick = null; // Remove onclick handler
+            addBtn.onclick = null;  --}}
           } else if (addBtn) {
             addBtn.disabled = false;
             addBtn.style.opacity = '1';
@@ -430,27 +430,29 @@
 }
 
 
-   async function purchaseCart() {
-  console.log(`Attempting to purchase cart ${cartId}`);
-  try {
-    const response = await fetch(`/api/cart/${cartId}/purchase`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
+  async function purchaseCart() {
+    console.log(`Attempting to purchase cart ${cartId}`);
+    try {
+        const response = await fetch(`/api/cart/${cartId}/purchase`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-    const result = await response.json();
-    if (result.success) {
-      alert('Purchase successful!');
-    } else {
-      alert('Purchase failed: ' + (result.error || 'Unknown error'));
+        const result = await response.json();
+        if (result.success) {
+            alert(`Purchase successful!\nTicket: ${JSON.stringify(result.ticket, null, 2)}\nPurchase: ${JSON.stringify(result.purchase, null, 2)}`);
+            // Update the cart view to reflect the remaining unprocessed items
+            updateCartView();
+        } else {
+            alert('Purchase failed: ' + (result.error || 'Unknown error'));
+        }
+    } catch (err) {
+        alert('Error: ' + err.message);
     }
-  } catch (err) {
-    alert('Error: ' + err.message);
-  }
 }
 
     createCart();

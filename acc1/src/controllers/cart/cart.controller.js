@@ -57,13 +57,14 @@ const purchaseCart = async (req, res) => {
   const cartId = req.params.cid;
   const userId = req.user._id;
   try {
-    const { ticket, unprocessedProducts } = await cm.purchaseCart(cartId, userId);
-    res.json({ success: true, ticket, unprocessedProducts });
+      const { ticket, purchase, unprocessed } = await cm.purchaseCart(cartId, userId);
+      res.json({ success: true, ticket, purchase, unprocessed });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
+      console.error(err);
+      res.status(500).json({ error: err.message });
   }
 };
+
 
 module.exports = {
   createCart,

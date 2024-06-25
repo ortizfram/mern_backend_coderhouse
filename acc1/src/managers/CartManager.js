@@ -100,52 +100,84 @@ class CartManager {
       throw new Error("Error removing product from cart: " + error.message);
     }
   }
+
+ 
   async purchaseCart(cid, userId) {
     const cart = await this.getCartById(cid);
     if (!cart) {
-      throw new Error('Cart not found');
+        throw new Error('Cart not found');
     }
-  
-    const unprocessedProducts = [];
+
+    const unprocessed = [];
+    const purchase = [];
+
+    for (const cart_item of cart.products) {
+        const product = await Product.findById({ _id: new mongoose.Types.ObjectId(cart_item.product) });
+        if (!product) {
+            unprocessed.push({
+                product: cart_item.product,
+                reason: "Product not found"
+            });
+            console.error(`Product with ID ${cart_item.product} not found.`);
+            continue;
+        }
+
+        let remainingQuantity = cart_item.quantity;
+        
+        while (product.stock > 0 && remainingQuantity > 0) {
+            const quantityToProcess = Math.min(product.stock, remainingQuantity);
+
+            purchase.push({
+                product: product,
+                quantity: quantityToProcess
+            });
+
+            product.stock -= quantityToProcess;
+            remainingQuantity -= quantityToProcess;
+            await product.save();
+
+            console.log("Product added to purchase: ", product.title, " Quantity: ", quantityToProcess);
+        }
+
+        if (remainingQuantity > 0) {
+            unprocessed.push({
+                product: product.title,
+                reason: "Insufficient stock"
+            });
+            console.log("Unprocessed product due to insufficient stock: ", product.title);
+        }
+    }
+
+    console.log(`\n purchase: ${JSON.stringify(purchase, null, 2)}\n`);
+    console.log(`\n unprocessed: ${JSON.stringify(unprocessed, null, 2)}\n`);
+
     let totalAmount = 0;
-  
-    for (const item of cart.products) {
-      const product = await Product.findById({_id:new mongoose.Types.ObjectId(item.product)});
-      if (!product) {
-        unprocessedProducts.push(item.product);
-        console.error(`Product with ID ${item.product} not found.`);
-        continue;
-      }
-  
-      if (product.stock >= item.quantity) {
-        product.stock -= item.quantity;
-        await product.save();
-        totalAmount += product.price * item.quantity;
-      } else {
-        unprocessedProducts.push(item.product);
-        console.log(`Insufficient stock for product ${product._id}. Requested: ${item.quantity}, Available: ${product.stock}`);
-      }
+    for (const purchase_item of purchase) {
+        console.log("Adding to total: ", purchase_item.product.price, " * ", purchase_item.quantity);
+        totalAmount += purchase_item.product.price * purchase_item.quantity;
     }
-  
+    console.log("Total: $", totalAmount);
+
     if (totalAmount > 0) {
-      const ticket = new ticketSchema({
-        code: `TCKT-${Date.now()}`,
-        amount: totalAmount,
-        purchaser: userId
-      });
-      await ticket.save();
-  
-      // Remove processed items from the cart
-      cart.products = cart.products.filter(item => !unprocessedProducts.includes(item.product));
-      await cart.save();
-  
-      return { ticket, unprocessedProducts };
+        const ticket = new ticketSchema({
+            code: `TCKT-${Date.now()}`,
+            amount: totalAmount,
+            purchaser: userId
+        });
+        await ticket.save();
+
+        // Remove processed cart_items from the cart
+        cart.products = cart.products.filter(cart_item => !purchase.some(p => p.product._id.equals(cart_item.product._id)));
+        await cart.save();
+
+        console.log("Ticket created: ", ticket);
+        return { ticket, purchase, unprocessed };
     } else {
-      console.error('No items were processed for purchase.');
-      throw new Error('No items processed');
+        console.error('No cart_items were processed for purchase.');
+        throw new Error('No cart_items processed');
     }
-  }
-  
+}
+
 }
 
 module.exports = CartManager;
