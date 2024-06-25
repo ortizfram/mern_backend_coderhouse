@@ -8,7 +8,7 @@
 - Desarrollar un modelo práctico de mailing
 # A entregar
 - [x] Solo admin puede agregar, actualizar, eliminar productos del cart
-- [ ] Solo admin puede enviar msg al chat
+- [x] Solo admin puede enviar msg al chat
 - [x] Solo user puede agregar productos as carrito
 - [ ] Crear modelo Ticket: cuando la compra se realizo
 ```
@@ -34,11 +34,9 @@ Implementar, en el router de carts, la ruta `/:cid/purchase`, la cual permitirá
 
 > retornar arreglo outOfStock en el carrito
 
-retornar el arreglo
-
 
 
 # Entrega
-- [ ] Agregar el `.env` 
+> - [ ] Agregar el `.env` 
 
 

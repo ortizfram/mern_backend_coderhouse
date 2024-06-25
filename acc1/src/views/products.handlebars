@@ -116,6 +116,7 @@
   </div>
 
   <!-- CHAT -->
+  {{#if isAdmin}}
   <script src="/socket.io/socket.io.js"></script>
   <h2>Chat</h2>
   <div id="chat-container">
@@ -124,6 +125,7 @@
       <input id="chat-input" autocomplete="off" /><button>Send</button>
     </form>
   </div>
+  {{/if}}
 
   <script id="chat-socket">
     const socket = io();
