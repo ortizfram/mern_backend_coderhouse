@@ -22,11 +22,21 @@ TICKET:
 
 > purchaser: String, contendrá el correo del usuario asociado al carrito.
 ```
-- [ ] router de carts, la ruta `/:cid/purchase`, la cual permitirá finalizar el proceso de compra de dicho carrito.
-La compra debe corroborar el stock del producto al momento de finalizarse y restarlo del stock, actualizando la vista y vaciando el carrido generarando un nuevo id
-> validaciones
+Implementar, en el router de carts, la ruta `/:cid/purchase`, la cual permitirá finalizar el proceso de compra de dicho carrito.
+> La compra debe corroborar el stock del producto al momento de finalizarse
 
-Si el producto `no tiene suficiente stock` para la cantidad indicada en el producto del carrito,cotar los clicks y entonces no agregar el producto al proceso de compra y devolver el arreglo con los ids de los productos que no pudieron procesarse
+> Si el producto tiene suficiente stock para la cantidad indicada en el producto del carrito, entonces restarlo del stock del producto y continuar. `desde el arreglo compra dentro del carrito validar`
+
+> Si el producto no tiene suficiente stock para la cantidad indicada en el producto del carrito, entonces no agregar el producto al proceso de compra. desde el arreglo outOfStock dentro del carrito validar
+
+
+> generar ticket con arreglo compra pero antes mandarle in confirm con los disponibles y el total final
+
+> retornar arreglo outOfStock en el carrito
+
+retornar el arreglo
+
+
 
 # Entrega
 - [ ] Agregar el `.env` 
