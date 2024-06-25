@@ -105,21 +105,28 @@ class CartManager {
     if (!cart) {
       throw new Error('Cart not found');
     }
-    
+  
     const unprocessedProducts = [];
     let totalAmount = 0;
-
+  
     for (const item of cart.products) {
       const product = await Product.findById({_id:new mongoose.Types.ObjectId(item.product)});
+      if (!product) {
+        unprocessedProducts.push(item.product);
+        console.error(`Product with ID ${item.product} not found.`);
+        continue;
+      }
+  
       if (product.stock >= item.quantity) {
         product.stock -= item.quantity;
         await product.save();
         totalAmount += product.price * item.quantity;
       } else {
-        unprocessedProducts.push(item.product._id);
+        unprocessedProducts.push(item.product);
+        console.log(`Insufficient stock for product ${product._id}. Requested: ${item.quantity}, Available: ${product.stock}`);
       }
     }
-
+  
     if (totalAmount > 0) {
       const ticket = new ticketSchema({
         code: `TCKT-${Date.now()}`,
@@ -127,16 +134,18 @@ class CartManager {
         purchaser: userId
       });
       await ticket.save();
-
+  
       // Remove processed items from the cart
-      cart.products = cart.products.filter(item => !unprocessedProducts.includes(item.product._id));
+      cart.products = cart.products.filter(item => !unprocessedProducts.includes(item.product));
       await cart.save();
-
+  
       return { ticket, unprocessedProducts };
     } else {
+      console.error('No items were processed for purchase.');
       throw new Error('No items processed');
     }
   }
+  
 }
 
 module.exports = CartManager;
