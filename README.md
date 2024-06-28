@@ -22,3 +22,5 @@
 ```
 > `TDD`:  Test Driven Development: (desarrollo orientado a pruebas). 
 ![alt text](image-1.png)
+
+> `Mocking with Fackerjs` : just for testing generates db structures and data
