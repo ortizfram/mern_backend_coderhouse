@@ -1,4 +1,5 @@
 const express = require('express');
+const router = require('./routes');
 const { loggerMiddleware } = require('./logger');
 const { prodLogger } = require('./logger');
 const { devLogger } = require('./logger');
@@ -6,6 +7,8 @@ require('dotenv').config();
 
 const app = express();
 app.use(loggerMiddleware);
+
+app.use('/users', router);
 
 app.get('/loggerTest', (req, res) => {
   req.logger.debug('This is a debug message');
@@ -24,4 +27,5 @@ app.use("/", (req, res) => {
 app.listen(8080, () => {
   const logger = process.env.NODE_ENV === 'production' ? prodLogger : devLogger;
   logger.info('Server is listening on port 8080');
+  process.env.NODE_ENV === 'development' ? console.log("Running dev mode !") : console.log("Running prod mode !")
 });
