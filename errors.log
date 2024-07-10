@@ -1,0 +1,10 @@
+2024-07-10T22:00:54.605Z [info]: Server is listening on port 8080
+2024-07-10T22:01:27.966Z [http]: GET /
+2024-07-10T22:02:00.670Z [info]: Server is listening on port 8080
+2024-07-10T22:02:04.547Z [http]: GET /
+2024-07-10T22:02:18.604Z [http]: GET /loggerTest
+2024-07-10T22:02:18.605Z [debug]: This is a debug message
+2024-07-10T22:02:18.605Z [http]: This is an http message
+2024-07-10T22:02:18.605Z [info]: This is an info message
+2024-07-10T22:02:18.605Z [warning]: This is a warning message
+2024-07-10T22:02:18.605Z [error]: This is an error message
