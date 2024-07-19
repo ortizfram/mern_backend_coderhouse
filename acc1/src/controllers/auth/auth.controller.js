@@ -54,7 +54,7 @@ const getResetPassword = (req, res) => {
 };
 
 const postForgotPassword = async (req, res) => {
-  const { email,password } = req.body;
+  const { email } = req.body;
 
   try {
     const user = await User.findOne({ email });
