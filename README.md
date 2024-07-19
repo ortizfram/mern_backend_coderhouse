@@ -8,7 +8,7 @@ Con base en el proyecto que venimos desarrollando, toca solidificar algunos proc
 [x] Realizar un sistema de recuperación de contraseña, la cual envíe por medio de un correo un botón que redireccione a una página para restablecer la contraseña (no recuperarla).
 [x] link del correo debe expirar después de 1 hora de enviado.
 [x] Si se trata de restablecer la contraseña con la misma contraseña del usuario, debe impedirlo e indicarle que no se puede colocar la misma contraseña
-- Si el link expiró, debe redirigir a una vista que le permita generar nuevamente el correo de restablecimiento, el cual contará con una nueva duración de 1 hora.
+[x] Si el link expiró, debe redirigir a una vista que le permita generar nuevamente el correo de restablecimiento, el cual contará con una nueva duración de 1 hora.
 - Establecer un nuevo rol para el schema del usuario llamado “premium” el cual estará habilitado también para crear productos
 
 Modificar el schema de producto para contar con un campo “owner”, el cual haga referencia a la persona que creó el producto
