@@ -2,7 +2,7 @@ const passport = require("passport");
 const User = require("../../models/user.model");
 const { createHash, isValidPassword } = require("../../utils/utils");
 const jwt = require("jsonwebtoken");
-const { sendResetEmail } = require("../../utils/sendEmail");
+const sendResetEmail  = require("../../utils/sendEmail");
 require('dotenv').config();
 
 
