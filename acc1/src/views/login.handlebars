@@ -1,0 +1,35 @@
+<h1>login</h1>
+<label for="email">Correo Electrónico:</label>
+<input type="email" id="email" name="email" /><br /><br />
+<label for="password">contrasena:</label>
+<input type="password" id="password" name="password" /><br /><br />
+<button onclick="submitForm()" style=" color:white;background-color:blue; padding:1rem;font-weight:800">Enviar</button>
+<button style=" color:white;background-color:black; padding:1rem;">
+  <a href="/api/sessions/github" style="text-decoration: none;color: white; font-weight:800">Inicia con Github</a>
+</button> 
+<br />
+<br />
+<a href="/api/sessions/register">aun no tengo una cuenta</a>
+<br /><br>
+<a href="/api/sessions/reset_password">Olvide mi contrasena</a>
+
+<script>
+  function submitForm() { 
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    fetch("/api/sessions/login", { 
+      method: "POST", 
+      headers: { "Content-Type": "application/json" }, 
+      body: JSON.stringify({ email, password }), 
+    })
+    .then((response) => { 
+      if (response.ok) { 
+        console.log("Logged in successfully");
+        window.location.href = "/api/products";
+      } else {
+        console.error("Login failed");
+      } 
+    })
+    .catch((error) => console.error("Error:", error));
+  }
+</script>
