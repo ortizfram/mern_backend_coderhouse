@@ -3,6 +3,7 @@ const User = require("../../models/user.model");
 const { createHash, isValidPassword } = require("../../utils/utils");
 const jwt = require("jsonwebtoken");
 const sendResetEmail  = require("../../utils/sendEmail");
+const bcrypt = require("bcrypt");
 require('dotenv').config();
 
 
@@ -88,29 +89,36 @@ const postForgotPassword = async (req, res) => {
 const getForgotSent = async (req, res) => res.render("forgotSent",{})
 //!RESET
 const getResetPassword = (req, res) => {
-  res.render("resetPassword", {});
+  res.render("resetPassword", {errorMessage:null});
 };
 const postResetPassword = async (req, res) => {
   const { email, password } = req.body;
-  const {userId, token} = req.params
+  const { userId, token } = req.params;
 
   try {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({ message: "User not found" });
+      return res.status(401).json({ errorMessage: "User not found" });
+    }
+    
+    // Don't change if same as previous
+    const isSamePassword = await bcrypt.compare(password, user.password);
+    if (isSamePassword) {
+      return res.status(400).json({ errorMessage: "New password cannot be the same as the old password" });
     }
 
-    const hashedPassword = createHash(password);
+    const hashedPassword = await bcrypt.hash(password, 10);
     user.password = hashedPassword;
     await user.save();
 
     res.status(200).json({ message: "Password reset successfully" });
   } catch (error) {
     console.error("Reset error:", error);
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ errorMessage: "Internal server error" });
   }
 };
+
 //!
 const loginUser = (req, res) => {
   passport.authenticate("login", (err, user, info) => {
