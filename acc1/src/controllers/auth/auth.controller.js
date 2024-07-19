@@ -52,9 +52,7 @@ const perfil = (req, res) => {
 const getForgotPassword = (req, res) => {
   res.render("forgotPassword", {});
 };
-const getResetPassword = (req, res) => {
-  res.render("resetPassword", {});
-};
+
 
 const postForgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -89,8 +87,12 @@ const postForgotPassword = async (req, res) => {
 };
 const getForgotSent = async (req, res) => res.render("forgotSent",{})
 //!RESET
+const getResetPassword = (req, res) => {
+  res.render("resetPassword", {});
+};
 const postResetPassword = async (req, res) => {
   const { email, password } = req.body;
+  const {userId, token} = req.params
 
   try {
     const user = await User.findOne({ email });

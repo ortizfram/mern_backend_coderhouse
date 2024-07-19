@@ -53,7 +53,7 @@ router.get("/forgot_sent", getForgotSent);
 router.post("/forgot_password", postForgotPassword);
 
 /**RESET PASSWORD*/
-router.get("/reset_password", getResetPassword);
+router.get("/reset_password/:userId/:token", getResetPassword);
 router.post("/reset_password", postResetPassword);
 
 router.get("/privado", middlewareAuth, (req, res) => {
