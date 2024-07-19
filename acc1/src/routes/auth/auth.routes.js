@@ -14,6 +14,7 @@ const {
   getForgotPassword,
   postForgotPassword,
   getForgotSent,
+  checkOutdatedToken,
 } = require("../../controllers/auth/auth.controller.js");
 
 const router = express.Router();
@@ -53,7 +54,8 @@ router.get("/forgot_sent", getForgotSent);
 router.post("/forgot_password", postForgotPassword);
 
 /**RESET PASSWORD*/
-router.get("/reset_password/:userId/:token", getResetPassword);
+//? agregar middleware de redireccion si vencio link
+router.get("/reset_password/:userId/:token", checkOutdatedToken, getResetPassword);
 router.post("/reset_password", postResetPassword);
 
 router.get("/privado", middlewareAuth, (req, res) => {

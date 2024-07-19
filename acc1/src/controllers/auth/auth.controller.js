@@ -118,7 +118,20 @@ const postResetPassword = async (req, res) => {
     res.status(500).json({ errorMessage: "Internal server error" });
   }
 };
+const checkOutdatedToken  = async (req,res,next)=>{
+  const { token } = req.params;
 
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    if (err.name === 'TokenExpiredError') {
+      return res.redirect('/api/sessions/forgot_password'); 
+    }
+    return res.status(401).json({ message: "Invalid token." });
+  }
+}
 //!
 const loginUser = (req, res) => {
   passport.authenticate("login", (err, user, info) => {
@@ -156,6 +169,7 @@ const getCurrentUser = (req, res) => {
 
 module.exports = {
   loginUser,
+  checkOutdatedToken,
   getForgotSent,
   getCurrentUser,
   postForgotPassword,
