@@ -11,6 +11,10 @@ const {
   postResetPassword,
   loginUser,
   getCurrentUser,
+  getForgotPassword,
+  getForgotSent,
+  postForgotPassword,
+  checkOutdatedToken,
 } = require("../../controllers/auth/auth.controller.js");
 
 const router = express.Router();
@@ -45,10 +49,15 @@ router.get(
     res.redirect("/api/products");
   }
 );
+/**FORGOT PASSWORD*/
+router.get("/forgot_password", getForgotPassword);
+router.get("/forgot_sent", getForgotSent);
+router.post("/forgot_password", postForgotPassword);
 
 /**RESET PASSWORD*/
-router.get("/reset_password", getResetPassword);
-router.post("/reset_password", postResetPassword);
+//? agregar middleware de redireccion si vencio link
+router.get("/reset_password/:userId/:token", checkOutdatedToken, getResetPassword);
+router.post("/reset_password", postResetPassword);router.post("/reset_password", postResetPassword);
 
 /**PRIVATE*/
 router.get("/privado", middlewareAuth, (req, res) => {
