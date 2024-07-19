@@ -1,96 +1,29 @@
 # mern_backend_coderhouse
 
-## 21.estrategia_auth_terceros_jwt
+## 37.tercera-practica-integradora
+### Consigna
 
-### A integrar:
-- Mongo Avanzado
+Con base en el proyecto que venimos desarrollando, toca solidificar algunos procesos
+### Aspectos a incluir
+Realizar un sistema de recuperación de contraseña, la cual envíe por medio de un correo un botón que redireccione a una página para restablecer la contraseña (no recuperarla).
+- link del correo debe expirar después de 1 hora de enviado.
+- Si se trata de restablecer la contraseña con la misma contraseña del usuario, debe impedirlo e indicarle que no se puede colocar la misma contraseña
+- Si el link expiró, debe redirigir a una vista que le permita generar nuevamente el correo de restablecimiento, el cual contará con una nueva duración de 1 hora.
+- Establecer un nuevo rol para el schema del usuario llamado “premium” el cual estará habilitado también para crear productos
 
-- Cookies
+Modificar el schema de producto para contar con un campo “owner”, el cual haga referencia a la persona que creó el producto
+> Si un producto se crea sin owner, se debe colocar por defecto “admin”.
 
-- Autenticación y autorización
+> El campo owner deberá guardar sólo el correo electrónico (o _id, lo dejamos a tu conveniencia) del usuario que lo haya creado (Sólo podrá recibir usuarios premium)
 
-- Passport
+Modificar los permisos de modificación y eliminación de productos para que:
 
--  jwt
-### Skills mongo avanzado
-Comprender el uso de una referencia por ObjectId
+> Un usuario premium sólo pueda borrar los productos que le pertenecen.
 
-Saber definir referencias en un schema de mongoose
+> El admin pueda borrar cualquier producto, aún si es de un owner.
 
-Comprender el uso de populations
+> Además, modificar la lógica de carrito para que un usuario premium NO pueda agregar a su carrito un producto que le pertenece
 
-Aplicar una population en mongoose entre dos esquemas con una referencia
+> Implementar una nueva ruta en el router de api/users, la cual será /api/users/premium/:uid  la cual permitirá cambiar el rol de un usuario, de “user” a “premium” y viceversa.
 
-Comprender la necesidad de la utilización de paginaciones
-
-Aplicar paginaciones en consultas con mongoose-paginatev2
-
-Puedes revisar las clases 16 y 17 sobre Mongo Avanzado
-### Skills Cookies
-Entender el funcionamiento de una cookie
-
-Saber setear una cookie 
-
-Saber configurar el tiempo de vida de una cookie
-
-Saber limpiar una cookie
-
-Comprender la conexión de una cookie con jwt
-
-Puedes revisar la clase 18 para recordar conceptos de cookies
-### Skills auth
-Comprender la lógica de registro de un usuario
-
-Comprender el concepto de autenticación y la lógica de login de un usuario
-
-Comprender la diferencia entre autenticación y autorización
-
-Construir middlewares de autorización y control de códigos de estado 401 y 403
-
-Manejo de políticas
-
-### skills passport
-Comprender el uso de una estrategia
-Comprender la lógica de una estrategia local y sus configuraciones
-Comprender la lógica de una estrategia por terceros y sus configuraciones
-Comprender la lógica de una estrategia de tokenización y su configuración
-
-### Skills JWT
-Comprender la diferencia entre una sesión y una tokenización
-
-Firmar información en un token
-
-Guardar tokens en cookies HTTP - Only
-
-Utilizar Passport-jwt
-
-# ⚔️ DESAFIO COMPLEMENTARIO ⚔️
-#### Consigna
-
-Continuar sobre el proyecto que has trabajado para tu ecommerce y configurar los siguientes elementos:
-
-#### Aspectos a incluir
-
-Crear un modelo User el cual contará con los campos:
-```
-first_name:String,
-last_name:String,
-email:String (único)
-age:Number,
-password:String(Hash)
-cart:Id con referencia a Carts
-role:String(default:’user’)
-```
-Desarrollar las estrategias de Passport para que funcionen con este modelo de usuarios
-
-Modificar el sistema de login del usuario para poder trabajar con session o con jwt (a tu elección). 
-
-(Sólo para jwt) desarrollar una estrategia “current” para extraer la cookie que contiene el token para obtener el usuario asociado a dicho token, en caso de tener el token, devolver al usuario asociado al token, caso contrario devolver un error de passport, utilizar un extractor de cookie.
-Agregar al router /api/sessions/ la ruta /current, la cual utilizará el modelo de sesión que estés utilizando, para poder devolver en una respuesta el usuario actual.
-
-#### sugerencias
-
-Te recomendamos trabajar con el modelo de sesión con el cual te sientas más cómodo (sessions / jwt)
-
-
-
+`Te recomendamos testear muy bien todas las políticas de acceso. ¡Son la parte fuerte de este entregable!`
