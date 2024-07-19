@@ -2,6 +2,9 @@ const passport = require("passport");
 const User = require("../../models/user.model");
 const { createHash, isValidPassword } = require("../../utils/utils");
 const jwt = require("jsonwebtoken");
+const { sendResetEmail } = require("../../utils/sendEmail");
+require('dotenv').config();
+
 
 const generateJWT = (user) => {
   const payload = { id: user._id, email: user.email, role: user.role };
@@ -65,8 +68,20 @@ const postForgotPassword = async (req, res) => {
 
    //send email to reset pass
    console.log("sending email..")
+   console.log(process.env.JWT_SECRET)
+   const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+   const link = `http://localhost:8080/api/sessions/reset_password/${user._id.toString()}/${token}`;
+    console.log("Generated reset password link:", link);
+   await sendResetEmail(
+    email,
+    "Password Reset",
+    "Sending Reset password Token, click the button for password changing",
+    `<button><a href="${link}">Go to Reset Password</a></button>`
+  );
 
-    res.status(200).json({ message: "Password reset email sent successfully" });
+  res
+    .status(200)
+    .json({ message: "Password reset email sent, check your mailbox." });
   } catch (error) {
     console.error("Password reset email error:", error);
     res.status(500).json({ message: "Internal server error" });
