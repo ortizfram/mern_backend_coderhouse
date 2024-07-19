@@ -9,6 +9,9 @@ const productSchema = new mongoose.Schema({
     stock: { type: Number, required: true },
     category: { type: String, required: true },
     thumbnails: { type: Array },
+    owner:{ type: mongoose.Schema.Types.ObjectId,ref:"User",default: "admin"},
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },
   });
 
 module.exports.productSchema = mongoose.model("Product", productSchema, "products");

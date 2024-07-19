@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const authRouter = require("./routes/auth/auth.routes.js");
 const productsRouter = require("./routes/products/products.routes.js");
+const cartRouter = require("./routes/cart/cart.routes.js");
 const handlebars = require("express-handlebars");
 const session = require("express-session");
 const mongoose = require("mongoose");
@@ -37,6 +38,8 @@ app.use(cookieParser("secret")); // pass secret from .env
 app.use("/", router);
 app.use("/api/sessions", authRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/cart", cartRouter);
+
 
 app.listen(8080, () => {
   console.log("listening to port 8080");
