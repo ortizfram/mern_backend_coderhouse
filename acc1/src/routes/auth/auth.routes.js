@@ -13,6 +13,7 @@ const {
   getCurrentUser,
   getForgotPassword,
   postForgotPassword,
+  getForgotSent,
 } = require("../../controllers/auth/auth.controller.js");
 
 const router = express.Router();
@@ -48,9 +49,7 @@ router.get(
 
 /**FORGOT PASSWORD*/
 router.get("/forgot_password", getForgotPassword);
-router.get("/forgot_sent", (req, res) => {
-  req.send("forgot email sent, check your inbox");
-});
+router.get("/forgot_sent", getForgotSent);
 router.post("/forgot_password", postForgotPassword);
 
 /**RESET PASSWORD*/

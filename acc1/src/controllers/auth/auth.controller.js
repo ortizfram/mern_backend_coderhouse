@@ -32,7 +32,7 @@ const logoutConSession = (req, res) => {
   res.clearCookie("jwt"); // Clear the JWT cookie
   res.redirect("/api/sessions/login"); // Redirect to login page after logout
 };
-
+//!REGISTER
 const getRegister = (req, res) => {
   res.render("registro", {});
 };
@@ -40,12 +40,12 @@ const getRegister = (req, res) => {
 const getLogin = (req, res) => {
   res.render("login", {});
 };
-
+//!PERFIL
 const perfil = (req, res) => {
   const user = req.user;
   res.render("perfil", { user: user });
 };
-
+// !FORGOT
 const getForgotPassword = (req, res) => {
   res.render("forgotPassword", {});
 };
@@ -54,7 +54,7 @@ const getResetPassword = (req, res) => {
 };
 
 const postForgotPassword = async (req, res) => {
-  const { email } = req.body;
+  const { email,password } = req.body;
 
   try {
     const user = await User.findOne({ email });
@@ -64,6 +64,7 @@ const postForgotPassword = async (req, res) => {
     }
 
    //send email to reset pass
+   console.log("sending email..")
 
     res.status(200).json({ message: "Password reset email sent successfully" });
   } catch (error) {
@@ -71,6 +72,8 @@ const postForgotPassword = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+const getForgotSent = async (req, res) => res.render("forgotSent",{})
+//!RESET
 const postResetPassword = async (req, res) => {
   const { email, password } = req.body;
 
@@ -91,7 +94,7 @@ const postResetPassword = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
-
+//!
 const loginUser = (req, res) => {
   passport.authenticate("login", (err, user, info) => {
     if (err) {
@@ -128,6 +131,7 @@ const getCurrentUser = (req, res) => {
 
 module.exports = {
   loginUser,
+  getForgotSent,
   getCurrentUser,
   postForgotPassword,
   generateJWT,
