@@ -41,6 +41,23 @@ app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 
 
-app.listen(8080, () => {
-  console.log("listening to port 8080");
+// http y socket
+const { Server } = require("socket.io");
+const serverHTTP = app.listen(8080, () => console.log(`http & express on port 8080`));
+const io = new Server(serverHTTP);
+
+io.on("connection", (socket) => {
+  console.log("socket connected");
+
+  // socket.on("chat message", (msg) => {
+  //   io.emit("chat message", msg);
+  // });
+
+  socket.on("disconnect", () => {
+    console.log("socket disconnected");
+  });
 });
+
+// app.listen(8080, () => {
+//   console.log("listening to port 8080");
+// });
