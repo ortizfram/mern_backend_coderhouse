@@ -2,7 +2,7 @@
 <ul>
   {{#each userList}}
     <li>
-      <form action="/api/users/{{this._id}}" method="POST">
+      <form action="/api/users/{{this._id}}" method="PUT">
         <span>{{this.email}}</span>
         <select name="role">
           <option value="user" {{#if (eq this.role "user")}}selected{{/if}}>User</option>
