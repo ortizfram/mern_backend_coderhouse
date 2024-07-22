@@ -147,6 +147,7 @@
           {{#each products}}
           <li id="prod-container">
             {{#unless ../isAdmin}}
+            {{#unless this.isOwner}}
             <div id="user-actions" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
               <button style="background-color: #4CAF50; color: white;"
                       onmouseover="this.style.backgroundColor='#45a049';"
@@ -161,6 +162,7 @@
                 -
               </button>
             </div>
+            {{/unless}}
             {{/unless}}
             <div id="prod-content">
               <h2>Title: {{this.title}}</h2>
