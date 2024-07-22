@@ -1,9 +1,15 @@
 const User = require('../../dao/models/user.model'); // make sure you have the correct path to your User model
 
 const getChangeRolesView = async (req, res) => {
- const userList = User.find({})
- res.render("changeRoles",{userList})
-}
+  try {
+    const userList = await User.find(); // Await the result of the query
+    res.render("changeRoles", { userList });
+  } catch (error) {
+    console.error("Failed to fetch user list", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 const toPremium = async (req, res) => {
   const { uid } = req.params;
   try {

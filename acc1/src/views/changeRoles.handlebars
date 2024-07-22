@@ -3,7 +3,7 @@
   {{#each userList}}
     <li>
       <form action="/api/users/{{this._id}}" method="POST">
-        <span>{{this.email}} (Current Role: {{this.role}})</span>
+        <span>{{this.email}}</span>
         <select name="role">
           <option value="user" {{#if (eq this.role "user")}}selected{{/if}}>User</option>
           <option value="admin" {{#if (eq this.role "admin")}}selected{{/if}}>Admin</option>

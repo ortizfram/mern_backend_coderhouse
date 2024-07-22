@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getChangeRolesView, toPremium, toAdmin, toUser } = require('../../controllers/users/users.controller')
+const { getChangeRolesView, toPremium, toAdmin, toUser } = require('../../controllers/users/users.controller');
 
 router.get("/", getChangeRolesView);
 
