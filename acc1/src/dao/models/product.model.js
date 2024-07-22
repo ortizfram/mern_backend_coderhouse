@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
     //thumbnails: { type: Array },
-    owner:{ type: mongoose.Schema.Types.ObjectId,ref:"User",default: "admin"},
+    // owner:{ type: mongoose.Schema.Types.ObjectId,ref:"User",default: "admin"},
 
   });
 

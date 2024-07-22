@@ -13,7 +13,7 @@ Con base en el proyecto que venimos desarrollando, toca solidificar algunos proc
 
 [x] Si el link expiró, debe redirigir a una vista que le permita generar nuevamente el correo de restablecimiento, el cual contará con una nueva duración de 1 hora.
 
-[] Establecer un nuevo rol para el schema del usuario llamado “premium” el cual estará habilitado también para crear productos
+[x] Establecer un nuevo rol para el schema del usuario llamado “premium” el cual estará habilitado también para crear productos
 
 [x] Modificar el schema de producto para contar con un campo “owner”, el cual haga referencia a la persona que creó el producto
 > [x] Si un producto se crea sin owner, se debe colocar por defecto “admin”.

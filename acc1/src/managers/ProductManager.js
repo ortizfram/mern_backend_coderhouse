@@ -27,6 +27,7 @@ class ProductManager {
     status = "active",
     stock,
     category,
+    // owner,
     //thumbnails = [],
   }) {
     try {
@@ -63,6 +64,7 @@ class ProductManager {
         status,
         stock:parseInt(stock),
         category,
+        // owner,
        // thumbnails,
       });
 
@@ -70,6 +72,7 @@ class ProductManager {
       await newProduct.save();
 
       console.log("New product added!"); // Log a message indicating success
+      return newProduct
     } catch (error) {
       throw new Error("Error adding product: " + error.message);
     }

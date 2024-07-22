@@ -122,6 +122,7 @@
   <h1>Productos</h1>
   <p style="color: blue;">Holaaa! {{firstName}} Bienvenid@</p>
   <p style="color: green;">admin: {{isAdmin}}</p>
+  <p style="color: red;">userId: {{userId}}</p>
   <button onclick="logout()">logout</button>
   <br />
   <br />
@@ -224,7 +225,7 @@
       const stock = prompt("Enter product stock:");
       const category = prompt("Enter product category:");
 
-      if (title && description && price && stock && category) {
+      if (title && description && price && stock && category ) {
         const newProduct = { title, description, price, stock, category, status: "active" };
         fetch("/api/products", {
           method: "POST",
