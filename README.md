@@ -24,7 +24,7 @@ Modificar los permisos de modificación y eliminación de productos para que:
 
 > [x] Un usuario premium sólo pueda borrar los productos que le pertenecen.
 
-> [] El admin pueda borrar cualquier producto, aún si es de un owner.
+> [x] El admin pueda borrar cualquier producto, aún si es de un owner.
 
 > [] Además, modificar la lógica de carrito para que un usuario premium NO pueda agregar a su carrito un producto que le pertenece
 
