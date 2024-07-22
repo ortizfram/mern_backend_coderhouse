@@ -31,11 +31,16 @@ const getProducts = async (req, res) => {
     const isAdmin = user && user.role === "admin"; // Determine if the user is an admin
     const isPremium = user && user.role === "premium"; // Determine if the user is an admin
     const userId = user && user._id
+
+    const productsWithOwnership = products.map(product => ({
+      ...product.toObject(),
+      isOwner: product.owner && userId ? product.owner.equals(userId) : false // Check ownership safely
+    }));
     
     console.log("admin", isAdmin);
     res.render("products", {
       firstName: user?.first_name || null,
-      products: products,
+      products: productsWithOwnership,
       isAdmin: isAdmin,
       isPremium: isPremium,
       userId: userId,

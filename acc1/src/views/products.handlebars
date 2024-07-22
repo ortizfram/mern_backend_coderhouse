@@ -169,13 +169,15 @@
               <p>Stock: {{this.stock}}</p>
               <p>Category: {{this.category}}</p>
               <p>ownerId: {{this.owner}}</p>
-                <!-- Conditionally render the delete button if ownerId matches userId -->
-              {{#if this.isOwner}}
-                <button class="delete-btn">
-                 
-                  <i class="fas fa-trash"></i> Delete
-                </button>
-              {{/if}}
+                <!-- Conditionally render the delete button if ownerId matches userId for isPremium-->
+                  {{#if this.isOwner}}
+                    <button class="delete-btn"
+                            onclick="deleteProduct('{{this._id}}')"
+                            data-product-id="{{this._id}}"
+                            style="background-color: #af4c4c; color: white;">
+                       Delete
+                    </button>
+                  {{/if}}
             </div>
             <hr />
           </li>
