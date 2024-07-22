@@ -134,6 +134,11 @@
         <a href="#" style="color:white;" onclick="addNewProduct()">Create New Product</a>
       </button>
       {{/if}}
+      {{#if isPremium}}
+      <button style="background:green;">
+        <a href="#" style="color:white;" onclick="addNewProduct()">Create New Product</a>
+      </button>
+      {{/if}}
 
       <!-- Display products -->
       {{#if products.length}}
