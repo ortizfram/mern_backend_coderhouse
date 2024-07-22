@@ -20,7 +20,7 @@ const addProduct = async (req, res) => {
 
 
 const getProducts = async (req, res) => {
-  const user = req.user;
+  const user = req.currentUser;
 
   try {
     const products = await pm.getProducts();
@@ -30,6 +30,7 @@ const getProducts = async (req, res) => {
       firstName: user?.first_name || null,
       products: products,
       isAdmin: isAdmin,
+      userId : user&& user._id
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

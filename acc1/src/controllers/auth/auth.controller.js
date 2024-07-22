@@ -2,11 +2,13 @@ const passport = require("passport");
 const User = require("../../dao/models/user.model");
 const { createHash, isValidPassword } = require("../../utils/utils");
 const jwt = require("jsonwebtoken");
-const { JWT_SECRET } = require("../../config/config");
+const sendResetEmail = require("../../utils/sendEmail");
+const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 const generateJWT = (user) => {
   const payload = { id: user._id, email: user.email, role: user.role };
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign(payload, "your_jwt_secret", { expiresIn: "1h" });
   return token;
 };
 
@@ -28,50 +30,19 @@ const middlewareAuth = (req, res, next) => {
     next();
   })(req, res, next);
 };
-
+//!LOGOUT
 const logoutConSession = (req, res) => {
   res.clearCookie("jwt"); // Clear the JWT cookie
   res.redirect("/api/sessions/login"); // Redirect to login page after logout
 };
-
+//!REGISTER
 const getRegister = (req, res) => {
   res.render("registro", {});
 };
-
+//!LOGIN
 const getLogin = (req, res) => {
   res.render("login", {});
 };
-
-const perfil = (req, res) => {
-  const user = req.user;
-  res.render("perfil", { user: user });
-};
-
-const getResetPassword = (req, res) => {
-  res.render("resetPassword", {});
-};
-
-const postResetPassword = async (req, res) => {
-  const { email, password } = req.body;
-
-  try {
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(401).json({ message: "User not found" });
-    }
-
-    const hashedPassword = createHash(password);
-    user.password = hashedPassword;
-    await user.save();
-
-    res.status(200).json({ message: "Password reset successfully" });
-  } catch (error) {
-    console.error("Reset error:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-};
-
 const loginUser = (req, res) => {
   passport.authenticate("login", (err, user, info) => {
     if (err) {
@@ -95,22 +66,120 @@ const loginUser = (req, res) => {
     });
   })(req, res);
 };
-
-const getCurrentUser = (req, res,next) => {
+const getCurrentUser = (req, res, next) => {
   const user = User.findOne({ _id: req.user });
   if (user) {
     const { password, ...userWithoutPassword } = req.user.toObject();
-    req.user = userWithoutPassword
-    next()
+    req.currentUser = userWithoutPassword;
+    next();
   } else {
     res.status(404).json({ error: "error de passport" });
   }
 };
+//!PERFIL
+const perfil = (req, res) => {
+  const user = req.currentUser;
+  res.render("perfil", { user: user });
+};
+// !FORGOT
+const getForgotPassword = (req, res) => {
+  res.render("forgotPassword", {});
+};
+const postForgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    //send email to reset pass
+    console.log("sending email..");
+    console.log(process.env.JWT_SECRET);
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+    const link = `http://localhost:8080/api/sessions/reset_password/${user._id.toString()}/${token}`;
+    console.log("Generated reset password link:", link);
+    await sendResetEmail(
+      email,
+      "Password Reset",
+      "Sending Reset password Token, click the button for password changing",
+      `<button><a href="${link}">Go to Reset Password</a></button>`
+    );
+
+    res
+      .status(200)
+      .json({ message: "Password reset email sent, check your mailbox." });
+  } catch (error) {
+    console.error("Password reset email error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+const getForgotSent = async (req, res) => res.render("forgotSent", {});
+//!RESET
+const getResetPassword = (req, res) => {
+  res.render("resetPassword", { errorMessage: null });
+};
+const postResetPassword = async (req, res) => {
+  const { email, password } = req.body;
+  const { userId, token } = req.params;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ errorMessage: "User not found" });
+    }
+
+    // Don't change if same as previous
+    const isSamePassword = await bcrypt.compare(password, user.password);
+    if (isSamePassword) {
+      return res
+        .status(400)
+        .json({
+          errorMessage: "New password cannot be the same as the old password",
+        });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successfully" });
+  } catch (error) {
+    console.error("Reset error:", error);
+    res.status(500).json({ errorMessage: "Internal server error" });
+  }
+};
+const checkOutdatedToken = async (req, res, next) => {
+  const { token } = req.params;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      return res.redirect("/api/sessions/forgot_password");
+    }
+    return res.status(401).json({ message: "Invalid token." });
+  }
+};
+//!
 
 module.exports = {
   loginUser,
+  checkOutdatedToken,
+  getForgotSent,
   getCurrentUser,
+  postForgotPassword,
   generateJWT,
+  getForgotPassword,
   getResetPassword,
   postResetPassword,
   perfil,
