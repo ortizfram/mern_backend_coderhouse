@@ -1,40 +1,35 @@
 # mern_backend_coderhouse
 
-## 30.mailing-mensajeria
-# Objetivos de la clase
+## 37-4.tercera-practica-integradora
+### Consigna
 
-- Conocer y utilizar el módulo Nodemailer para el desarrollo de mensajería.
-- Conocer el modelo de mensajería de Twilio
-- Desarrollar un modelo práctico de mailing 
-# A entregar
-- [x] Solo admin puede agregar, actualizar, eliminar productos del cart
-- [x] Solo admin puede enviar msg al chat
-- [x] Solo user puede agregar productos as carrito
-- [x] Crear modelo Ticket: cuando la compra se realizo
-```
-TICKET:
-> Id (autogenerado por mongo)
+Con base en el proyecto que venimos desarrollando, toca solidificar algunos procesos
+### Aspectos a incluir
+[x] Realizar un sistema de recuperación de contraseña, la cual envíe por medio de un correo un botón que redireccione a una página para restablecer la contraseña (no recuperarla).
 
-> code: String debe autogenerarse y ser único
+[x] link del correo debe expirar después de 1 hora de enviado.
 
-> purchase_datetime: Deberá guardar la fecha y hora exacta en la cual se formalizó la compra (básicamente es un created_at)
-> amount: Number, total de la compra.
+[x] Si se trata de restablecer la contraseña con la misma contraseña del usuario, debe impedirlo e indicarle que no se puede colocar la misma contraseña
 
-> purchaser: String, contendrá el correo del usuario asociado al carrito.
-```
-Implementar, en el router de carts, la ruta `/:cid/purchase`, la cual permitirá finalizar el proceso de compra de dicho carrito.
-> La compra debe corroborar el stock del producto al momento de finalizarse
+[x] Si el link expiró, debe redirigir a una vista que le permita generar nuevamente el correo de restablecimiento, el cual contará con una nueva duración de 1 hora.
 
-```
-> Si el producto tiene suficiente stock para la cantidad indicada en el producto del carrito, entonces restarlo del stock del producto y continuar. `desde el arreglo compra dentro del carrito validar`
+[x] Establecer un nuevo rol para el schema del usuario llamado “premium” el cual estará habilitado también para crear productos
 
-> Si el producto no tiene suficiente stock para la cantidad indicada en el producto del carrito, entonces no agregar el producto al proceso de compra. desde el arreglo unprocessed dentro del carrito validar
+[x] Modificar el schema de producto para contar con un campo “owner”, el cual haga referencia a la persona que creó el producto
+> [x] Si un producto se crea sin owner, se debe colocar por defecto “admin”.
 
+> [] El campo owner deberá guardar sólo el correo electrónico (o _id, lo dejamos a tu conveniencia) del usuario que lo haya creado (Sólo podrá recibir usuarios premium)
 
-> generar ticket con arreglo compra pero antes mandarle in confirm con los disponibles y el total final
+Modificar los permisos de modificación y eliminación de productos para que:
 
-> retornar arreglo unprocessed en el carrito
+> [] Un usuario premium sólo pueda borrar los productos que le pertenecen.
 
-# Entrega
-> - [x] Agregar el `.env` 
+> [] El admin pueda borrar cualquier producto, aún si es de un owner.
 
+> [] Además, modificar la lógica de carrito para que un usuario premium NO pueda agregar a su carrito un producto que le pertenece
+
+> [] Implementar una nueva ruta en el router de api/users, la cual será /api/users/premium/:uid  la cual permitirá cambiar el rol de un usuario, de “user” a “premium” y viceversa.
+
+`Te recomendamos testear muy bien todas las políticas de acceso. ¡Son la parte fuerte de este entregable!`
+
+[] No olvidar agregar .env a la entrega
