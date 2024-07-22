@@ -170,12 +170,12 @@
               <p>Category: {{this.category}}</p>
               <p>ownerId: {{this.owner}}</p>
                 <!-- Conditionally render the delete button if ownerId matches userId -->
-            {{!-- {{#ifCond this.owner userId}} --}}
-              <button class="delete-btn">
-                <i class="fas fa-trash"></i> Delete
-              </button>
-            {{!-- {{/ifCond}} --}}
-
+              {{#if this.isOwner}}
+                <button class="delete-btn">
+                 
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              {{/if}}
             </div>
             <hr />
           </li>

@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const { mongoose } = require("mongoose");
 const ProductManager = require("../../managers/ProductManager.js");
 const pm = new ProductManager();
 
@@ -30,6 +30,7 @@ const getProducts = async (req, res) => {
     const isAdmin = user && user.role === "admin"; // Determine if the user is an admin
     const isPremium = user && user.role === "premium"; // Determine if the user is an admin
     const userId = user && user._id
+
     console.log("admin", isAdmin);
     res.render("products", {
       firstName: user?.first_name || null,

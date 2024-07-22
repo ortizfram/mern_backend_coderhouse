@@ -168,20 +168,6 @@ class ProductManager {
   };
 
   deleteProduct = async (pid) => {
-    // const products = await this.getData();
-    // const product = products.find(
-    //   (product) => product.id === id,
-    //   (err) => {
-    //     if (err) throw new Error("Product not found");
-    //   }
-    // );
-    // // filter out id from array
-    // const filteredP = products.filter((product) => product.id !== id);
-
-    // // save
-    // fs.writeFileSync(this.path, JSON.stringify(filteredP, null, 2));
-
-    // return product;
     try {
       // Find the product by ID in the database
       let product = await Product.findByIdAndDelete({
