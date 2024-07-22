@@ -169,8 +169,17 @@
               <p>Stock: {{this.stock}}</p>
               <p>Category: {{this.category}}</p>
               <p>ownerId: {{this.owner}}</p>
-                <!-- Conditionally render the delete button if ownerId matches userId for isPremium-->
+                <!-- DELETE for isPremium(owner)-->
                   {{#if this.isOwner}}
+                    <button class="delete-btn"
+                            onclick="deleteProduct('{{this._id}}')"
+                            data-product-id="{{this._id}}"
+                            style="background-color: #af4c4c; color: white;">
+                       Delete
+                    </button>
+                  {{/if}}
+                <!-- DELETE for isAdmin(*)-->
+                  {{#if this.isAdmin}}
                     <button class="delete-btn"
                             onclick="deleteProduct('{{this._id}}')"
                             data-product-id="{{this._id}}"

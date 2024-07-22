@@ -22,7 +22,7 @@ Con base en el proyecto que venimos desarrollando, toca solidificar algunos proc
 
 Modificar los permisos de modificación y eliminación de productos para que:
 
-> [] Un usuario premium sólo pueda borrar los productos que le pertenecen.
+> [x] Un usuario premium sólo pueda borrar los productos que le pertenecen.
 
 > [] El admin pueda borrar cualquier producto, aún si es de un owner.
 

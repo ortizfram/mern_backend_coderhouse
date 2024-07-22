@@ -34,7 +34,8 @@ const getProducts = async (req, res) => {
 
     const productsWithOwnership = products.map(product => ({
       ...product.toObject(),
-      isOwner: product.owner && userId ? product.owner.equals(userId) : false // Check ownership safely
+      isOwner: product.owner && userId ? product.owner.equals(userId) : false,
+      isAdmin: isAdmin,
     }));
     
     console.log("admin", isAdmin);
