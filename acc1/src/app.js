@@ -7,7 +7,7 @@ const smsRouter = require("./routes/sms/sms.routes.js");
 const cartRouter = require("./routes/cart/cart.routes.js");
 const usersRouter = require("./routes/users/users.routes.js");
 const handlebars = require("express-handlebars");
-const { create } = require('express-handlebars');
+const { create } = require("express-handlebars");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -15,6 +15,7 @@ const initializePassport = require("./config/initializePassport.js");
 const router = require("./routes/index/index.routes.js");
 const { MONGODB_URI, SESSION_SECRET } = require("./config/config.js");
 require("dotenv").config();
+const handlebarHelpers = require("./helpers/handlebars.js");
 
 const app = express();
 app.use(express.json());
@@ -41,12 +42,14 @@ mongoose
 app.use(express.static(__dirname + "/public"));
 const hbs = create({
   // Specify runtime options
-  defaultLayout: 'main',
+  defaultLayout: "main",
   runtimeOptions: {
     allowProtoPropertiesByDefault: true,
     allowProtoMethodsByDefault: true,
-  }
+  },
+  helpers: handlebarHelpers,
 });
+
 app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 app.set("views", __dirname + "/views");
@@ -62,7 +65,9 @@ app.use("/api/sms", smsRouter);
 
 // http y socket
 const { Server } = require("socket.io");
-const serverHTTP = app.listen(8080, () => console.log(`http & express on port 8080`));
+const serverHTTP = app.listen(8080, () =>
+  console.log(`http & express on port 8080`)
+);
 const io = new Server(serverHTTP);
 
 io.on("connection", (socket) => {
