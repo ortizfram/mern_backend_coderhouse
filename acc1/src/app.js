@@ -5,6 +5,7 @@ const productsRouter = require("./routes/products/products.routes.js");
 const mailingRouter = require("./routes/mailing/mailing.routes.js");
 const smsRouter = require("./routes/sms/sms.routes.js");
 const cartRouter = require("./routes/cart/cart.routes.js");
+const usersRouter = require("./routes/users/users.routes.js");
 const handlebars = require("express-handlebars");
 const { create } = require('express-handlebars');
 const session = require("express-session");
@@ -52,6 +53,7 @@ app.set("views", __dirname + "/views");
 
 app.use(cookieParser(SESSION_SECRET)); // pass secret from .env
 app.use("/", router);
+app.use("/api/users", usersRouter);
 app.use("/api/sessions", authRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
