@@ -25,11 +25,13 @@ const getProducts = async (req, res) => {
   try {
     const products = await pm.getProducts();
     const isAdmin = user && user.role === "admin"; // Determine if the user is an admin
+    const isPremium = user && user.role === "premium"; // Determine if the user is an admin
     console.log("admin", isAdmin);
     res.render("products", {
       firstName: user?.first_name || null,
       products: products,
       isAdmin: isAdmin,
+      isPremium: isPremium,
       userId : user&& user._id
     });
   } catch (error) {
