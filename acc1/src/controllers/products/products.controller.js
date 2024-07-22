@@ -13,7 +13,6 @@ const addProduct = async (req, res) => {
       stock,
       category,
       status,
-      // owner: user._id
     });
     console.log("Product added successfully:", addedProduct);
 

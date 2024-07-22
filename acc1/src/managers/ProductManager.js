@@ -27,34 +27,12 @@ class ProductManager {
     status = "active",
     stock,
     category,
-    // owner,
-    //thumbnails = [],
+ 
   }) {
     try {
-      // Read existing products from the file for FS
-      //let products = await this.getData();
-
-      // Generate the new product ID
-      // const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
 
       const code = crypto.randomBytes(4).toString("hex");
-      // const product = {
-      //   // id,
-      //   code,
-      //   title,
-      //   description,
-      //   price,
-      //   status,
-      //   stock,
-      //   category,
-      //   //thumbnails,
-      // };
-
-      // Concatenate the new product with the existing products array
-      // products.push(product);
-
-      // Write the updated products array back to the file
-      // await fs.promises.writeFile(this.path, JSON.stringify(products));
+      
       // Create a new product instance using the Product model
       const newProduct = new Product({
         //code,
@@ -64,8 +42,6 @@ class ProductManager {
         status,
         stock:parseInt(stock),
         category,
-        // owner,
-       // thumbnails,
       });
 
       // Save the new product to the database
