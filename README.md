@@ -15,8 +15,8 @@ Con base en el proyecto que venimos desarrollando, toca solidificar algunos proc
 
 [x] Establecer un nuevo rol para el schema del usuario llamado “premium” el cual estará habilitado también para crear productos
 
-[x] Modificar el schema de producto para contar con un campo “owner”, el cual haga referencia a la persona que creó el producto
-> [x] Si un producto se crea sin owner, se debe colocar por defecto “admin”.
+[] Modificar el schema de producto para contar con un campo “owner”, el cual haga referencia a la persona que creó el producto
+> [] Si un producto se crea sin owner, se debe colocar por defecto “admin”.
 
 > [] El campo owner deberá guardar sólo el correo electrónico (o _id, lo dejamos a tu conveniencia) del usuario que lo haya creado (Sólo podrá recibir usuarios premium)
 

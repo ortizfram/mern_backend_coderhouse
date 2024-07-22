@@ -27,6 +27,7 @@ class ProductManager {
     status = "active",
     stock,
     category,
+    owner,
     //thumbnails = [],
   }) {
     try {
@@ -63,6 +64,7 @@ class ProductManager {
         status,
         stock:parseInt(stock),
         category,
+        owner,
        // thumbnails,
       });
 

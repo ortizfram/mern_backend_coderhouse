@@ -1,8 +1,11 @@
+const { default: mongoose } = require("mongoose");
 const ProductManager = require("../../managers/ProductManager.js");
 const pm = new ProductManager();
 
 const addProduct = async (req, res) => {
   const { title, description, price, stock, category, status } = req.body;
+  const defaultAdminId = new mongoose.Types.ObjectId("6647cb5333e80bde7172f28e")
+  const owner = req.currentUser ? req.currentUser._id : defaultAdminId;
   try {
     const addedProduct = await pm.addProduct({
       title,
@@ -11,13 +14,13 @@ const addProduct = async (req, res) => {
       stock,
       category,
       status,
+      owner,
     });
     res.json(addedProduct);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
-
 
 const getProducts = async (req, res) => {
   const user = req.currentUser;
@@ -32,7 +35,7 @@ const getProducts = async (req, res) => {
       products: products,
       isAdmin: isAdmin,
       isPremium: isPremium,
-      userId : user&& user._id
+      userId: user && user._id,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
