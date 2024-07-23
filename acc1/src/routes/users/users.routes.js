@@ -1,25 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getChangeRolesView, toPremium, toAdmin, toUser } = require('../../controllers/users/users.controller');
+const { getChangeRolesView, toPremium, toAdmin, toUser, toPremiumAndViceversa, getRoleChanged } = require('../../controllers/users/users.controller');
 
 router.get("/", getChangeRolesView);
-
-router.post("/:uid", (req, res) => {
-  const { uid } = req.params;
-  const { role } = req.body;
-  switch (role) {
-    case 'admin':
-      toAdmin(req, res);
-      break;
-    case 'premium':
-      toPremium(req, res);
-      break;
-    case 'user':
-      toUser(req, res);
-      break;
-    default:
-      res.status(400).send("Invalid role");
-  }
-});
+router.get("/role_changed", getRoleChanged)
+router.post("/premium/:uid",toPremiumAndViceversa);
 
 module.exports = router;

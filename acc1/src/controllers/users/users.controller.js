@@ -1,8 +1,9 @@
-const User = require('../../dao/models/user.model'); // make sure you have the correct path to your User model
+const { mongoose } = require("mongoose");
+const User = require("../../dao/models/user.model");
 
 const getChangeRolesView = async (req, res) => {
   try {
-    const userList = await User.find(); // Await the result of the query
+    const userList = await User.find(); 
     res.render("changeRoles", { userList });
   } catch (error) {
     console.error("Failed to fetch user list", error);
@@ -10,33 +11,26 @@ const getChangeRolesView = async (req, res) => {
   }
 };
 
-const toPremium = async (req, res) => {
-  const { uid } = req.params;
-  try {
-    await User.findByIdAndUpdate(uid, { role: 'premium' });
-    res.redirect('/');
-  } catch (error) {
-    console.error("Failed to update user role", error);
-    res.status(500).send("Internal Server Error");
-  }
-};
+const getRoleChanged = async (req,res)=>{
+  res.render("roleChanged",{})
+}
 
-const toAdmin = async (req, res) => {
+const toPremiumAndViceversa = async (req, res) => {
   const { uid } = req.params;
-  try {
-    await User.findByIdAndUpdate(uid, { role: 'admin' });
-    res.redirect('/');
-  } catch (error) {
-    console.error("Failed to update user role", error);
-    res.status(500).send("Internal Server Error");
-  }
-};
+  const { role } = req.body;
 
-const toUser = async (req, res) => {
-  const { uid } = req.params;
+  if (!["user", "premium", "admin"].includes(role)) {
+    return res.status(400).send("Invalid role");
+  }
+
+  const user = User.findOne(new mongoose.Types.ObjectId(uid));
+  if (user.role === role) {
+    return res.status(400).send("Can't change for same role");
+  }
+
   try {
-    await User.findByIdAndUpdate(uid, { role: 'user' });
-    res.redirect('/');
+    await User.findByIdAndUpdate(new mongoose.Types.ObjectId(uid), { role });
+    res.redirect("/api/users/role_changed");
   } catch (error) {
     console.error("Failed to update user role", error);
     res.status(500).send("Internal Server Error");
@@ -45,7 +39,6 @@ const toUser = async (req, res) => {
 
 module.exports = {
   getChangeRolesView,
-  toPremium,
-  toAdmin,
-  toUser
+  toPremiumAndViceversa,
+  getRoleChanged
 };

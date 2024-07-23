@@ -2,12 +2,12 @@
 <ul>
   {{#each userList}}
     <li>
-      <form action="/api/users/{{this._id}}" method="PUT">
+      <form action="/api/users/premium/{{this._id}}" method="POST">
         <span>{{this.email}}</span>
         <select name="role">
           <option value="user" {{#if (eq this.role "user")}}selected{{/if}}>User</option>
-          <option value="admin" {{#if (eq this.role "admin")}}selected{{/if}}>Admin</option>
           <option value="premium" {{#if (eq this.role "premium")}}selected{{/if}}>Premium</option>
+          <option value="admin" {{#if (eq this.role "admin")}}selected{{/if}}>Admin</option>
         </select>
         <input type="hidden" name="userId" value="{{this._id}}">
         <button type="submit">Change Role</button>
