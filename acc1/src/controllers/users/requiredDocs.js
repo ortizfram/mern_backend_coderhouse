@@ -17,6 +17,10 @@ const checkRequiredDocuments = async (req, res, next) => {
       return res.status(404).send("User not found");
     }
 
+    if (user.role === "premium") {
+      return next(); // Skip the check if the user is already premium
+    }
+
     // Extract the base name of each uploaded document without the file extension
     const uploadedDocuments = user.documents.map(doc => {
       return doc.name.split('.').slice(0, -1).join('.');
@@ -28,7 +32,7 @@ const checkRequiredDocuments = async (req, res, next) => {
     const hasAllDocuments = requiredDocuments.every(doc => uploadedDocuments.includes(doc));
 
     if (!hasAllDocuments) {
-      return res.status(400).send("User must upload Identification, Proof of Address, and Proof of Account Status to become Premium");
+      return res.status(400).send("User has not completed the documentation process to become Premium");
     }
 
     next(); // Proceed to the role update if the check passes
