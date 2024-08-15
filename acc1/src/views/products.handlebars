@@ -137,10 +137,23 @@
         <button style="background:rgb(206, 128, 10);">
           <a href="/api/users" style="color:white;" >User's roles</a>
         </button>
+        <button style="background:blue">
+          <a href="/api/users/{{userId}}/documents" style="color:white;" >+ 🖼️ Upload Docs</a>
+        </button>
+
+        <button style="background:rgb(0, 118, 57)">
+          <a href="/api/users/{{userId}}/documents/prev" style="color:white;">🗎View Docs</a>
+        </button>
         {{/if}}
         {{#if isPremium}}
         <button style="background:green;">
           <a href="#" style="color:white;" onclick="addNewProduct()">Create New Product</a>
+        </button>
+        <button style="background:blue">
+          <a href="/api/users/{{userId}}/documents" style="color:white;" onclick="addNewProduct()">+ 🖼️ Upload Docs</a>
+        </button>
+        <button style="background:rgb(0, 118, 57)">
+          <a href="/api/users/{{userId}}/documents/prev" style="color:white;">🗎View Docs</a>
         </button>
         {{/if}}
 
@@ -326,6 +339,7 @@
           }).catch(error => console.error("Error:", error));
         }
       }
+      
 
       let cartId = localStorage.getItem('cartId');
 

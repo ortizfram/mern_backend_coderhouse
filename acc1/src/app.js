@@ -16,6 +16,7 @@ const router = require("./routes/index/index.routes.js");
 const { MONGODB_URI, SESSION_SECRET } = require("./config/config.js");
 require("dotenv").config();
 const handlebarHelpers = require("./helpers/handlebars.js");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
@@ -28,6 +29,8 @@ app.use(
     cookie: { secure: false },
   })
 );
+
+app.use("/uploads", express.static(path.join(__dirname, "../../uploads")));
 
 // Initialize Passport
 initializePassport();
@@ -81,7 +84,7 @@ io.on("connection", (socket) => {
     console.log("socket disconnected");
   });
 });
-module.exports = app
+module.exports = app;
 // app.listen(8080, () => {
 //   console.log("express on port 8080");
 // });

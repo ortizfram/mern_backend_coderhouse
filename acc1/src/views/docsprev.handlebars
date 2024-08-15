@@ -1,0 +1,18 @@
+<button><a href="/api/products">Home</a></button>
+<h1>Docs Preview</h1>
+
+<p>User ID: {{uid}}</p>
+
+{{#if documents.length}}
+  <ul>
+    {{#each documents}}
+      <li>
+        <a href="/{{this.reference}}" target="_blank">{{this.name}}</a>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No documents uploaded.</p>
+{{/if}}
+
+

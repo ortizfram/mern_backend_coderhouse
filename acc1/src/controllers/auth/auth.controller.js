@@ -44,28 +44,34 @@ const getLogin = (req, res) => {
   res.render("login", {});
 };
 const loginUser = (req, res) => {
-  passport.authenticate("login", (err, user, info) => {
+  passport.authenticate("login", async (err, user, info) => {
     if (err) {
       return res.status(500).json({ message: "Internal server error" });
     }
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
-    req.login(user, { session: false }, (err) => {
+    req.login(user, { session: false }, async (err) => {
       if (err) {
         return res.status(500).json({ message: "Internal server error" });
       }
+      
+      // Actualizar la propiedad last_connection
+      user.last_connection = new Date();
+      await user.save();
+
       const token = generateJWT(user);
       console.log("token: ", token);
       res.cookie("jwt", token, {
         httpOnly: true,
         secure: false,
         sameSite: "Strict",
-      }); // Adjust 'secure' according to your environment
+      }); // Ajusta 'secure' según tu entorno
       return res.json({ message: "Logged in successfully" });
     });
   })(req, res);
 };
+
 const getCurrentUser = (req, res, next) => {
   const user = User.findOne({ _id: req.user });
   if (user) {

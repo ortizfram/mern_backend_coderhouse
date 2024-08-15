@@ -3,7 +3,7 @@ const User = require("../../dao/models/user.model");
 
 const getChangeRolesView = async (req, res) => {
   try {
-    const userList = await User.find(); 
+    const userList = await User.find();
     res.render("changeRoles", { userList });
   } catch (error) {
     console.error("Failed to fetch user list", error);
@@ -11,9 +11,9 @@ const getChangeRolesView = async (req, res) => {
   }
 };
 
-const getRoleChanged = async (req,res)=>{
-  res.render("roleChanged",{})
-}
+const getRoleChanged = async (req, res) => {
+  res.render("roleChanged", {});
+};
 
 const toPremiumAndViceversa = async (req, res) => {
   const { uid } = req.params;
@@ -37,8 +37,62 @@ const toPremiumAndViceversa = async (req, res) => {
   }
 };
 
+const getUploadDocUser = async (req, res) => {
+  try {
+    const { uid } = req.params;
+
+    if (!uid) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.render("documents", { uid });
+  } catch (error) {
+    res.status(500).json({ message: "Error uploading documents", error });
+  }
+};
+
+const uploadDocUser = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const user = await User.findById(new mongoose.Types.ObjectId(uid));
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Procesar los archivos subidos
+    req.files.forEach((file) => {
+      user.documents.push({ name: file.originalname, reference: file.path });
+    });
+
+    await user.save();
+
+    res.redirect(`/api/users/${uid}/documents/prev`);
+  } catch (error) {
+    res.status(500).json({ message: "Error uploading documents", error });
+  }
+};
+const getDocsPrev = async (req, res) => {
+  try {
+    const { uid } = req.params;
+    const user = await User.findById(new mongoose.Types.ObjectId(uid));
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Pass the user's documents to the template
+    res.render("docsprev", { uid: user._id, documents: user.documents });
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving documents", error });
+  }
+};
+
 module.exports = {
   getChangeRolesView,
   toPremiumAndViceversa,
-  getRoleChanged
+  getRoleChanged,
+  uploadDocUser,
+  getUploadDocUser,
+  getDocsPrev,
 };

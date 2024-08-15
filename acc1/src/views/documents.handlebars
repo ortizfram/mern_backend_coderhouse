@@ -1,0 +1,30 @@
+<button><a href="/api/products">Home</a></button>
+<button style="background:rgb(0, 118, 57)">
+  <a href="/api/users/{{uid}}/documents/prev" style="color:white;">🗎View Docs</a>
+</button>
+<h1>Documents</h1>
+<p>User ID: {{uid}}</p>
+
+<form
+  id="upload-form"
+  action="/api/users/{{uid}}/documents"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  <div>
+    <label for="documents">Select Documents:</label>
+    <input type="file" id="documents" name="documents" multiple />
+  </div>
+
+  <div>
+    <label for="profileImage">Select Profile Image:</label>
+    <input type="file" id="profileImage" name="profileImage" />
+  </div>
+
+  <div>
+    <label for="productImage">Select Product Image:</label>
+    <input type="file" id="productImage" name="productImage" />
+  </div>
+
+  <button type="submit">Upload Documents</button>
+</form>
