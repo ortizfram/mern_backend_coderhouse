@@ -1,0 +1,18 @@
+<h1>Change the role of your users</h1>
+<button><a href="/api/products">Go back home</a></button>
+<ul>
+  {{#each userList}}
+    <li>
+      <form action="/api/users/premium/{{this._id}}" method="POST">
+        <span>{{this.email}}</span>
+        <select name="role">
+          <option value="user" {{#if (eq this.role "user")}}selected{{/if}}>User</option>
+          <option value="premium" {{#if (eq this.role "premium")}}selected{{/if}}>Premium</option>
+          <option value="admin" {{#if (eq this.role "admin")}}selected{{/if}}>Admin</option>
+        </select>
+        <input type="hidden" name="userId" value="{{this._id}}">
+        <button type="submit">Change Role</button>
+      </form>
+    </li>
+  {{/each}}
+</ul>
