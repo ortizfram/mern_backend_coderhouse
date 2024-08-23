@@ -1,0 +1,41 @@
+<h1>Your Cart</h1>
+  {{#if cart.products.length}}
+    <ul>
+      {{#each cart.products}}
+        <li>
+          <h2>{{this.title}}</h2>
+          <p>{{this.description}}</p>
+          <p>Price: ${{this.price}}</p>
+          <p>Quantity: {{this.quantity}}</p>
+          <button onclick="removeProductFromCart('{{this._id}}')">Remove</button>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p>Your cart is empty.</p>
+  {{/if}}
+  <button onclick="checkout()">Checkout</button>
+
+  <script>
+    function removeProductFromCart(productId) {
+      const cid = "{{cart._id}}";
+      fetch(`/api/cart/${cid}/${productId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Product removed from cart");
+          location.reload();
+        } else {
+          alert("Failed to remove product from cart.");
+        }
+      })
+      .catch(error => console.error("Error:", error));
+    }
+
+    function checkout() {
+      // Add your checkout logic here
+      alert("Proceed to checkout");
+    }
+  </script>
