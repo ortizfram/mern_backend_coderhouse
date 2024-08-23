@@ -28,7 +28,8 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "test": "mocha 'acc1/src/test/**/*.test.mjs'"
+    "test": "mocha 'acc1/src/test/**/*.test.mjs'",
+    "start":"node acc1/src/app.js"
   },
   "keywords": [],
   "author": "",
