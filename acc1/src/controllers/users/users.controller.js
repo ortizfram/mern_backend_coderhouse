@@ -14,6 +14,40 @@ const getChangeRolesView = async (req, res) => {
 const getRoleChanged = async (req, res) => {
   res.render("roleChanged", {});
 };
+const getInactiveUsers = async (req, res) => {
+  try {
+    // Calculate the date 2 days ago from now
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+
+    // Find users who haven't logged in for the last 2 days
+    const inactiveUsers = await User.find({
+      last_connection: { $lt: twoDaysAgo },
+    });
+
+    res.render("inactiveUsers", { userList: inactiveUsers });
+  } catch (error) {
+    console.error("Failed to fetch user list", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+const delInnactiveUsers = async (req, res) => {
+  try {
+    // Calculate the date 2 days ago from now
+    const twoDaysAgo = new Date();
+    twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+
+    // Delete users who haven't logged in for the last 2 days
+    const result = await User.deleteMany({
+      last_connection: { $lt: twoDaysAgo },
+    });
+
+    res.render("inactiveDeleted", {});
+  } catch (error) {
+    console.error("Failed to delete inactive users", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
 
 const toPremiumAndViceversa = async (req, res) => {
   const { uid } = req.params;
@@ -89,10 +123,12 @@ const getDocsPrev = async (req, res) => {
 };
 
 module.exports = {
+  delInnactiveUsers,
   getChangeRolesView,
   toPremiumAndViceversa,
   getRoleChanged,
   uploadDocUser,
   getUploadDocUser,
   getDocsPrev,
+  getInactiveUsers,
 };

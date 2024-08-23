@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inactive Users</title>
+</head>
+<body>
+    <h1>Inactive Users List</h1>
+    <p>This will send an email to inactive users saying their account has been deleted</p>
+    <button id="deleteAll">Delete All Inactive Users</button>
+    <button><a href="/">Home</a></button>
+
+    <ul id="userList">
+      {{#each userList}}
+        <li>
+          <form class="delete-user-form" data-id="{{this._id}}" action="/api/users" method="DELETE">
+            <span>{{this.email}} | </span>
+            <span>{{this.first_name}}</span>
+            <input type="hidden" name="userId" value="{{this._id}}" />
+          </form>
+        </li>
+      {{/each}}
+    </ul>
+
+    <script>
+        document.getElementById('deleteAll').addEventListener('click', async () => {
+            if (confirm('Are you sure you want to delete all inactive users?')) {
+                try {
+                    const response = await fetch('/api/users', {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        alert('All inactive users have been deleted.');
+                        location.reload(); // Reload the page to update the list
+                    } else {
+                        alert('Failed to delete inactive users.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting inactive users.');
+                }
+            }
+        });
+
+        // Handle individual user deletion
+        document.querySelectorAll('.delete-user-form').forEach(form => {
+            form.addEventListener('submit', async event => {
+                event.preventDefault();
+
+                const userId = form.dataset.id;
+
+                if (confirm(`Are you sure you want to delete user ${userId}?`)) {
+                    try {
+                        const response = await fetch(`/api/users/${userId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ userId })
+                        });
+
+                        if (response.ok) {
+                            alert(`User ${userId} has been deleted.`);
+                            form.parentElement.remove(); // Remove the user from the list
+                        } else {
+                            alert('Failed to delete user.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred while deleting the user.');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
