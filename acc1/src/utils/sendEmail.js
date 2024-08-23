@@ -34,4 +34,30 @@ const sendResetEmail = async (recipient, subject, text, html) => {
   }
 };
 
-module.exports = sendResetEmail;
+const sendProductDeletedEmail = async (recipient, productTitle) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: NODEMAILER_EMAIL,
+        pass: NODEMAILER_PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: NODEMAILER_EMAIL,
+      to: recipient,
+      subject: "Product Deleted Notification",
+      text: `Your product "${productTitle}" has been deleted.`,
+      html: `<p>Your product <strong>${productTitle}</strong> has been deleted.</p>`,
+    };
+
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent:", info.response);
+    return info;
+  } catch (error) {
+    console.error("Error sending email:", error);
+    throw error;
+  }
+};
+module.exports = {sendResetEmail,sendProductDeletedEmail};

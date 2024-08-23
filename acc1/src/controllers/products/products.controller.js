@@ -85,9 +85,25 @@ const deleteProduct = async (req, res) => {
   const { pid } = req.params;
 
   try {
+    // Find the product by ID
+    const product = await pm.getProductById(pid);
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Check if the product owner is a premium user
+    const owner = await User.findById(product.owner);
+    if (owner && owner.isPremium) {
+      // Send email notification to the premium user
+      await sendProductDeletedEmail(owner.email, product.title);
+    }
+
+    // Proceed to delete the product
     await pm.deleteProduct(pid);
     res.status(204).end();
   } catch (error) {
+    console.error("Error deleting product:", error);
     res.status(500).json({ error: error.message });
   }
 };

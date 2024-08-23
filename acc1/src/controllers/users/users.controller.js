@@ -1,5 +1,6 @@
 const { mongoose } = require("mongoose");
 const User = require("../../dao/models/user.model");
+const sendResetEmail = require("../../utils/sendEmail");
 
 const getChangeRolesView = async (req, res) => {
   try {
@@ -31,16 +32,30 @@ const getInactiveUsers = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+// Function to delete inactive users and send email notifications
 const delInnactiveUsers = async (req, res) => {
   try {
     // Calculate the date 2 days ago from now
     const twoDaysAgo = new Date();
     twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
 
-    // Delete users who haven't logged in for the last 2 days
-    const result = await User.deleteMany({
+    // Find and delete users who haven't logged in for the last 2 days
+    const inactiveUsers = await User.find({
       last_connection: { $lt: twoDaysAgo },
     });
+
+    // Send email notifications and delete users
+    for (const user of inactiveUsers) {
+      await sendResetEmail(
+        user.email,
+        "Account Deleted Due to Inactivity",
+        `Hello ${user.first_name}, your account has been deleted due to inactivity for over 2 days.`,
+        `<p>Hello ${user.first_name},</p><p>Your account has been deleted due to inactivity for over 2 days.</p>`
+      );
+    }
+
+    // Delete the inactive users from the database
+    await User.deleteMany({ _id: { $in: inactiveUsers.map(user => user._id) } });
 
     res.render("inactiveDeleted", {});
   } catch (error) {
